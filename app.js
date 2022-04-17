@@ -1,41 +1,41 @@
 function next_book()
 {
-    window.location = 'http://127.0.0.1:5500/-babydata/Book.html';
+    window.location = 'http://127.0.0.1:5500/babydata/Book.html';
 }
 
 function next_home()
 {
-    window.location = 'http://127.0.0.1:5500/-babydata/Home.html';
+    window.location = 'http://127.0.0.1:5500/babydata/Home.html';
 }
 
 function next_login()
 {
-    window.location = 'http://127.0.0.1:5500/-babydata/Login.html';
+    window.location = 'http://127.0.0.1:5500/babydata/Login.html';
 }
 
 function next_detail()
 {
-    window.location = 'http://127.0.0.1:5500/-babydata/Details.html';
+    window.location = 'http://127.0.0.1:5500/babydata/Details.html';
 }
 
 function next_cartroom()
 {
-    window.location = 'http://127.0.0.1:5500/-babydata/CartRoom.html';
+    window.location = 'http://127.0.0.1:5500/babydata/CartRoom.html';
 }
 
 function next_activity()
 {
-    window.location = 'http://127.0.0.1:5500/-babydata/Activity.html';
+    window.location = 'http://127.0.0.1:5500/babydata/Activity.html';
 }
 
 function next_food()
 {
-    window.location = 'http://127.0.0.1:5500/-babydata/Food.html';
+    window.location = 'http://127.0.0.1:5500/babydata/Food.html';
 }
 
 function next_ourroom()
 {
-    window.location = 'http://127.0.0.1:5500/-babydata/OurRoom.html';
+    window.location = 'http://127.0.0.1:5500/babydata/OurRoom.html';
 }
 
 function after_login()
@@ -48,7 +48,7 @@ function after_login()
     }
     else if(pass=="123"&&user=="123@123")
     {
-        window.location = 'http://127.0.0.1:5500/-babydata/HomeLog.html';
+        window.location = 'http://127.0.0.1:5500/babydata/HomeLog.html';
     }
     else
     {
