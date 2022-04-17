@@ -38,6 +38,11 @@ function next_ourroom()
     window.location = 'http://127.0.0.1:5500/babydata/OurRoom.html';
 }
 
+function next_promotion()
+{
+    window.location = 'http://127.0.0.1:5500/babydata/promotion.html';
+}
+
 function after_login()
 {
     var pass = document.getElementById("password").value
