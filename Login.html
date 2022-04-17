@@ -88,6 +88,8 @@
           .then(data => {
               if(data.status === 'ok'){
                 alert('Login success!!.')
+                const callback = JSON.stringify(data);
+                localStorage.setItem('user_id',callback)
                 window.location = 'http://127.0.0.1:5500/babydata/HomeLog.html'
              }
             else{
