@@ -2,7 +2,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Booking</title>
+        <title>Activity</title>
         <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
         <style style="width: 100%; height: 100%; object-fit: none; object-position: center top;">
             body {
@@ -53,9 +53,8 @@
         </div>
         <div class="mt-5 flex lg:mt-5 lg:ml-0">
           
-      
-          <span class="sm:ml-3">
             
+          <span class="sm:ml-3">
             <button onclick="next_login()" type="button" class="inline-flex items-center px-10 py-2 border-gray-300 rounded-md shadow-sm text-sm font-medium text-white bg-amber-400 hover:bg-amber-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               <!-- Heroicon name: solid/check -->
               <svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -65,29 +64,41 @@
             </button>
             &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
           </span>
-        
+          
+          <span class="sm:ml-3">
+            <button  type="button" class="inline-flex items-center px-10 py-2 border-gray-300 rounded-md shadow-sm text-sm font-medium text-black bg-white hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              <!-- Heroicon name: solid/check -->
+              <svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+              <a>account&nbspname&ensp;</a>
+              <img src="pic/profileicon.png" class="w-5 h-5 object-center object-cover">
+            </button>
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          </span>
+
         </div>
       </div>
 
 
       <br><br>
-          <h2 class="mt-6 text-center text-5xl font-extrabold text-white">Booking</h2>
+          <h2 class="mt-6 text-center text-5xl font-extrabold text-white">Activity</h2>
       <br><br> <br><br> 
       
       <div class="bg-white shadow overflow-hidden sm:rounded-lg ">
         <div class="px-4 py-5 sm:px-6">
-          <h3 class="text-2xl leading-6 font-medium text-gray-900">Room</h3>
+          <h3 class="text-2xl leading-6 font-medium text-gray-900">Activity</h3>
         </div>
         <div class="border-t border-gray-200 ">
           <dl>
             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 ">
-              <img src="pic/bed1.jpg" alt="Standard Room" width="250px" height="250px">
-                <dt class="text-2xl font-medium text-gray-900">Standard Room<br><br>
-                <a class="mt-1 text-sm text-gray-500 sm:mt-3 sm:col-span-1">Our Standard Rooms are the perfect combination of function and comfort</a>
+              <img src="pic/spa.jpg" alt="Standard Room" width="250px" height="250px">
+                <dt class="text-2xl font-medium text-gray-900"><br><br>Spa<br><br>
+                <a class="mt-1 text-sm text-gray-500 sm:mt-3 sm:col-span-1">The spa that will make you feel relaxed and relieve stress from a hard working day.<br>Our hotel has massage specialists that will make you fall in love.</a>
               <br><br>
               <a class="mt-1 text-sm text-gray-500 sm:mt-3 sm:col-span-1">Price</a>
-              <a class="mt-1 text-2xl text-gray-500 sm:mt-3 sm:col-span-1">&emsp;฿900</a>
-              <a class="mt-1 text-sm text-gray-500 sm:mt-3 sm:col-span-1">&emsp;Per Night</a>
+              <a class="mt-1 text-2xl text-gray-500 sm:mt-3 sm:col-span-1">&emsp;฿500</a>
+              <a class="mt-1 text-sm text-gray-500 sm:mt-3 sm:col-span-1">&emsp;Per hour</a>
               <br><br>
               <span class="sm:ml-3">
               <button onclick="next_detail()" type="button" class="inline-flex items-center px-10 py-2 border-gray-300 rounded-md shadow-sm text-sm font-medium text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -101,13 +112,13 @@
             </div>
 
             <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <img src="pic/bed2.jpg" alt="Standard Room" width="250px" height="250px">
-              <dt class="text-2xl font-medium text-gray-900">Superior Room<br><br>
-              <a class="mt-1 text-sm text-gray-500 sm:mt-3 sm:col-span-1">Our Superior Rooms offer breathtaking views of the city skyline</a>
+              <img src="pic/jetski.jpg" alt="Standard Room" width="250px" height="250px">
+              <dt class="text-2xl font-medium text-gray-900"><br><br>Jet Ski<br><br>
+              <a class="mt-1 text-sm text-gray-500 sm:mt-3 sm:col-span-1">Jet skiing is a fun and challenging activity.<br> Anyone who wants to experience water sports should not miss it.</a>
             <br><br>
             <a class="mt-1 text-sm text-gray-500 sm:mt-3 sm:col-span-1">Price</a>
-            <a class="mt-1 text-2xl text-gray-500 sm:mt-3 sm:col-span-1">&emsp;฿1400</a>
-            <a class="mt-1 text-sm text-gray-500 sm:mt-3 sm:col-span-1">&emsp;Per Night</a>
+            <a class="mt-1 text-2xl text-gray-500 sm:mt-3 sm:col-span-1">&emsp;฿1500</a>
+            <a class="mt-1 text-sm text-gray-500 sm:mt-3 sm:col-span-1">&emsp;Per hour</a>
             <br><br>
             <span class="sm:ml-3">
             <button onclick="next_detail()" type="button" class="inline-flex items-center px-10 py-2 border-gray-300 rounded-md shadow-sm text-sm font-medium text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -120,32 +131,15 @@
         </dt>
             </div>
 
+            
             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <img src="pic/bed3.jpg" alt="Standard Room" width="250px" height="250px">
-              <dt class="text-2xl font-medium text-gray-900">Deluxe Room<br><br>
-              <a class="mt-1 text-sm text-gray-500 sm:mt-3 sm:col-span-1">Our Deluxe Rooms are comfortable, roomy and elegant</a>
+              <img src="pic/onsen.jpg" alt="Standard Room" width="250px" height="250px">
+              <dt class="text-2xl font-medium text-gray-900"><br><br>Onsen<br><br>
+              <a class="mt-1 text-sm text-gray-500 sm:mt-3 sm:col-span-1">Our onsen is unique. With the technology of hot water and <br> the environmentthat that make you feel like in the Japanese Onsen</a>
             <br><br>
             <a class="mt-1 text-sm text-gray-500 sm:mt-3 sm:col-span-1">Price</a>
-            <a class="mt-1 text-2xl text-gray-500 sm:mt-3 sm:col-span-1">&emsp;฿2400</a>
-            <a class="mt-1 text-sm text-gray-500 sm:mt-3 sm:col-span-1">&emsp;Per Night</a>
-            <br><br>
-            <span class="sm:ml-3">
-            <button onclick="next_detail()" type="button" class="inline-flex items-center px-10 py-2 border-gray-300 rounded-md shadow-sm text-sm font-medium text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-              <svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-              </svg>
-              <a>More&nbspInfo</a>
-            </button>
-          </span>
-            </div>
-            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <img src="pic/bed4.jpg" alt="Standard Room" width="250px" height="250px">
-              <dt class="text-2xl font-medium text-gray-900">Suite Room<br><br>
-              <a class="mt-1 text-sm text-gray-500 sm:mt-3 sm:col-span-1">Our Suite Rooms are comfortable, roomy and elegant</a>
-            <br><br>
-            <a class="mt-1 text-sm text-gray-500 sm:mt-3 sm:col-span-1">Price</a>
-            <a class="mt-1 text-2xl text-gray-500 sm:mt-3 sm:col-span-1">&emsp;฿4900</a>
-            <a class="mt-1 text-sm text-gray-500 sm:mt-3 sm:col-span-1">&emsp;Per Night</a>
+            <a class="mt-1 text-2xl text-gray-500 sm:mt-3 sm:col-span-1">&emsp;฿300</a>
+            <a class="mt-1 text-sm text-gray-500 sm:mt-3 sm:col-span-1">&emsp;Per hour</a>
             <br><br>
             <span class="sm:ml-3">
             <button onclick="next_detail()" type="button" class="inline-flex items-center px-10 py-2 border-gray-300 rounded-md shadow-sm text-sm font-medium text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
