@@ -25,7 +25,7 @@ app.post('/login', jasonParser, (req, res) => {
         }
         //bcrypt.compare(req.body.password, results[0].password, function(err, nowLogin) {
         if(req.body.password === results[0].password){
-            res.json({status: 'ok', message: 'Loging-in Success!!.'}); 
+            res.json({status: 'ok', message: 'Loging-in Success!!.', user_id: req.body.user_id}); 
             }
         else{
             res.json({status: 'error', message: 'Loging-in Failed!!.'});
@@ -35,8 +35,20 @@ app.post('/login', jasonParser, (req, res) => {
     }
     )
 })
-app.get('/home', jasonParser, (req, res) => {
-    db.execute('')
+app.post('/home_log', jasonParser, (req, res) => {
+    db.execute('SELECT username FROM userid WHERE user_id = ?',
+    [req.body.user_id],
+    function(err , results, fields){
+        if(err){
+            res.json({status: 'error', message: err});
+            return           
+        }
+        else{
+            res.json({status: 'ok' , message: 'success query', username: results[0]})
+        }
+        
+    }
+    )
 })
 app.get('/home', jasonParser, (req, res) => {
     db.execute('')
