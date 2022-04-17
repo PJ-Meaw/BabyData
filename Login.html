@@ -28,13 +28,13 @@
               Because rest is important!
             </p>
           </div>
-          <form class="mt-8 space-y-6" action="#" method="POST">
-            <input type="hidden" name="remember" value="true">
+          <form class="mt-8 space-y-6" action="#" method="POST" id="login" >
+            <input type="hidden" name="remember" value="true" >
             <div class="rounded-md shadow-sm -space-y-px">
               
               <div>
                 <label for="email-address" class="sr-only">Email address</label>
-                <input id="email-address" name="email" type="email" autocomplete="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 focus:z-10 sm:text-sm" placeholder="Email address">
+                <input id="email-address" name="user_id"  autocomplete="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 focus:z-10 sm:text-sm" placeholder="Email address">
               </div>
               <div>
                 <label for="password" class="sr-only">Password</label>
@@ -54,7 +54,7 @@
             </div>
       
             <div>
-              <button onclick="after_login()" type="button" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500">
+              <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500">
                 <span class="absolute left-0 inset-y-0 flex items-center pl-3" >
                   <!-- Heroicon name: solid/lock-closed -->
                   <svg class="h-5 w-5 text-cyan-700 group-hover:text-cyan-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -68,6 +68,40 @@
           </form>
         </div>
       </div> 
-      <script src="app.js"></script>
+      <script>
+        const login = document.querySelector('#login');
+        login.addEventListener('submit', (event) =>{
+        
+          event.preventDefault(); // protect refresh / reload 
+
+          const data = {}
+          new FormData(login).forEach( (value,key) => data[key] = value)
+          console.log(data)
+          fetch('http://localhost:3333/login', {
+            method: 'POST', // or 'PUT'
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          })
+          .then(response => response.json())
+          .then(data => {
+              if(data.status === 'ok'){
+                alert('Login success!!.')
+                window.location = 'http://127.0.0.1:5500/babydata/Details.html'
+             }
+            else{
+              alert('Login Failed!!.')
+              window.location = 'http://127.0.0.1:5500/babydata/Login.html'
+            }
+          })
+          .catch((error) => {
+              console.error('Error:', error);
+          });
+        });
+        function next_home(){
+          window.location = 'http://127.0.0.1:5500/babydata/Home.html';
+        }
+      </script>
 </body>
 </html>
