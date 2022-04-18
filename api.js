@@ -35,7 +35,7 @@ app.post('/login', jasonParser, (req, res) => {
     }
     )
 })
-app.post('/home_log', jasonParser, (req, res) => {
+app.post('/now_log', jasonParser, (req, res) => {
     db.execute('SELECT username FROM userid WHERE user_id = ?',
     [req.body.user_id],
     function(err , results, fields){

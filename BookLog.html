@@ -171,6 +171,25 @@
    
 
       
-    <script></script>
+    <script>
+    const text = localStorage.getItem('user_id')
+    const logindata = JSON.parse(text);
+
+    console.log(logindata)
+    fetch('http://localhost:3333/now_log', {
+      method: 'POST', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(logindata),
+    })
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById("username").textContent = data.username.username;
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    </script>
     </body>
 </html>

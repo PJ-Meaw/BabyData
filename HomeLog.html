@@ -133,33 +133,33 @@
             </div>
           </div>
      <script>
-          const text = localStorage.getItem('user_id')
-          const logindata = JSON.parse(text);
+      const text = localStorage.getItem('user_id')
+      const logindata = JSON.parse(text);
 
-          console.log(logindata)
-          fetch('http://localhost:3333/home_log', {
-            method: 'POST', // or 'PUT'
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(logindata),
-          })
-          .then(response => response.json())
-          .then(data => {
-            document.getElementById("username").textContent = data.username.username;
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-        function next_home() {
-          window.location = 'http://127.0.0.1:5500/babydata/Home.html';
-        }
-        function next_ourroom(){
-          window.location = 'http://127.0.0.1:5500/babydata/OurRoom.html';
-        }
-        function next_book(){
-          window.location = 'http://127.0.0.1:5500/babydata/Book.html';
-        }
+      console.log(logindata)
+      fetch('http://localhost:3333/now_log', {
+        method: 'POST', // or 'PUT'
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(logindata),
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("username").textContent = data.username.username;
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      function next_home() {
+      window.location = 'http://127.0.0.1:5500/babydata/Home.html';
+      }
+      function next_ourroom(){
+      window.location = 'http://127.0.0.1:5500/babydata/OurRoom.html';
+      }
+      function next_book(){
+      window.location = 'http://127.0.0.1:5500/babydata/Book.html';
+      }
      </script>
 </body>
 </html>
