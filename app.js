@@ -3,9 +3,19 @@ function next_book()
     window.location = 'http://127.0.0.1:5500/babydata/Book.html';
 }
 
+function next_booklog()
+{
+    window.location = 'http://127.0.0.1:5500/babydata/BookLog.html';
+}
+
 function next_home()
 {
     window.location = 'http://127.0.0.1:5500/babydata/Home.html';
+}
+
+function next_homelog()
+{
+    window.location = 'http://127.0.0.1:5500/babydata/HomeLog.html';
 }
 
 function next_login()
@@ -28,9 +38,19 @@ function next_activity()
     window.location = 'http://127.0.0.1:5500/babydata/Activity.html';
 }
 
+function next_activitylog()
+{
+    window.location = 'http://127.0.0.1:5500/babydata/ActivityLog.html';
+}
+
 function next_food()
 {
     window.location = 'http://127.0.0.1:5500/babydata/Food.html';
+}
+
+function next_foodlog()
+{
+    window.location = 'http://127.0.0.1:5500/babydata/FoodLog.html';
 }
 
 function next_ourroom()
@@ -38,9 +58,19 @@ function next_ourroom()
     window.location = 'http://127.0.0.1:5500/babydata/OurRoom.html';
 }
 
+function next_ourroomlog()
+{
+    window.location = 'http://127.0.0.1:5500/babydata/OurRoomLog.html';
+}
+
 function next_promotion()
 {
     window.location = 'http://127.0.0.1:5500/babydata/promotion.html';
+}
+
+function next_promotionlog()
+{
+    window.location = 'http://127.0.0.1:5500/babydata/promotionLog.html';
 }
 
 function next_activity()
@@ -48,9 +78,19 @@ function next_activity()
     window.location = 'http://127.0.0.1:5500/babydata/Activity.html';
 }
 
+function next_activitylog()
+{
+    window.location = 'http://127.0.0.1:5500/babydata/ActivityLog.html';
+}
+
 function next_food()
 {
     window.location = 'http://127.0.0.1:5500/babydata/Food.html';
+}
+
+function next_foodlog()
+{
+    window.location = 'http://127.0.0.1:5500/babydata/FoodLog.html';
 }
 
 function after_login()
