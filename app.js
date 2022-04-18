@@ -48,6 +48,11 @@ function next_activity()
     window.location = 'http://127.0.0.1:5500/babydata/Activity.html';
 }
 
+function next_food()
+{
+    window.location = 'http://127.0.0.1:5500/babydata/Food.html';
+}
+
 function after_login()
 {
     var pass = document.getElementById("password").value
