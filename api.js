@@ -20,7 +20,7 @@ app.post('/login', jasonParser, (req, res) => {
             return           
         }
         if(results.length == 0){
-            res.json({status: 'error', message: 'user-id incorrected'});
+            res.json({status: 'error', message: 'username incorrected'});
             return
         }
         //bcrypt.compare(req.body.password, results[0].password, function(err, nowLogin) {
@@ -65,6 +65,47 @@ app.post('/details', jasonParser, (req, res) => {
     }
     )
 })
+app.post('/get_promotion', jasonParser, (req, res) => {
+    db.execute('SELECT promotion_id FROM view_user_promotion WHERE username = ?',
+    [req.body.username],
+    function(err , results, fields){
+        if(err){
+            res.json({status: 'error', message: err});
+            return           
+        }
+        else{
+            // remove duplicate data in object
+            const promotion_of_user = results.filter((thing, index, self) =>
+            index === self.findIndex((t) => (
+                t.promotion_id === thing.promotion_id
+            ))
+            )
+            db.execute(
+                'SELECT * FROM promotion WHERE out_of_date > ? AND category = "Booking"',
+                [req.body.now],
+                function(err, results2, fields) {
+                    if(err) throw(err);
+                    else{
+                    const compareresult = results2
+                    const finalresult = []
+                    for(let i = 0 ; i< promotion_of_user.length ; i++){
+                        for(let j = 0; j < compareresult.length ; j++){
+                            if(promotion_of_user[i].promotion_id === compareresult[j].promotion_id){
+                                finalresult.push(promotion_of_user[i].promotion_id);
+                            }
+                        }
+                    }
+                    res.json({finalresult}) // if finalresult length == 0 is no promotion user can't use
+                    }
+                }     
+            );
+            //res.json({status: 'ok' , message: 'success query', promotion_of_user})
+        }
+
+    }
+    )
+});
+
 app.get('/home', jasonParser, (req, res) => {
     db.execute('')
 })
