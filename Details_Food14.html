@@ -1,0 +1,89 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Details</title>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+       
+    </head>
+    <body>
+      <div class="max-w-10xl mx-auto px-10 sm:px-10"></div>
+      <div class=" items-center border-gray-100 py-6 md:justify-start  text-white bg-cyan-600">
+        <div class="flex justify-start lg:w-0 lg:flex-1">
+          <a href="">
+            <span class="sr-only">Workflow</span>
+            &emsp;&emsp;&emsp;&emsp;
+            <a class="navbar-brand flex text-center text-2xl font-extrabold">Details 
+          </a>
+        </div>
+      </div>
+      <br><br>
+      <div class="hidden " aria-hidden="true">
+        <div class="py-5">
+          <div class="border-t border-gray-200"></div>
+        </div>
+      </div>
+      
+      <div class="mt-10 sm:mt-0">
+        <div class="md:grid md:grid-cols-3 md:gap-6">
+          <div class="md:col-span-1">
+            <div class="px-4 sm:px-0">
+              <h3 class="text-2xl font-medium leading-6 text-gray-900">&emsp;&emsp;&emsp;Strawberry Cupcakes</h3><br>
+              &emsp;&emsp;&emsp;&emsp;&ensp;
+              <a class="mt-1 text-1xl text-gray-500 sm:mt-3 sm:col-span-1">Strawberry Cupcakes soft and smooth cake <br>&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;Sweet taste is good.</a><br><br>
+              <img src="pic/food14.jpg" alt="Standard Room" width="1000px" height="1000px" class="sm:px-20">
+            </div>
+          </div>
+          <div class="mt-5 md:mt-0 md:col-span-2">
+            <form action="#" method="POST">
+              <div class="shadow overflow-hidden sm:rounded-md">
+                <div class="px-4 py-5 bg-white sm:p-6">
+                  <a class="text-sm text-gray-500 sm:mt-3">Price</a>
+                  <a class="text-2xl text-gray-700 sm:mt-3">&emsp;฿59</a><br><br>
+                  <div class="grid grid-cols-3 gap-3">
+
+                    <div>
+                      <label for="Quantity" class="block text-sm font-medium text-gray-700">Quantity</label>
+                      <label for="Quantity" class="sr-only">Quantity</label>
+                      <input id="Quantity" name="Quantity" class="appearance-none rounded-none relative block w-full px-3 py-2.5 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md rounded-b-md focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 focus:z-10 sm:text-sm" placeholder="1">
+                    </div>
+
+                    <div class="col-span-6 sm:col-span-1">
+                      <label for="RoomID" class="block text-sm font-medium text-gray-700">RoomID</label>
+                      <select id="RoomID" name="RoomID" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
+                        <option>RoomID</option>
+                        <option>B001</option>
+                        <option>B002</option>
+                        <option>B003</option>
+                      </select>
+                    </div>
+                  </div><br>
+                    <div class="grid grid-cols-3 gap-3">
+                      <div>
+                        <label for="country" class="block text-sm font-medium text-gray-700">Comment</label>
+                        <label for="Comment" class="sr-only">Comment</label>
+                        <input id="Comment" name="Comment" class="appearance-none rounded-none relative block w-full px-3 py-5 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md rounded-b-md focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 focus:z-10 sm:text-sm" placeholder="little sweet">
+                      </div>
+
+                  </div>
+                </div>
+                <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                  <button onclick="window.location = 'http\:/\/127.0.0.1:5500/babydata/Food.html';" type="button" class="inline-flex justify-center py-2 px-7 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-400 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <a>Cancle</a></button>
+
+                  <button  type="button" class="inline-flex justify-center py-2 px-10 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <a>Buy</a></button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      <div class="hidden sm:block" aria-hidden="true">
+        <div class="py-5">
+          <div class="border-t border-gray-200"></div>
+        </div>
+      </div>
+    </body>
+</html>

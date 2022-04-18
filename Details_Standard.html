@@ -28,16 +28,16 @@
         <div class="md:grid md:grid-cols-3 md:gap-6">
           <div class="md:col-span-1">
             <div class="px-4 sm:px-0">
-              <h3 class="text-2xl font-medium leading-6 text-gray-900">&emsp;&emsp;&emsp;Suite Room</h3><br>
-              <img src="pic/bed4.jpg" alt="Standard Room" width="1000px" height="1000px" class="sm:px-20">
+              <h3 class="text-2xl font-medium leading-6 text-gray-900">&emsp;&emsp;&emsp;Standard Room</h3><br>
+              <img src="pic/bed1.jpg" alt="Standard Room" width="1000px" height="1000px" class="sm:px-20">
             </div>
           </div>
           <div class="mt-5 md:mt-0 md:col-span-2">
-            <form action="#" method="POST">
+            <form id="data" action="#" method="POST">
               <div class="shadow overflow-hidden sm:rounded-md">
                 <div class="px-4 py-5 bg-white sm:p-6">
                   <a class="text-sm text-gray-500 sm:mt-3">Price</a>
-                  <a class="text-2xl text-gray-700 sm:mt-3">&emsp;฿2400</a>
+                  <a class="text-2xl text-gray-700 sm:mt-3">&emsp;฿900</a>
                   <a class="text-sm text-gray-500 sm:mt-3">&emsp;Per Night</a><br><br>
                   <a for="country" class="block text-sm font-medium text-gray-900">Check-In</a><br>
                   <div class="grid grid-cols-3 gap-3">
@@ -180,15 +180,15 @@
                     </div>
 
                     <div class="col-span-6 sm:col-span-1">
-                      <br>
-                      <label for="country" class="block text-sm font-medium text-gray-700">Branch</label>
-                      <br>
-                      <select id="addbed" name="addbed" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
-                        <option>select</option>
-                        <option>Bangkok</option>
-                        <option>Phuket</option>
-                      </select>
-                    </div>
+                        <br>
+                        <label for="country" class="block text-sm font-medium text-gray-700">Branch</label>
+                        <br>
+                        <select id="branch_name" name="branch_name" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
+                          <option>select</option>
+                          <option>Bangkok</option>
+                          <option>Phuket</option>
+                        </select>
+                      </div>
                     
                     <div class="col-span-6 sm:col-span-1">
                       <br>
@@ -198,8 +198,6 @@
                         <option>select</option>
                         <option>1</option>
                         <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
                       </select>
                     </div>
 
@@ -215,6 +213,8 @@
                         <option>4</option>
                       </select>
                     </div>
+
+                   
 
                   </div>
                 </div>
@@ -238,8 +238,8 @@
       </div>
 
       <a class="font-medium text-sm text-gray-900 sm:mt-3">&emsp;&emsp;&emsp;&emsp;&emsp;Properties</a>
-      <a class="text-sm text-gray-500 sm:mt-3">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Accommodates: 4</a>
-      <a class="text-sm text-gray-500 sm:mt-3">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Size: 6 sq ft</a>
+      <a class="text-sm text-gray-500 sm:mt-3">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Accommodates: 2</a>
+      <a class="text-sm text-gray-500 sm:mt-3">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Size: 3 sq ft</a>
       
       <div class="hidden sm:block" aria-hidden="true">
         <div class="py-5">
@@ -248,7 +248,7 @@
       </div>
 
       <a class="font-medium text-sm text-gray-900 sm:mt-3">&emsp;&emsp;&emsp;&emsp;&emsp;More Info</a>
-      <a class="text-sm text-gray-500 sm:mt-3">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Our Suite Rooms are comfortable, roomy and elegant.</a>
+      <a class="text-sm text-gray-500 sm:mt-3">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Our Standard Rooms are the perfect combination of function and comfort.</a>
      
       <div class="hidden sm:block" aria-hidden="true">
         <div class="py-5">
@@ -274,6 +274,85 @@
           <div class="border-t border-gray-200"></div>
         </div>
       </div>
-      <script></script>
+      <script>
+        // prepare data promotion_id of that users
+        let text = localStorage.getItem('username')
+        const logindata = JSON.parse(text);
+
+        
+        // When submit the form 
+        let submit = document.querySelector('#data');
+        submit.addEventListener('submit', (event) =>{
+          //check in
+          const check_in = new Date(
+            document.getElementById("yearin").value, 
+            document.getElementById("monthin").value,
+            document.getElementById("dayin").value, 
+            12,// hours
+            0,  // miniutes
+            0,  // seconds
+            0); // milliseconds
+  
+          //check out
+          const check_out = new Date(
+            document.getElementById("yearout").value, 
+            document.getElementById("monthout").value,
+            document.getElementById("dayout").value,
+            14, // hours
+            0,  // miniutes
+            0,  // seconds
+            0); // milliseconds
+
+          // branch
+          const branch_name = document.getElementById("branch_name").value;
+          const participant = document.getElementById("participant").value;
+          const promotion_id = document.getElementById("promotion").value;
+        });
+
+
+        // for query room_id for date room table
+        fetch('http://localhost:3333/now_log', {
+          method: 'POST', // or 'PUT'
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(logindata),
+        })
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById("username").textContent = data.username.username;
+          // declare variable for insert into booking data
+          const bookdata = { 
+            username: data.username.username,
+            room_type: "Standard",
+            branch_name: branch_name
+          };
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+
+        // for fetch data for insert 
+        fetch('http://localhost:3333/now_log', {
+          method: 'POST', // or 'PUT'
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(logindata),
+        })
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById("username").textContent = data.username.username;
+          // declare variable for insert into booking data
+          const bookdata = { 
+            username: data.username.username,
+            room_type: "Standard"
+          };
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+
+      </script>
     </body>
 </html>
