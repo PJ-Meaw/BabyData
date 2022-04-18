@@ -10,8 +10,8 @@ app.use(cors());
 
 
 app.post('/login', jasonParser, (req, res) => {
-    db.execute('SELECT * FROM userid WHERE user_id=?',
-    [req.body.user_id],
+    db.execute('SELECT * FROM userid WHERE username=?',
+    [req.body.username],
     function(err, results, fields) {
 // results is arrays like result[0] = {result[0].email, result[0].password, result[0].firstname ,etc.}
 // because when we query the data it be like more than 1 results 
@@ -25,7 +25,7 @@ app.post('/login', jasonParser, (req, res) => {
         }
         //bcrypt.compare(req.body.password, results[0].password, function(err, nowLogin) {
         if(req.body.password === results[0].password){
-            res.json({status: 'ok', message: 'Loging-in Success!!.', user_id: req.body.user_id}); 
+            res.json({status: 'ok', message: 'Loging-in Success!!.', username: req.body.username}); 
             }
         else{
             res.json({status: 'error', message: 'Loging-in Failed!!.'});
@@ -38,6 +38,21 @@ app.post('/login', jasonParser, (req, res) => {
 app.post('/now_log', jasonParser, (req, res) => {
     db.execute('SELECT username FROM userid WHERE user_id = ?',
     [req.body.user_id],
+    function(err , results, fields){
+        if(err){
+            res.json({status: 'error', message: err});
+            return           
+        }
+        else{
+            res.json({status: 'ok' , message: 'success query', username: results[0]})
+        }
+        
+    }
+    )
+})
+app.post('/details', jasonParser, (req, res) => {
+    db.execute('SELECT room_id FROM room WHERE room_type = ?',
+    [req.body.room_type],
     function(err , results, fields){
         if(err){
             res.json({status: 'error', message: err});

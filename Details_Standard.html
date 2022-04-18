@@ -33,7 +33,7 @@
             </div>
           </div>
           <div class="mt-5 md:mt-0 md:col-span-2">
-            <form action="#" method="POST">
+            <form id="data" action="#" method="POST">
               <div class="shadow overflow-hidden sm:rounded-md">
                 <div class="px-4 py-5 bg-white sm:p-6">
                   <a class="text-sm text-gray-500 sm:mt-3">Price</a>
@@ -183,7 +183,7 @@
                         <br>
                         <label for="country" class="block text-sm font-medium text-gray-700">Branch</label>
                         <br>
-                        <select id="addbed" name="addbed" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
+                        <select id="branch_name" name="branch_name" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
                           <option>select</option>
                           <option>Bangkok</option>
                           <option>Phuket</option>
@@ -274,6 +274,85 @@
           <div class="border-t border-gray-200"></div>
         </div>
       </div>
-      <script></script>
+      <script>
+        // prepare data promotion_id of that users
+        let text = localStorage.getItem('username')
+        const logindata = JSON.parse(text);
+
+        
+        // When submit the form 
+        let submit = document.querySelector('#data');
+        submit.addEventListener('submit', (event) =>{
+          //check in
+          const check_in = new Date(
+            document.getElementById("yearin").value, 
+            document.getElementById("monthin").value,
+            document.getElementById("dayin").value, 
+            12,// hours
+            0,  // miniutes
+            0,  // seconds
+            0); // milliseconds
+  
+          //check out
+          const check_out = new Date(
+            document.getElementById("yearout").value, 
+            document.getElementById("monthout").value,
+            document.getElementById("dayout").value,
+            14, // hours
+            0,  // miniutes
+            0,  // seconds
+            0); // milliseconds
+
+          // branch
+          const branch_name = document.getElementById("branch_name").value;
+          const participant = document.getElementById("participant").value;
+          const promotion_id = document.getElementById("promotion").value;
+        });
+
+
+        // for query room_id for date room table
+        fetch('http://localhost:3333/now_log', {
+          method: 'POST', // or 'PUT'
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(logindata),
+        })
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById("username").textContent = data.username.username;
+          // declare variable for insert into booking data
+          const bookdata = { 
+            username: data.username.username,
+            room_type: "Standard",
+            branch_name: branch_name
+          };
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+
+        // for fetch data for insert 
+        fetch('http://localhost:3333/now_log', {
+          method: 'POST', // or 'PUT'
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(logindata),
+        })
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById("username").textContent = data.username.username;
+          // declare variable for insert into booking data
+          const bookdata = { 
+            username: data.username.username,
+            room_type: "Standard"
+          };
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+
+      </script>
     </body>
 </html>
