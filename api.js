@@ -84,7 +84,7 @@ app.post('/get_promotion', jasonParser, (req, res) => {
                 'SELECT * FROM promotion WHERE out_of_date > ? AND category = "Booking"',
                 [req.body.now],
                 function(err, results2, fields) {
-                    if(err) throw(err);
+                    if(err) console.log(err);
                     else{
                     const compareresult = results2
                     const finalresult = {

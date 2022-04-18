@@ -206,11 +206,6 @@
                       <label for="country" class="block text-sm font-medium text-gray-700">Promotion</label>
                       <br>
                       <select id="promotion" name="promotion" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
-                        <option>select</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
                       </select>
                     </div>
 
@@ -288,8 +283,8 @@
         })
         .then(response => response.json())
         .then(data => {
-          var promotion = ""
-          for(let i = 0; i<data.promotion_id.length; i++){
+          const promotion = ''
+          for(let i = 0; i<data.length; i++){
             promotion +='<option value="'+data.promotion_id[i]+'">'+data.discount[i]+'</option>';
           }
           document.getElementById("promotion").innerHTML = promotion;
@@ -298,9 +293,12 @@
           console.log(err);
         })
 
-        
+        /*
+
+
+
         // When submit the form 
-        let submit = document.querySelector('#data');
+        //let submit = document.querySelector('#data');
         submit.addEventListener('submit', (event) =>{
           //check in
           const check_in = new Date(
@@ -361,7 +359,7 @@
         })
         .then(response => response.json())
         .then(data => {
-          document.getElementById("username").textContent = data.username.username;
+          //document.getElementById("username").textContent = data.username.username;
           // declare variable for insert into booking data
           const bookdata = { 
             username: data.username.username,
@@ -370,7 +368,7 @@
         })
         .catch((err) => {
           console.log(err);
-        })
+        })*/
 
       </script>
     </body>

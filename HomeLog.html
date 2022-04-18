@@ -137,9 +137,6 @@
       const logindata = JSON.parse(text);
       document.getElementById("username").textContent = logindata.username
       console.log(logindata)
-      .catch((err) => {
-        console.log(err);
-      })
       function next_home() {
       window.location = 'http://127.0.0.1:5500/babydata/Home.html';
       }
