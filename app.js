@@ -45,7 +45,7 @@ function next_promotion()
 
 function next_activity()
 {
-    window.location = 'http://127.0.0.1:5500/babydata/promotion.html';
+    window.location = 'http://127.0.0.1:5500/babydata/Activity.html';
 }
 
 function after_login()
