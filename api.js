@@ -10,7 +10,7 @@ app.use(cors());
 
 
 app.post('/login', jasonParser, (req, res) => {
-    db.execute('SELECT * FROM userid WHERE username=?',
+    db.execute('SELECT * FROM user WHERE username=?',
     [req.body.username],
     function(err, results, fields) {
 // results is arrays like result[0] = {result[0].email, result[0].password, result[0].firstname ,etc.}
@@ -87,11 +87,15 @@ app.post('/get_promotion', jasonParser, (req, res) => {
                     if(err) throw(err);
                     else{
                     const compareresult = results2
-                    const finalresult = []
+                    const finalresult = {
+                        promotion_id: [],
+                        discount: []
+                    }
                     for(let i = 0 ; i< promotion_of_user.length ; i++){
                         for(let j = 0; j < compareresult.length ; j++){
                             if(promotion_of_user[i].promotion_id === compareresult[j].promotion_id){
-                                finalresult.push(promotion_of_user[i].promotion_id);
+                                finalresult.promotion_id.push(promotion_of_user[i].promotion_id); // push promotion_id
+                                finalresult.discount.push(compareresult[j].discount) // push discount
                             }
                         }
                     }

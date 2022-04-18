@@ -276,8 +276,27 @@
       </div>
       <script>
         // prepare data promotion_id of that users
-        let text = localStorage.getItem('username')
+        let text = localStorage.getItem('username');
         const logindata = JSON.parse(text);
+      
+        fetch('http://localhost:3333/get_promotion', {
+          method: 'POST', // or 'PUT'
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(logindata), // send username of users to find promotion_id
+        })
+        .then(response => response.json())
+        .then(data => {
+          var promotion = ""
+          for(let i = 0; i<data.promotion_id.length; i++){
+            promotion +='<option value="'+data.promotion_id[i]+'">'+data.discount[i]+'</option>';
+          }
+          document.getElementById("promotion").innerHTML = promotion;
+          })
+        .catch((err) => {
+          console.log(err);
+        })
 
         
         // When submit the form 

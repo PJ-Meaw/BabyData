@@ -103,22 +103,22 @@
             },
             body: JSON.stringify(data),
          })
-            .then(response => response.json())
-            .then(data => {
-               if (data.status === 'ok') {
-                  alert('Login success!!.')
-                  const callback = JSON.stringify(data);
-                  localStorage.setItem('user_id', callback)
-                  window.location = 'http://127.0.0.1:5500/babydata/HomeLog.html'
-               }
-               else {
-                  alert('Login Failed!!.')
-                  window.location = 'http://127.0.0.1:5500/babydata/Login.html'
-               }
-            })
-            .catch((error) => {
-               console.error('Error:', error);
-            });
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'ok') {
+              alert('Login success!!.')
+              const callback = JSON.stringify(data);
+              localStorage.setItem('username', callback)
+              window.location = 'http://127.0.0.1:5500/babydata/HomeLog.html'
+            }
+            else {
+              alert('Login Failed!!.')
+              window.location = 'http://127.0.0.1:5500/babydata/Login.html'
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
       });
       function next_home() {
          window.location = 'http://127.0.0.1:5500/babydata/Home.html';
