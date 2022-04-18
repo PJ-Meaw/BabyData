@@ -60,36 +60,6 @@ app.get('/home', jasonParser, (req, res) => {
     db.execute('')
 })
 
-
-app.post('/book', jasonParser, (req, res) => {
-    db.execute('INSERT INTO booking ()',
-    [],
-    function(err, results, fields) {
-
-    }
-    )
-})
-
-app.get('/testdata', jasonParser, function (req, res, next) {
-   db.query(
-      'SELECT * FROM `userid`',
-      function(err, results, fields) {
-         if(err){
-            res.json({status: 'fail'})
-            return
-         }
-         res.json(results)
-      }
-    );
-})
-
-app.post('/booking', jsonParser, function (req, res, next) {
-   db.execute(
-      
-
-   );
-})
-
 app.listen(3333, function() {
     console.log('Server is Running on port 3333...')
 })
