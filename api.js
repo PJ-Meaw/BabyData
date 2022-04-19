@@ -51,7 +51,7 @@ app.post('/now_log', jasonParser, (req, res) => {
     )
 })
 app.post('/details', jasonParser, (req, res) => {
-    db.execute('SELECT room_id FROM room WHERE room_type = ?',
+    db.execute('SELECT room_id FROM room WHERE branch = ?',
     [req.body.room_type],
     function(err , results, fields){
         if(err){
@@ -66,7 +66,7 @@ app.post('/details', jasonParser, (req, res) => {
     )
 })
 app.post('/get_promotion', jasonParser, (req, res) => {
-    db.execute('SELECT promotion_id FROM view_user_promotion WHERE username = ?',
+    db.execute('SELECT promotion_id,user_and_promotion FROM view_user_promotion WHERE username = ?',
     [req.body.username],
     function(err , results, fields){
         if(err){
@@ -77,7 +77,7 @@ app.post('/get_promotion', jasonParser, (req, res) => {
             // remove duplicate data in object
             const promotion_of_user = results.filter((thing, index, self) =>
             index === self.findIndex((t) => (
-                t.promotion_id === thing.promotion_id
+                t.promotion_id === thing.promotion_id && t.user_and_promotion === thing.user_and_promotion
             ))
             )
             db.execute(
@@ -89,13 +89,15 @@ app.post('/get_promotion', jasonParser, (req, res) => {
                     const compareresult = results2
                     const finalresult = {
                         promotion_id: [],
-                        discount: []
+                        discount: [],
+                        user_and_promotion: [],
                     }
                     for(let i = 0 ; i< promotion_of_user.length ; i++){
                         for(let j = 0; j < compareresult.length ; j++){
                             if(promotion_of_user[i].promotion_id === compareresult[j].promotion_id){
                                 finalresult.promotion_id.push(promotion_of_user[i].promotion_id); // push promotion_id
                                 finalresult.discount.push(compareresult[j].discount) // push discount
+                                finalresult.user_and_promotion.push(promotion_of_user[i].user_and_promotion)
                             }
                         }
                     }
@@ -110,8 +112,22 @@ app.post('/get_promotion', jasonParser, (req, res) => {
     )
 });
 
-app.get('/home', jasonParser, (req, res) => {
-    db.execute('')
+app.post('/get_room', jasonParser, (req, res) => {
+    db.execute('SELECT room_id FROM room r WHERE r.room_type = ? AND r.branch_no = (SELECT branch_no FROM branch b WHERE b.county = ?) AND r.room_id NOT IN(SELECT room_id FROM date_room d WHERE ? > d.check_out);',
+    [req.body.room_type, req.body.county, req.body.check_in],
+    function(err , results, fields){
+        if(err){
+            res.json({status: 'error', message: err});
+            return           
+        }
+        else{
+            var room_id = ""
+            room_id = results[Math.floor( Math.random() * results.length )]
+            var room_id_final = room_id.room_id
+            res.json({status: 'ok' , message: 'success query', room_id_final })
+        }
+    }
+    )
 })
 app.get('/home', jasonParser, (req, res) => {
     db.execute('')

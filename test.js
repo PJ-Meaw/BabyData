@@ -13,5 +13,5 @@ else if(str2.length == 2){
 
 var date = new Date()
 //console.log(str3 = str1+str2);
-console.log(date);
+console.log(Number("5%"));
 
