@@ -273,19 +273,23 @@
         // prepare data promotion_id of that users
         let text = localStorage.getItem('username');
         const logindata = JSON.parse(text);
-      
+        // check user is login
+        if(logindata.length == 0){
+          window.location = 'http://127.0.0.1:5500/babydata/Login.html';
+        }
+        const for_query_promotion = {username: logindata.username, now: new Date(),category: "Booking"}
         fetch('http://localhost:3333/get_promotion', {
           method: 'POST', // or 'PUT'
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(logindata), // send username of users to find promotion_id
+          body: JSON.stringify(for_query_promotion), // send username of users to find promotion_id
         })
         .then(response => response.json())
-        .then(data => {
-          const promotion = ''
-          for(let i = 0; i<data.length; i++){
-            promotion +='<option value="'+data.promotion_id[i]+'">'+data.discount[i]+'</option>';
+        .then(data => { 
+          var promotion = '' // innerHTML must be var variable only
+          for(let i = 0; i<data.finalresult.promotion_id.length; i++){
+            promotion +='<option value="'+data.finalresult.promotion_id[i]+'">Discount '+data.finalresult.discount[i]+'%</option>';
           }
           document.getElementById("promotion").innerHTML = promotion;
           })
@@ -293,12 +297,13 @@
           console.log(err);
         })
 
-        /*
-
-
+        // query room_id for insert
+        const for_query_roomid = {room_type: "Standard"}
+        
 
         // When submit the form 
         //let submit = document.querySelector('#data');
+        /*
         submit.addEventListener('submit', (event) =>{
           //check in
           const check_in = new Date(
@@ -368,7 +373,8 @@
         })
         .catch((err) => {
           console.log(err);
-        })*/
+        }) */
+
 
       </script>
     </body>

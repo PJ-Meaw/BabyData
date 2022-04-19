@@ -81,8 +81,8 @@ app.post('/get_promotion', jasonParser, (req, res) => {
             ))
             )
             db.execute(
-                'SELECT * FROM promotion WHERE out_of_date > ? AND category = "Booking"',
-                [req.body.now],
+                'SELECT * FROM promotion WHERE out_of_date > ? AND category = ?',
+                [req.body.now,req.body.category],
                 function(err, results2, fields) {
                     if(err) console.log(err);
                     else{
@@ -101,7 +101,7 @@ app.post('/get_promotion', jasonParser, (req, res) => {
                     }
                     res.json({finalresult}) // if finalresult length == 0 is no promotion user can't use
                     }
-                }     
+                }  
             );
             //res.json({status: 'ok' , message: 'success query', promotion_of_user})
         }
