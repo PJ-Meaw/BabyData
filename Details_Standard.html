@@ -286,12 +286,19 @@
           body: JSON.stringify(for_query_promotion), // send username of users to find promotion_id
         })
         .then(response => response.json())
-        .then(data => { 
+        .then(data => {
           var promotion = '' // innerHTML must be var variable only
           for(let i = 0; i<data.finalresult.promotion_id.length; i++){
             promotion +='<option value="'+data.finalresult.promotion_id[i]+'">Discount '+data.finalresult.discount[i]+' %</option>';
+            var user_and_promotion_pk = {
+              promotion_id: [],
+              user_and_promotion: []
+            }
+            user_and_promotion_pk.promotion_id.push(data.finalresult.promotion_id[i])
+            user_and_promotion_pk.user_and_promotion.push(data.finalresult.user_and_promotion[i])
           }
           document.getElementById("promotion").innerHTML = promotion;
+          console.log(user_and_promotion_pk)
           })
         .catch((err) => {
           console.log(err);
@@ -378,7 +385,7 @@
                 booking_time: new Date(),
                 total: Number(total_choose),
                 total_discount: total_discount,
-                user_and_promotion: sd,
+                //user_and_promotion: ,
                 participant: participant,
 
               }
