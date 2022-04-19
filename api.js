@@ -113,8 +113,8 @@ app.post('/get_promotion', jasonParser, (req, res) => {
 });
 
 app.post('/get_room', jasonParser, (req, res) => {
-    db.execute('SELECT room_id FROM room r WHERE r.room_type = ? AND r.branch_no = (SELECT branch_no FROM branch b WHERE b.county = ?) AND r.room_id NOT IN(SELECT room_id FROM date_room d WHERE ? > d.check_out);',
-    [req.body.room_type, req.body.county, req.body.check_in],
+    db.execute('SELECT room_id FROM room r WHERE r.room_type = ? AND r.branch_no = (SELECT branch_no FROM branch b WHERE b.county = ?) AND r.room_id NOT IN(SELECT room_id FROM date_room d WHERE ? > d.check_out)',
+    [req.body.room_type, req.body.county,req.body.check_in],
     function(err , results, fields){
         if(err){
             res.json({status: 'error', message: err});

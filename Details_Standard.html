@@ -353,11 +353,12 @@
           participant = participant.options[participant.selectedIndex].text;
           participant = Number(participant)
 
-          const promotion_id = document.getElementById("promotion").value;
+          var promotion = document.getElementById("promotion")
+          var promotion_id = promotion.value;
           // split -> discount 5 % to 5
-          const promotion_text_discount = promotion_id.options[promotion_id.selectedIndex].text;
-          const promotion_temp = promotion_text_discount.split(" ");
-          const promotion_discount = Number(promotion_temp[1])
+          var promotion_text_discount = promotion.options[promotion.selectedIndex].text;
+          var promotion_temp = promotion_text_discount.split(" ");
+          var promotion_discount = Number(promotion_temp[1])
           console.log(check_in)
           console.log(check_out)
           console.log(Number(monthin.value))
@@ -370,6 +371,7 @@
           else if(check_out < check_in) {
             // check out > check in
               alert("check out time is not correct")
+              window.o
           }
           else{ // all data correct 
               // query room_id for insert
@@ -379,11 +381,11 @@
                 headers: {
                   'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(logindata),
+                body: JSON.stringify(for_query_roomid),
               })
               .then(response => response.json())
               .then(data => {
-                var room_id = data.room_id_final
+                const room_id = data.room_id_final
                 // declare variable for insert into booking data
               })
               .catch((err) => {
