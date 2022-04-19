@@ -287,19 +287,30 @@
         })
         .then(response => response.json())
         .then(data => {
-          var promotion = '' // innerHTML must be var variable only
-          for(let i = 0; i<data.finalresult.promotion_id.length; i++){
-            promotion +='<option value="'+data.finalresult.promotion_id[i]+'">Discount '+data.finalresult.discount[i]+' %</option>';
+          // when users don't have promotion 
+          if(data.finalresult.promotion_id.length === 0){
+            var promotion = null // innerHTML must be var variable only
             var user_and_promotion_pk = {
-              promotion_id: [],
-              user_and_promotion: []
-            }
-            user_and_promotion_pk.promotion_id.push(data.finalresult.promotion_id[i])
-            user_and_promotion_pk.user_and_promotion.push(data.finalresult.user_and_promotion[i])
+                promotion_id: null,
+                user_and_promotion: []
+              }
+            //document.getElementById("promotion").innerHTML = promotion;
           }
-          document.getElementById("promotion").innerHTML = promotion;
-          console.log(user_and_promotion_pk)
-          })
+          else { // when users have promotion
+            var promotion = '' // innerHTML must be var variable only
+            var user_and_promotion_pk = {
+                promotion_id: [],
+                user_and_promotion: []
+              }
+            for(let i = 0; i<data.finalresult.promotion_id.length; i++){
+              promotion +='<option value="'+data.finalresult.promotion_id[i]+'">Discount '+data.finalresult.discount[i]+' %</option>';
+              user_and_promotion_pk.promotion_id.push(data.finalresult.promotion_id[i])
+              user_and_promotion_pk.user_and_promotion.push(data.finalresult.user_and_promotion[i])
+            }
+            document.getElementById("promotion").innerHTML = promotion;
+            console.log(user_and_promotion_pk)
+          }
+        })
         .catch((err) => {
           console.log(err);
         });
@@ -312,7 +323,7 @@
           var yearin = document.getElementById("yearin");
           var monthin = document.getElementById("monthin");
           var dayin = document.getElementById("dayin");
-          const check_in = new Date(
+          var check_in = new Date(
             yearin.options[yearin.selectedIndex].text, 
             monthin.value,
             dayin.options[dayin.selectedIndex].text, 
@@ -350,6 +361,7 @@
           console.log(check_in)
           console.log(check_out)
           console.log(Number(monthin.value))
+          
           // check user select all ?
           if(dayin=="select"||monthin=="select"||yearin=="select"||dayout=="select"||monthout=="select"||yearout=="select"||participant=="select")
           {
@@ -380,15 +392,20 @@
               var total = [ "4900", "2400", "900", "1400", "2800", "9800", "2700", "4200"]
               var total_choose = total[Math.floor( Math.random() * total.length )]
               var total_discount = (Number(total_choose) * promotion_discount) / 100;
+              let index_pk_view_user = user_and_promotion_pk.promotion_id.indexOf(promotion_id)
+              var pk_view_user = user_and_promotion_pk.user_and_promotion[index_pk_view_user]
               var insert_data = {
                 username: logindata.username,
                 booking_time: new Date(),
                 total: Number(total_choose),
                 total_discount: total_discount,
-                //user_and_promotion: ,
+                user_and_promotion: pk_view_user,
                 participant: participant,
-
+                room_id: room_id,
+                check_in: check_in,
+                check_out: check_out, // addbed generate in api
               }
+              // fetch -> insert in booking & date_room
           } // else
         });
 

@@ -10,8 +10,8 @@ if(str2.length == 1){
 else if(str2.length == 2){
     str2 = "0" + str2;
 }
-
+var data1 = null;
 var date = new Date()
 //console.log(str3 = str1+str2);
-console.log(Number("5%"));
+console.log(data1);
 
