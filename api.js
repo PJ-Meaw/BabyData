@@ -90,7 +90,7 @@ app.post('/get_promotion', jasonParser, (req, res) => {
                     const finalresult = {
                         promotion_id: [],
                         discount: [],
-                        user_and_promotion: [],
+                        user_and_promotion: []
                     }
                     for(let i = 0 ; i< promotion_of_user.length ; i++){
                         for(let j = 0; j < compareresult.length ; j++){
