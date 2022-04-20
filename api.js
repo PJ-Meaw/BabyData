@@ -119,12 +119,11 @@ app.post('/get_room', jasonParser, (req, res) => {
     function(err , results, fields){
         if(err){
             res.json({status: 'error', message: err});
-            return           
+            return
         }
         else{
-            var room_id = ""
-            room_id = results[Math.floor( Math.random() * results.length )]
-            var room_id_final = room_id.room_id
+            const room_id = results[Math.floor( Math.random() * results.length )]
+            const room_id_final = room_id.room_id
             res.json({status: 'ok' , message: 'success query', room_id_final })
         }
     }
