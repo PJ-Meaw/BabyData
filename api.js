@@ -129,6 +129,53 @@ app.post('/get_room', jasonParser, (req, res) => {
     }
     )
 })
+
+// 'INSERT INTO view_user_promotion (user_and_promontion, promotion_id) VALUES (?,?,?)',
+// [req.body.user_and_promontion, req.body.booking_time],
+// let usernameString = localStorage.getItem('username');
+// const usernameJson = JSON.parse(usernameString);
+// res.json({status: 'ok',username : usernameJson.username})
+app.post('/store_promotion', jasonParser, function (req, res, next) {
+    db.execute(
+       'SELECT * FROM promotion WHERE promotion_id = ?', // promotion_id same in tb promotion
+       [req.body.pro_id],
+       function(err, promotion_tbPromotion , fields) {
+          if(err){
+             res.json({status: 'error', messsage : err})
+             return
+          }
+          if(promotion_tbPromotion.length > 0){ // if there is promotion_id 
+             //res.json({status: 'ok'}) //testing and then passing!!
+             db.execute(
+                'SELECT * FROM promotion WHERE promotion_id = ?', //promotion_id same in view_user_promotion
+                [req.body.pro_id],
+                function(err,promotion_tbViewUserPromo,fields){
+                   if(err){
+                      res.json({status: 'error', messsage : err})
+                      return
+                   }
+                   let textString = JSON.stringify(promotion_tbPromotion[0].condition);
+                   let ArrayString = textString.split(" ");
+                   if(ArrayString[5] > promotion_tbViewUserPromo.length){ // checking rights that can store ? 
+                      db.execute(
+                         
+                      );
+                   }else{
+                      res.json({status: 'error'})
+                   }
+                }
+             );
+             
+             
+          }else{ 
+             res.json({status: 'error'})
+          }
+ 
+       }
+     );
+ })
+
+
 app.get('/home', jasonParser, (req, res) => {
     db.execute('')
 })
