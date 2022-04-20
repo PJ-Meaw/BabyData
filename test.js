@@ -13,5 +13,20 @@ else if(str2.length == 2){
 var data1 = null;
 var date = new Date()
 //console.log(str3 = str1+str2);
-console.log(data1);
+//console.log(data1);
+let String =  "BR-0000001";
+var booking_length = 20
+var GenBooking_id = "BR-"
+for(let i=0; i< 7-booking_length.toString().length ;i++){
+    GenBooking_id += "0";
+}
+Booking_id = GenBooking_id + booking_length.toString()
+
+var date_and_room_length = 10
+var Gendateroom_id = "DAR"
+for(let i=0; i< 13-date_and_room_length.toString().length ;i++){
+    Gendateroom_id += "0";
+}
+var date_and_room = Gendateroom_id + date_and_room_length.toString()
+console.log(date_and_room)
 

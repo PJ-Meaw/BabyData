@@ -67,7 +67,7 @@ app.post('/details', jasonParser, (req, res) => {
     )
 })
 app.post('/get_promotion', jasonParser, (req, res) => {
-    db.execute('SELECT promotion_id,user_and_promotion FROM view_user_promotion WHERE username = ?',
+    db.execute('SELECT promotion_id,user_and_promotion FROM view_user_promotion WHERE username = ? AND status = 1',
     [req.body.username],
     function(err , results, fields){
         if(err){
@@ -122,57 +122,147 @@ app.post('/get_room', jasonParser, (req, res) => {
             return
         }
         else{
-            const room_id = results[Math.floor( Math.random() * results.length )]
-            const room_id_final = room_id.room_id
-            res.json({status: 'ok' , message: 'success query', room_id_final })
+            var room_id = results[Math.floor( Math.random() * results.length )]
+            var room_id_final = room_id.room_id
+            res.json({status: 'ok' , message: 'success query', room_id_final})
         }
     }
     )
 })
+
+app.post('/insert_book', jasonParser, (req, res) => {
+    db.query(
+        'SELECT booking_id FROM booking',
+        function(err, results, fields) {
+            if(err){
+                console.log(err)
+            }
+            else{
+                var booking_length = results.length +1;
+                db.query(
+                    'SELECT date_and_room FROM date_room',
+                    function(err2, results2, fields) {
+                        if(err2){
+                            console.log(err2)
+                        }
+                        else{
+                            var date_and_room_length = results2.length +1;
+                            // generate booking_id
+                            var GenBooking_id = "BR-"
+                            for(let i=0; i< 7-booking_length.toString().length ;i++){
+                                GenBooking_id += "0";
+                            }
+                            var Booking_id = GenBooking_id + booking_length.toString()
+
+                            // generate date_and_roo
+                            var Gendateroom_id = "DAR"
+                            for(let i=0; i< 13-date_and_room_length.toString().length ;i++){
+                                Gendateroom_id += "0";
+                            }
+                            var date_and_room = Gendateroom_id + date_and_room_length.toString()
+                            db.execute('INSERT INTO booking VALUES (?, ?, ?, ?, ?, ?, ?)',
+                            [Booking_id, req.body.username, req.body.booking_time, req.body.total, req.body.total_discount, req.body.user_and_promotion, req.body.participant],
+                            function(err , results, fields){
+                                if(err){
+                                    res.json({status: 'error', message: err});
+                                    return
+                                }
+                                else{
+                                    db.execute('INSERT INTO date_room VALUES (?, ?, ?, ?, ?, ?)',
+                                    [date_and_room, req.body.check_in, req.body.check_out, req.body.room_id, Booking_id, req.body.addbed],
+                                    function(err , results, fields){
+                                        if(err){
+                                            res.json({status: 'error', message: err});
+                                            return
+                                        }
+                                        else{
+                                            res.json({status: 'ok', message: err});
+                                        }
+                                    }
+                                    )
+                                }
+                            }
+                            )
+                        } 
+                    }
+                );
+            }
+            
+        }
+    );
+    
+});
 
 // 'INSERT INTO view_user_promotion (user_and_promontion, promotion_id) VALUES (?,?,?)',
 // [req.body.user_and_promontion, req.body.booking_time],
 // let usernameString = localStorage.getItem('username');
 // const usernameJson = JSON.parse(usernameString);
 // res.json({status: 'ok',username : usernameJson.username})
+
 app.post('/store_promotion', jasonParser, function (req, res, next) {
     db.execute(
        'SELECT * FROM promotion WHERE promotion_id = ?', // promotion_id same in tb promotion
        [req.body.pro_id],
-       function(err, promotion_tbPromotion , fields) {
-          if(err){
-             res.json({status: 'error', messsage : err})
+       function (err, promotion_tbPromotion, fields) {
+          if (err) {
+             res.json({ status: 'error', messsage: err })
              return
           }
-          if(promotion_tbPromotion.length > 0){ // if there is promotion_id 
+          if (promotion_tbPromotion.length > 0) { // if there is promotion_id 
              //res.json({status: 'ok'}) //testing and then passing!!
              db.execute(
-                'SELECT * FROM promotion WHERE promotion_id = ?', //promotion_id same in view_user_promotion
-                [req.body.pro_id],
-                function(err,promotion_tbViewUserPromo,fields){
-                   if(err){
-                      res.json({status: 'error', messsage : err})
+                'SELECT * FROM view_user_promotion WHERE username = ? AND promotion_id = ?', //promotion_id of user which having in view_user_promotion
+                [req.body.username, req.body.pro_id],
+                function (err, promotion_tbViewUserPromo, fields) {
+                   if (err) {
+                      res.json({ status: 'error', messsage: err })
                       return
                    }
                    let textString = JSON.stringify(promotion_tbPromotion[0].condition);
                    let ArrayString = textString.split(" ");
-                   if(ArrayString[5] > promotion_tbViewUserPromo.length){ // checking rights that can store ? 
+                   if (ArrayString[5] > promotion_tbViewUserPromo.length) { // checking rights that can store ? 
                       db.execute(
-                         
+                         'SELECT user_and_promotion FROM view_user_promotion ORDER BY user_and_promotion DESC',
+                         function (err, Full_promotion_tbViewUserPromo, fields) {
+                            if (err) {
+                               res.json({ status: 'error', messsage: err })
+                               return
+                            }
+                            //let lastIndex = Full_promotion_tbViewUserPromo.length;
+                            let User_and_Promontion = Full_promotion_tbViewUserPromo[0].user_and_promotion; //index 0 = higtest value
+                            const ArraySplitNumSring = User_and_Promontion.split("P");
+                            let NumPromotion = parseInt(ArraySplitNumSring[1]);
+                            NumPromotion ++; // Add 1 for new promotion or generate
+                            let GenPromotion = "";
+                            for (let i = 0; i < 13 - NumPromotion.toString().length; i++) { // Add 0 until unit of 
+                               GenPromotion += "0";
+                            }
+                            GenPromotion += NumPromotion;
+                            GenPromotion = "UAP" + GenPromotion;
+                            db.execute(
+                               'INSERT INTO view_user_promotion (user_and_promotion, promotion_id, username) VALUES (?,?,?)',
+                               [GenPromotion, req.body.pro_id, req.body.username],
+                               function (err, result, fields) {
+                                  if (err) {
+                                     res.json({ status: 'error', messsage: err })
+                                     return
+                                  }
+                                  res.json({ status: 'success'})
+                               }
+                            );
+                         }
                       );
-                   }else{
-                      res.json({status: 'error'})
+                   } else {
+                      res.json({ status: 'error', message: "full rights" })
                    }
                 }
              );
-             
-             
-          }else{ 
-             res.json({status: 'error'})
+          } else {
+             res.json({ status: 'error' })
           }
  
        }
-     );
+    );
  })
 
 
