@@ -1,10 +1,12 @@
-const mysql = require('mysql2');
+var mysql = require('mysql2');
 
 // create the connection to database
-const connection = mysql.createConnection({
-  host: 'localhost',
+var connection = mysql.createConnection({
+  host: '202.28.7.92',
   user: 'root',
-  database: 'babydata2'
+  //password: '123456789',
+  database: 'a7_babydata2',
+  port: '8090'
 });
 
 module.exports = connection;
