@@ -9,6 +9,7 @@ var jasonParser = bodyParser.json();
 app.use(cors());
 
 
+
 app.post('/login', jasonParser, (req, res) => {
     db.execute('SELECT * FROM user WHERE username=?',
     [req.body.username],
@@ -90,7 +91,7 @@ app.post('/get_promotion', jasonParser, (req, res) => {
                     const finalresult = {
                         promotion_id: [],
                         discount: [],
-                        user_and_promotion: [],
+                        user_and_promotion: []
                     }
                     for(let i = 0 ; i< promotion_of_user.length ; i++){
                         for(let j = 0; j < compareresult.length ; j++){
@@ -113,8 +114,8 @@ app.post('/get_promotion', jasonParser, (req, res) => {
 });
 
 app.post('/get_room', jasonParser, (req, res) => {
-    db.execute('SELECT room_id FROM room r WHERE r.room_type = ? AND r.branch_no = (SELECT branch_no FROM branch b WHERE b.county = ?) AND r.room_id NOT IN(SELECT room_id FROM date_room d WHERE ? > d.check_out);',
-    [req.body.room_type, req.body.county, req.body.check_in],
+    db.execute('SELECT room_id FROM room r WHERE r.room_type = ? AND r.branch_no = (SELECT branch_no FROM branch b WHERE b.county = ?) AND r.room_id NOT IN(SELECT room_id FROM date_room d WHERE ? > d.check_out)',
+    [req.body.room_type, req.body.county,req.body.check_in],
     function(err , results, fields){
         if(err){
             res.json({status: 'error', message: err});
@@ -129,6 +130,53 @@ app.post('/get_room', jasonParser, (req, res) => {
     }
     )
 })
+
+// 'INSERT INTO view_user_promotion (user_and_promontion, promotion_id) VALUES (?,?,?)',
+// [req.body.user_and_promontion, req.body.booking_time],
+// let usernameString = localStorage.getItem('username');
+// const usernameJson = JSON.parse(usernameString);
+// res.json({status: 'ok',username : usernameJson.username})
+app.post('/store_promotion', jasonParser, function (req, res, next) {
+    db.execute(
+       'SELECT * FROM promotion WHERE promotion_id = ?', // promotion_id same in tb promotion
+       [req.body.pro_id],
+       function(err, promotion_tbPromotion , fields) {
+          if(err){
+             res.json({status: 'error', messsage : err})
+             return
+          }
+          if(promotion_tbPromotion.length > 0){ // if there is promotion_id 
+             //res.json({status: 'ok'}) //testing and then passing!!
+             db.execute(
+                'SELECT * FROM promotion WHERE promotion_id = ?', //promotion_id same in view_user_promotion
+                [req.body.pro_id],
+                function(err,promotion_tbViewUserPromo,fields){
+                   if(err){
+                      res.json({status: 'error', messsage : err})
+                      return
+                   }
+                   let textString = JSON.stringify(promotion_tbPromotion[0].condition);
+                   let ArrayString = textString.split(" ");
+                   if(ArrayString[5] > promotion_tbViewUserPromo.length){ // checking rights that can store ? 
+                      db.execute(
+                         
+                      );
+                   }else{
+                      res.json({status: 'error'})
+                   }
+                }
+             );
+             
+             
+          }else{ 
+             res.json({status: 'error'})
+          }
+ 
+       }
+     );
+ })
+
+
 app.get('/home', jasonParser, (req, res) => {
     db.execute('')
 })
