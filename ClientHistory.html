@@ -1,0 +1,106 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Client History</title>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+       
+    </head>
+<body>
+    <div class="max-w-10xl mx-auto px-10 sm:px-10"></div>
+    <div class="items-center border-gray-100 py-6 md:justify-start  text-white bg-cyan-600">
+      <div class="flex justify-start lg:w-0 lg:flex-2">
+          <span class="sr-only">Workflow</span>
+          &emsp;&emsp;&emsp;&emsp;
+          <a class="navbar-brand flex  text-2xl font-extrabold" >BabyData.com&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbspClient&nbspHistory</a>
+      </div>
+    </div><br>
+    <div class="mt-5 md:mt-0 md:col-span-2"></div>
+    <div class="shadow overflow-hidden sm:rounded-md"></div>
+    <div class=" ml-16 flex justify-left"> 
+    
+    <label for="last-name" class="block text-medium font-medium text-gray-700">
+            
+        Username&emsp;</label></div>
+    
+    
+    <div class="mt-2 ml-16 flex justify-left"> 
+        
+        <div class="grid grid-cols-6 gap-6">
+        <input type="text" name="search" id="search" autocomplete="family-name" class="sm:col-span-2 mt-1 focus:ring-cyan-600 focus:border-cyan-600 block w-full shadow-sm sm:text-medium border-gray-300 rounded-md" placeholder="Search">
+        <button type="submit" class="inline-flex justify-center py-2 px-8 border border-transparent shadow-sm text-medium font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-600">Search</button>
+        </div>
+       
+    </div>
+    <div class="mt-4 ml-16 justify-center"> 
+    <div class="layout" style="width: 100rem;">
+        
+    <table class="table table-bordered table-striped">
+        <thead>
+          <tr class="table-primary ">
+            
+            <th scope="col">Username</th>
+            <th scope="col">Firstname</th>
+            <th scope="col">Lastname</th>
+            <th scope="col">Sex</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Age</th>
+            <th scope="col">Email</th>
+            <th scope="col">Booked Room Count</th>
+            <th scope="col">Booked Activity Count</th>
+            <th scope="col">Reserve Food Count</th>
+            <th scope="col">Most Room Type</th>
+            <th scope="col">Most Activity</th>
+          </tr>
+        </thead>
+        <tbody id="myTable">
+          
+        </tbody>
+      </table>
+    </div>
+    </div>
+    <script>
+        var myArray = [
+            {'Username':'Fay', 'Firstname':'Fayyy', 'Lastname':'KK', 'Sex':'F', 'Phone':'093-xxx-xxxx','Age':'20','Email':'fay@mail', 'Bookroomcount':'2', 'Bookactivitycount':'3','reservefoodcount':'12','Mostroomtype':'standart','Mostactivitytype':'Onsen' },
+            {'Username':'Fay', 'Firstname':'Fayyy', 'Lastname':'KK', 'Sex':'F', 'Phone':'093-xxx-xxxx','Age':'20','Email':'fay@mail', 'Bookroomcount':'2', 'Bookactivitycount':'3','reservefoodcount':'12','Mostroomtype':'standart','Mostactivitytype':'Onsen' },
+            {'Username':'Fay', 'Firstname':'Fayyy', 'Lastname':'KK', 'Sex':'F', 'Phone':'093-xxx-xxxx','Age':'20','Email':'fay@mail', 'Bookroomcount':'2', 'Bookactivitycount':'3','reservefoodcount':'12','Mostroomtype':'standart','Mostactivitytype':'Onsen' },
+        ]
+        
+        buildTable(myArray)
+    
+    
+    
+        function buildTable(data){
+            var table = document.getElementById('myTable')
+    
+            for (var i = 0; i < data.length; i++){
+                var row = `<tr>
+                                <td>${data[i].Username}</td>
+                                <td>${data[i].Firstname}</td>
+                                <td>${data[i].Lastname}</td>
+                                <td>${data[i].Sex}</td>
+                                <td>${data[i].Phone}</td>
+                                <td>${data[i].Age}</td>
+                                <td>${data[i].Email}</td>
+                                <td>${data[i].Bookroomcount}</td>
+                                <td>${data[i].Bookactivitycount}</td>
+                                <td>${data[i].reservefoodcount}</td>
+                                <td>${data[i].Mostroomtype}</td>
+                                <td>${data[i].Mostactivitytype}</td>
+                          </tr>`
+                table.innerHTML += row
+    
+    
+            }
+        }
+    
+    </script>
+</body>
+</html>
+
