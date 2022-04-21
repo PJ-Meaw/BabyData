@@ -277,6 +277,10 @@
         if(logindata.length == 0){
           window.location = 'http://127.0.0.1:5500/babydata/Login.html';
         }
+        var user_and_promotion_pk = { // for promotion make it global
+              pro_id: [],
+              user_and_promotion: []
+            }
         const for_query_promotion = {username: logindata.username, now: new Date(),category: "Booking"}
         fetch('http://localhost:3333/get_promotion', {
           method: 'POST', // or 'PUT'
@@ -293,10 +297,6 @@
           promotion = '<option value="'+null+'">Not use promotion</option>';
           // when users have promotion
           if(data.finalresult.promotion_id.length != 0) {
-          var user_and_promotion_pk = {
-              pro_id: [],
-              user_and_promotion: []
-            }
           for(let i = 0; i<data.finalresult.promotion_id.length; i++){
             promotion +='<option value="'+data.finalresult.promotion_id[i]+'">Discount '+data.finalresult.discount[i]+' %</option>';
             user_and_promotion_pk.pro_id.push(data.finalresult.promotion_id[i])
@@ -309,33 +309,42 @@
         .catch((err) => {
           console.log(err);
         });
-
         //When submit the form we will get branch -> room_id
         let submit = document.querySelector('#data');
         submit.addEventListener('submit', (event) =>{
           event.preventDefault();
           //check in
           var yearin = document.getElementById("yearin");
+          var yin = yearin.options[yearin.selectedIndex].text
+
           var monthin = document.getElementById("monthin");
+          var min = monthin.value
+
           var dayin = document.getElementById("dayin");
+          var din = dayin.options[dayin.selectedIndex].text
           var check_in = new Date(
-            yearin.options[yearin.selectedIndex].text, 
-            monthin.value,
-            dayin.options[dayin.selectedIndex].text, 
-            12,// hours
+            Number(yin), 
+            min,
+            Number(din), 
+            12+7,// hours
             0,  // miniutes
             0,  // seconds
             0); // milliseconds
   
           //check out
           var yearout = document.getElementById("yearout");
+          var yout = yearout.options[yearout.selectedIndex].text
+
           var monthout = document.getElementById("monthout");
+          var mout = monthout.value
+
           var dayout = document.getElementById("dayout");
+          var dout = dayout.options[dayout.selectedIndex].text
           var check_out = new Date(
-            yearout.options[yearout.selectedIndex].text,
-            monthout.value,
-            dayout.options[dayout.selectedIndex].text,
-            14, // hours
+            Number(yout),
+            mout,
+            Number(dout),
+            14+7, // hours
             0,  // miniutes
             0,  // seconds
             0); // milliseconds
@@ -346,7 +355,6 @@
 
           var participant = document.getElementById("participant");
           participant = participant.options[participant.selectedIndex].text;
-          participant = Number(participant)
 
           var promotion = document.getElementById("promotion")
           var promotion_id = promotion.value;
@@ -359,19 +367,23 @@
           console.log(Number(monthin.value))
           
           // check user select all ?
-          if(promotion == "select"||dayin=="select"||monthin=="select"||yearin=="select"||dayout=="select"||monthout=="select"||yearout=="select"||participant=="select")
+          if(promotion_id == "select"||din=="select"||min=="select"||yin=="select"||dout=="select"||mout=="select"||yout=="select"||participant=="select")
           {
               alert("plese select all of the box")
           }
           else if(check_out < check_in) {
             // check out > check in
-              alert("check out time is not correct")
-              window.o
+            alert("check out time is not correct")
+            window.location = 'http://127.0.0.1:5500/babydata/BookLog.html';
+          }
+          else if(check_in < new Date() ){
+            alert("You can't booking at this day\nbecause your booking time is passed 12.00 am")
+            window.location = 'http://127.0.0.1:5500/babydata/BookLog.html';
           }
           else{ // all data correct 
               // query room_id for insert
               if(confirm('Confirm Booking') == true) {
-              const for_query_roomid = {room_type: "Standard", county: county, check_in: check_in} // *** change room type here
+              const for_query_roomid = {room_type: "Standard", county: county, check_in: check_in, check_out: check_out} // *** change room type here
               fetch('http://localhost:3333/get_room', {
                 method: 'POST', // or 'PUT'
                 headers: {
@@ -381,109 +393,75 @@
               })
               .then(response => response.json())
               .then(data => {
-                var room_id = data.room_id_final
-                // declare variable for insert into booking data
-              })
-              .catch((err) => {
-                console.log(err);
-              })
-              var total = [ "4900", "2400", "900", "1400", "2800", "9800", "2700", "4200"]
-              var total_choose = total[Math.floor( Math.random() * total.length )]
-              var total_discount = (Number(total_choose) * promotion_discount) / 100;
-              if(promotion_id != null){
-                var findpromotion_id_use = user_and_promotion_pk.pro_id
-                var index_pk_view_user = findpromotion_id_use.indexOf(promotion_id)
-                var pk_view_user = user_and_promotion_pk.user_and_promotion[index_pk_view_user]
-              }
-              else {
-                pk_view_user = NULL;
-              }
-              var insert_data = {
-                username: logindata.username,
-                booking_time: new Date(),
-                total: Number(total_choose),
-                total_discount: total_discount,
-                user_and_promotion: pk_view_user,
-                participant: participant,
-                room_id: room_id,
-                check_in: check_in,
-                check_out: check_out, // addbed generate in api
-                addbed: 0
-              }
-              
-              // fetch -> insert in booking & date_room
-              fetch('http://localhost:3333/get_room', {
-                method: 'POST', // or 'PUT'
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(for_query_roomid),
-              })
-              .then(response => response.json())
-              .then(data => {
-                if(data.status === 'ok'){
-                  alert('Booking Succesful !!')
-                  window.location = 'http://127.0.0.1:5500/babydata/HomeLog.html'
+                if(data.room_empty != 0){
+                  var room_id = data.room_id_final
+                  console.log(room_id);
+                  // declare variable for insert into booking data
+                  //const diffDays = (date, otherDate) => Math.ceil(Math.abs(date - otherDate) / (1000 * 60 * 60 * 24));
+                  const find_diffDays = (date, otherDate) => Math.floor(Math.abs(date - otherDate) / (24 * 60 * 60 * 1000));
+                  var total = 900 * find_diffDays(check_in,check_out);
+                  var total_discount = (total * promotion_discount) / 100;
+                  if(promotion_id != null){
+                    var findpromotion_id_use = user_and_promotion_pk.pro_id
+                    var index_pk_view_user = findpromotion_id_use.indexOf(promotion_id)
+                    var pk_view_user = user_and_promotion_pk.user_and_promotion[index_pk_view_user]
+                  }
+                  else {
+                    pk_view_user = null;
+                  }
+                  var now = new Date();
+                  now.setHours( now.getHours() + 7 );
+                  document.write(now);
+                  var numparticipant = Number(participant)
+                  var insert_data = {
+                    username: logindata.username,
+                    booking_time: now,
+                    total: total,
+                    total_discount: total_discount,
+                    user_and_promotion: pk_view_user,
+                    participant: numparticipant, // participant is text convert to Num
+                    room_id: room_id,
+                    check_in: check_in,
+                    check_out: check_out, // addbed generate in api
+                    addbed: 0
+                  }
+                  console.log(check_in)
+                  console.log(check_out)
+                  console.log(room_id);
+                  
+                  // fetch -> insert in booking & date_room
+                  fetch('http://localhost:3333/insert_book', {
+                    method: 'POST', // or 'PUT'
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(insert_data),
+                  })
+                  .then(response => response.json())
+                  .then(data => {
+                    if(data.status === 'ok'){
+                      alert('Booking Succesful !!')
+                      window.location = 'http://127.0.0.1:5500/babydata/HomeLog.html'
+                    }
+                    else{
+                      alert('Booking Error !, please check your information again')
+                      window.location = 'http://127.0.0.1:5500/babydata/Details_Standard.html'
+                    }
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  })       
                 }
                 else{
-                  alert('Booking Error !, please check your information again')
-                  window.location = 'http://127.0.0.1:5500/babydata/Details_Standard.html'
+                  alert('Our Standard Room is Full now,\nplease try Our room type.')
                 }
               })
               .catch((err) => {
                 console.log(err);
               })
             }
-
           } // else
         });
-
-
-        /*
-        // for query room_id for date room table
-        fetch('http://localhost:3333/now_log', {
-          method: 'POST', // or 'PUT'
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(logindata),
-        })
-        .then(response => response.json())
-        .then(data => {
-          document.getElementById("username").textContent = data.username.username;
-          // declare variable for insert into booking data
-          const bookdata = { 
-            username: data.username.username,
-            room_type: "Standard",
-            branch_name: branch_name
-          };
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-
-        // for fetch data for insert 
-        fetch('http://localhost:3333/now_log', {
-          method: 'POST', // or 'PUT'
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(logindata),
-        })
-        .then(response => response.json())
-        .then(data => {
-          //document.getElementById("username").textContent = data.username.username;
-          // declare variable for insert into booking data
-          const bookdata = { 
-            username: data.username.username,
-            room_type: "Standard"
-          };
-        })
-        .catch((err) => {
-          console.log(err);
-        }) */
-
-
       </script>
     </body>
 </html>
