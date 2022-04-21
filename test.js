@@ -30,3 +30,13 @@ for(let i=0; i< 13-date_and_room_length.toString().length ;i++){
 var date_and_room = Gendateroom_id + date_and_room_length.toString()
 console.log(date_and_room)
 
+// find different of 2 date and return results in days
+const diffDays = (date, otherDate) => Math.ceil(Math.abs(date - otherDate) / (1000 * 60 * 60 * 24));
+
+// Example
+var now = new Date() + 7 * 60 * 60 * 1000;
+var dt = new Date();
+dt.setHours( dt.getHours() + 2 );
+document.write( dt );
+console.log(now);
+
