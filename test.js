@@ -34,9 +34,14 @@ console.log(date_and_room)
 const diffDays = (date, otherDate) => Math.ceil(Math.abs(date - otherDate) / (1000 * 60 * 60 * 24));
 
 // Example
-var now = new Date() + 7 * 60 * 60 * 1000;
-var dt = new Date();
-dt.setHours( dt.getHours() + 2 );
-document.write( dt );
-console.log(now);
-
+var now = new Date();
+var dt = new Date(2022,03,20);
+//dt.setHours( dt.getHours() + 2 );
+//document.write( dt );
+console.log(now)
+console.log(dt)
+var con
+if(dt < now) con = 1;
+else con =0;
+//console.log(Math.floor((now - dt)/(24*60*60*1000)));
+console.log(con)

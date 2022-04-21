@@ -46,6 +46,7 @@
                       <select id="dayin" name="dayin" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
                         <option>select</option>
                         <option>01</option>
+                        <option>02</option>
                         <option>03</option>
                         <option>04</option>
                         <option>05</option>
@@ -116,6 +117,7 @@
                       <select id="dayout" name="dayout" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
                         <option>select</option>
                         <option>01</option>
+                        <option>02</option>
                         <option>03</option>
                         <option>04</option>
                         <option>05</option>
@@ -297,14 +299,14 @@
           promotion = '<option value="'+null+'">Not use promotion</option>';
           // when users have promotion
           if(data.finalresult.promotion_id.length != 0) {
-          for(let i = 0; i<data.finalresult.promotion_id.length; i++){
-            promotion +='<option value="'+data.finalresult.promotion_id[i]+'">Discount '+data.finalresult.discount[i]+' %</option>';
-            user_and_promotion_pk.pro_id.push(data.finalresult.promotion_id[i])
-            user_and_promotion_pk.user_and_promotion.push(data.finalresult.user_and_promotion[i])
+            for(let i = 0; i<data.finalresult.promotion_id.length; i++){
+              promotion +='<option value="'+data.finalresult.promotion_id[i]+'">Discount '+data.finalresult.discount[i]+' %</option>';
+              user_and_promotion_pk.pro_id.push(data.finalresult.promotion_id[i])
+              user_and_promotion_pk.user_and_promotion.push(data.finalresult.user_and_promotion[i])
+            }
           }
           document.getElementById("promotion").innerHTML = promotion;
           console.log(user_and_promotion_pk)
-          }
         })
         .catch((err) => {
           console.log(err);
@@ -323,7 +325,7 @@
           var dayin = document.getElementById("dayin");
           var din = dayin.options[dayin.selectedIndex].text
           var check_in = new Date(
-            Number(yin), 
+            Number(yin)-1, 
             min,
             Number(din), 
             12+7,// hours
@@ -341,7 +343,7 @@
           var dayout = document.getElementById("dayout");
           var dout = dayout.options[dayout.selectedIndex].text
           var check_out = new Date(
-            Number(yout),
+            Number(yout)-1,
             mout,
             Number(dout),
             14+7, // hours
@@ -365,6 +367,7 @@
           console.log(check_in)
           console.log(check_out)
           console.log(Number(monthin.value))
+          var now2 = new Date();
           
           // check user select all ?
           if(promotion_id == "select"||din=="select"||min=="select"||yin=="select"||dout=="select"||mout=="select"||yout=="select"||participant=="select")
@@ -376,8 +379,9 @@
             alert("check out time is not correct")
             window.location = 'http://127.0.0.1:5500/babydata/BookLog.html';
           }
-          else if(check_in < new Date() ){
-            alert("You can't booking at this day\nbecause your booking time is passed 12.00 am")
+          else if(check_in < now2 ){
+            let text = "You can't booking at this day \nbecause your booking time is passed 12.00 am"
+            alert(text)
             window.location = 'http://127.0.0.1:5500/babydata/BookLog.html';
           }
           else{ // all data correct 
