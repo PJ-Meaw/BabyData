@@ -8,7 +8,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Client History</title>
+        <title>Cleaning Staff</title>
         <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
        
     </head>
@@ -18,7 +18,7 @@
       <div class="flex justify-start lg:w-0 lg:flex-2">
           <span class="sr-only">Workflow</span>
           &emsp;&emsp;&emsp;&emsp;
-          <a class="navbar-brand flex  text-2xl font-extrabold" >BabyData.com&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbspClient&nbspHistory</a>
+          <a class="navbar-brand flex  text-2xl font-extrabold" >BabyData.com&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp&nbspResponsibilities&nbsp;of&nbsp;Cleaning&nbsp;Staff</a>
       </div>
     </div><br>
     <div class="mt-2 md:mt-0 md:col-span-2"></div>
@@ -27,7 +27,7 @@
     
     <label for="last-name" class="block text-medium font-medium text-gray-700">
             
-        Username&emsp;</label></div>
+        Name&emsp;</label></div>
     
     
     <div class="ml-16 flex justify-left"> 
@@ -45,18 +45,11 @@
         <thead>
           <tr class="table-primary ">
             
-            <th scope="col">Username</th>
-            <th scope="col">Firstname</th>
-            <th scope="col">Lastname</th>
-            <th scope="col">Sex</th>
-            <th scope="col">Phone</th>
-            <th scope="col">Age</th>
-            <th scope="col">Email</th>
-            <th scope="col">Booked Room Count</th>
-            <th scope="col">Booked Activity Count</th>
-            <th scope="col">Reserve Food Count</th>
-            <th scope="col">Most Room Type</th>
-            <th scope="col">Most Activity</th>
+            <th scope="col">Date</th>
+            <th scope="col">Branch</th>
+            <th scope="col">Room_ID</th>
+            <th scope="col">Responsible_Person</th>
+            
           </tr>
         </thead>
         <tbody id="myTable">
@@ -67,9 +60,9 @@
     </div>
     <script>
         var myArray = [
-            {'Username':'Fay', 'Firstname':'Fayyy', 'Lastname':'KK', 'Sex':'F', 'Phone':'093-xxx-xxxx','Age':'20','Email':'fay@mail', 'Bookroomcount':'2', 'Bookactivitycount':'3','reservefoodcount':'12','Mostroomtype':'standart','Mostactivitytype':'Onsen' },
-            {'Username':'Fay', 'Firstname':'Fayyy', 'Lastname':'KK', 'Sex':'F', 'Phone':'093-xxx-xxxx','Age':'20','Email':'fay@mail', 'Bookroomcount':'2', 'Bookactivitycount':'3','reservefoodcount':'12','Mostroomtype':'standart','Mostactivitytype':'Onsen' },
-            {'Username':'Fay', 'Firstname':'Fayyy', 'Lastname':'KK', 'Sex':'F', 'Phone':'093-xxx-xxxx','Age':'20','Email':'fay@mail', 'Bookroomcount':'2', 'Bookactivitycount':'3','reservefoodcount':'12','Mostroomtype':'standart','Mostactivitytype':'Onsen' },
+            {'date':'01-01-2002', 'branch':'Bangkok', 'roomid':'BB101', 'person':'Party'},
+            {'date':'01-01-2002', 'branch':'Bangkok', 'roomid':'BB101', 'person':'Party'},
+            {'date':'01-01-2002', 'branch':'Bangkok', 'roomid':'BB101', 'person':'Party'},
         ]
         
         buildTable(myArray)
@@ -81,18 +74,11 @@
     
             for (var i = 0; i < data.length; i++){
                 var row = `<tr>
-                                <td>${data[i].Username}</td>
-                                <td>${data[i].Firstname}</td>
-                                <td>${data[i].Lastname}</td>
-                                <td>${data[i].Sex}</td>
-                                <td>${data[i].Phone}</td>
-                                <td>${data[i].Age}</td>
-                                <td>${data[i].Email}</td>
-                                <td>${data[i].Bookroomcount}</td>
-                                <td>${data[i].Bookactivitycount}</td>
-                                <td>${data[i].reservefoodcount}</td>
-                                <td>${data[i].Mostroomtype}</td>
-                                <td>${data[i].Mostactivitytype}</td>
+                                <td>${data[i].date}</td>
+                                <td>${data[i].branch}</td>
+                                <td>${data[i].roomid}</td>
+                                <td>${data[i].person}</td>
+                                
                           </tr>`
                 table.innerHTML += row
     
