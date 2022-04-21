@@ -1,0 +1,292 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Register</title>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+        <style style="width: 100%; height: 100%; object-fit: none; object-position: center top;">
+            body {
+                background-image: url('https://static.wixstatic.com/media/05e3dc_bf000e631ea9407f873689f0d62ddb7a.jpg/v1/fill/w_1920,h_610,al_c,q_85,enc_auto/05e3dc_bf000e631ea9407f873689f0d62ddb7a.jpg');
+                background-repeat: no-repeat;
+                background-position: top;              
+            }
+        </style> 
+    </head>
+<body>
+    <div class="lg:flex lg:items-center lg:justify-between">
+        <div class="flex-1 min-w-0">
+            <div class="mt-5 flex lg:mt-5 lg:ml-40">
+                <button onclick="window.location = 'http\:/\/127.0.0.1:5500/babydata/HomeLog.html';" class="sm:ml-40 lg:flex text-white">
+                    <a>
+                        Home</a>
+                      </button>
+
+                <button onclick="window.location = 'http\:/\/127.0.0.1:5500/babydata/OurRoomLog.html';" class="sm:ml-3 text-white">
+                    &emsp;&emsp;
+                    <a>
+                        Our Room</a>
+
+                </button>
+
+                <button onclick="window.location = 'http\:/\/127.0.0.1:5500/babydata/Activity.html';" class="sm:ml-3 text-white">
+                    &emsp;&emsp;
+                    <a>
+                        Activity</a>
+
+                </button>
+
+                <button onclick="window.location = 'http\:/\/127.0.0.1:5500/babydata/Food.html';" class="sm:ml-3 text-white">
+                    &emsp;&emsp;
+                    <a>
+                        Food</a>
+
+                </button>
+
+                <button onclick="window.location = 'http\:/\/127.0.0.1:5500/babydata/promotion.html';" class="sm:ml-3 text-white">
+                    &emsp;&emsp;
+                    <a>
+                        Promotion</a>
+                </button>
+                
+            </div>
+         
+        </div>
+        <div class="mt-5 flex lg:mt-5 lg:ml-0">
+          <span class="sm:block ml-3">
+            <button onclick=" window.location = 'http\:/\/127.0.0.1:5500/babydata/BookLog.html';" type="button" class="inline-flex items-center px-10 py-2 border-gray-300 rounded-md shadow-sm text-sm font-medium text-white bg-amber-400 hover:bg-amber-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              <!-- Heroicon name: solid/link -->
+              <svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd" />
+              </svg>
+              <a>Book</a>
+            </button>
+            &emsp;
+          </span>
+      
+          <span class="sm:ml-3">
+            <button onclick="window.location = 'http\:/\/127.0.0.1:5500/babydata/Account.html';" type="button" class="inline-flex items-center px-10 py-2 border-gray-300 rounded-md shadow-sm text-sm font-medium text-black bg-white hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              <!-- Heroicon name: solid/check -->
+              <svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+              <a id="username" ></a>&nbsp;
+              <img src="pic/profileicon.png" class="w-5 h-5 object-center object-cover">
+            </button>
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          </span>
+        </div>
+      </div>
+
+      <br><br>
+          <h1 class="mt-6 text-center text-5xl font-extrabold text-white">My Profile</h1>
+          <h2 class="mt-6 text-center text-2xl font-extrabold text-white">Manage and protect your account</h2>
+
+      <div class="mt-10 sm:mt-20">
+        <div class="md:grid md:grid-cols-4 md:gap-1">
+          <div class="md:col-span-1">
+          </div>
+          <div class="mt-5 md:mt-0 md:col-span-2">
+            <form action="#" method="POST">
+              <div class="shadow overflow-hidden sm:rounded-md">
+                <div class="px-4 py-5 bg-white sm:p-6">
+                  <div class="grid grid-cols-1 gap-1 mt-6">
+                      <a class="sm:px-10 text-sm font-medium text-gray-700">First name: Baby</a>
+
+                    <div class="sm:px-10">
+                      <label for="first-name" class="block text-sm font-medium text-gray-700">First name</label>
+                      <input type="text" name="first-name" id="first-name" autocomplete="given-name" class="mt-1 focus:ring-cyan-600 focus:border-cyan-600 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    </div>
+      
+                    <a class="sm:px-10 text-sm font-medium text-gray-700">Last name: Data</a>
+                    
+                    <div class="sm:px-10">
+                      <label for="last-name" class="block text-sm font-medium text-gray-700">Last name</label>
+                      <input type="text" name="last-name" id="last-name" autocomplete="family-name" class="mt-1 focus:ring-cyan-600 focus:border-cyan-600 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    </div>
+
+                    <a class="sm:px-10 text-sm font-medium text-gray-700">Email address: Baby@mail.com</a>
+                    <div class="sm:px-10 col-span-6 sm:col-span-1">
+                      <label for="email-address" class="block text-sm font-medium text-gray-700">Email address</label>
+                      <input type="text" name="email-address" id="email-address" autocomplete="email" class="mt-1 focus:ring-cyan-600 focus:border-cyan-600 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    </div>
+
+                    <a class="sm:px-10 text-sm font-medium text-gray-700">Phone: 093-xxx-xxxx</a>
+                    <div class="sm:px-10 ">
+                        <label for="last-name" class="block text-sm font-medium text-gray-700">Phone</label>
+                        <input type="text" name="last-name" id="last-name" autocomplete="family-name" class="mt-1 focus:ring-cyan-600 focus:border-cyan-600 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    </div>
+
+                    <a class="sm:px-10 text-sm font-medium text-gray-700">Sex: Female</a>
+                    <div class="sm:px-10">
+                        <a class="block text-sm font-medium text-gray-700">Sex</a>
+                        <select id="yearin" name="yearin" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
+                          <option>select</option>
+                          <option>Female</option>
+                          <option>Male</option>
+                          <option>other</option>
+                        </select><br>
+                    </div>
+      
+                      <div class="sm:px-10 col-span-6 sm:col-span-2">
+                        <a class="block text-sm font-medium text-gray-700">Day</a>
+                        <select id="yearin" name="yearin" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
+                            <option>select</option>
+                            <option>01</option>
+                            <option>03</option>
+                            <option>04</option>
+                            <option>05</option>
+                            <option>06</option>
+                            <option>07</option>
+                            <option>08</option>
+                            <option>09</option>
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                            <option>13</option>
+                            <option>14</option>
+                            <option>15</option>
+                            <option>16</option>
+                            <option>17</option>
+                            <option>18</option>
+                            <option>19</option>
+                            <option>20</option>
+                            <option>21</option>
+                            <option>22</option>
+                            <option>23</option>
+                            <option>24</option>
+                            <option>25</option>
+                            <option>26</option>
+                            <option>27</option>
+                            <option>28</option>
+                            <option>29</option>
+                            <option>30</option>
+                            <option>31</option>
+                        </select><br>
+                      </div>
+      
+                      <div class="sm:px-10 col-span-6 sm:col-span-2">
+                        <a class="block text-sm font-medium text-gray-700">Month</a>
+                        <select id="yearin" name="yearin" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
+                            <option>select</option>  
+                            <option>select</option>
+                            <option>January</option>
+                            <option>February</option>
+                            <option>March</option>
+                            <option>April</option>
+                            <option>May</option>
+                            <option>June</option>
+                            <option>July</option>
+                            <option>August</option>
+                            <option>September</option>
+                            <option>October</option>
+                            <option>November</option>
+                            <option>December</option>
+                        </select><br>
+                      </div>
+      
+                      <div class="sm:px-10 col-span-6 sm:col-span-2">
+                        <a class="block text-sm font-medium text-gray-700">Year</a>
+                        <select id="yearin" name="yearin" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
+                            <option>2022</option>
+                            <option>2021</option>
+                            <option>2020</option>
+                            <option>2019</option>
+                            <option>2018</option>
+                            <option>2017</option>
+                            <option>2016</option>
+                            <option>2015</option>
+                            <option>2014</option>
+                            <option>2013</option>
+                            <option>2012</option>
+                            <option>2011</option>
+                            <option>2010</option>
+                            <option>2009</option>
+                            <option>2008</option>
+                            <option>2007</option>
+                            <option>2006</option>
+                            <option>2005</option>
+                            <option>2004</option>
+                            <option>2003</option>
+                            <option>2002</option>
+                            <option>2001</option>
+                            <option>2000</option>
+                            <option>1999</option>
+                            <option>1998</option>
+                            <option>1997</option>
+                            <option>1996</option>
+                            <option>1995</option>
+                            <option>1994</option>
+                            <option>1993</option>
+                            <option>1992</option>
+                            <option>1991</option>
+                            <option>1990</option>
+                            <option>1989</option>
+                            <option>1987</option>
+                            <option>1986</option>
+                            <option>1985</option>
+                            <option>1984</option>
+                            <option>1983</option>
+                            <option>1982</option>
+                            <option>1981</option>
+                            <option>1980</option>
+                            <option>1979</option>
+                            <option>1978</option>
+                            <option>1977</option>
+                            <option>1976</option>
+                            <option>1975</option>
+                            <option>1974</option>
+                            <option>1973</option>
+                            <option>1972</option>
+                            <option>1971</option>
+                            <option>1970</option>
+                            <option>1969</option>
+                            <option>1968</option>
+                            <option>1967</option>
+                            <option>1966</option>
+                            <option>1965</option>
+                            <option>1964</option>
+                            <option>1963</option>
+                            <option>1962</option>
+                            <option>1961</option>
+                            <option>1960</option>
+                            <option>1959</option>
+                            <option>1958</option>
+                            <option>1957</option>
+                            <option>1956</option>
+                            <option>1955</option>
+                            <option>1954</option>
+                            <option>1953</option>
+                            <option>1952</option>
+                            <option>1951</option>
+                            <option>1950</option>
+                        </select><br>
+                      </div>
+
+                    <a class="sm:px-10 text-sm font-medium text-gray-700">Username: BabyData</a>
+                    <div class="sm:px-10 col-span-6 sm:col-span-1">
+                        <label for="first-name" class="block text-sm font-medium text-gray-700">Username</label>
+                        <input type="text" name="first-name" id="first-name" autocomplete="given-name" class="mt-1 focus:ring-cyan-600 focus:border-cyan-600 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                      </div>
+        
+                  </div>
+                </div>
+                
+                <div class="px-4 py-5 bg-gray-50 text-right sm:px-6 ">
+                    <div class="flex justify-between">
+                  <button onclick="window.location = 'http\:/\/127.0.0.1:5500/babydata/Password.html';" type="submit" class="inline-flex  py-2 px-4 border border-transparent shadow-sm text-sm font-medium 
+                  rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 
+                  focus:ring-cyan-600">Change Password</button>
+                
+                
+                  <button type="submit" class=" inline-flex py-2 px-4 border border-transparent shadow-sm text-sm font-medium 
+                  rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 
+                  focus:ring-cyan-600">Save</button>
+                </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+</body>
+</html

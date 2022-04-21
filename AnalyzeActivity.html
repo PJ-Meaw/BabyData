@@ -8,7 +8,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Client History</title>
+        <title>Analyze Activity</title>
         <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
        
     </head>
@@ -19,7 +19,7 @@
           <span class="sr-only">Workflow</span>
           &emsp;&emsp;&emsp;&emsp;
           <button onclick="window.location = 'http\:/\/127.0.0.1:5500/babydata/Owner.html';" class="navbar-brand flex  text-2xl font-extrabold" >BabyData.com&nbsp&nbsp&nbsp</button>
-          <a class="navbar-brand flex  text-2xl font-extrabold">&nbsp|&nbsp&nbsp&nbsp&nbspClient&nbspHistory</a>
+          <a class="navbar-brand flex  text-2xl font-extrabold">&nbsp|&nbsp&nbsp&nbsp&nbspAnalyze&nbsp;Activity</a>
       </div>
     </div><br>
     <div class="mt-2 md:mt-0 md:col-span-2"></div>
@@ -28,7 +28,7 @@
     
     <label for="last-name" class="block text-medium font-medium text-gray-700">
             
-        Username&emsp;</label></div>
+        Activity&nbsp;Name&emsp;</label></div>
     
     
     <div class="ml-16 flex justify-left"> 
@@ -46,18 +46,14 @@
         <thead>
           <tr class="table-primary ">
             
-            <th scope="col">Username</th>
-            <th scope="col">Firstname</th>
-            <th scope="col">Lastname</th>
-            <th scope="col">Sex</th>
-            <th scope="col">Phone</th>
-            <th scope="col">Age</th>
-            <th scope="col">Email</th>
-            <th scope="col">Booked Room Count</th>
-            <th scope="col">Booked Activity Count</th>
-            <th scope="col">Reserve Food Count</th>
-            <th scope="col">Most Room Type</th>
-            <th scope="col">Most Activity</th>
+            <th scope="col">Branch</th>
+            <th scope="col">Month</th>
+            <th scope="col">Year</th>
+            <th scope="col">Activity_Name</th>
+            <th scope="col">Avg_Per_Day</th>
+            <th scope="col">Most_Popular_Time</th>
+            <th scope="col">Top_Three_Most_Popular_Day</th>
+            
           </tr>
         </thead>
         <tbody id="myTable">
@@ -68,9 +64,9 @@
     </div>
     <script>
         var myArray = [
-            {'Username':'Fay', 'Firstname':'Fayyy', 'Lastname':'KK', 'Sex':'F', 'Phone':'093-xxx-xxxx','Age':'20','Email':'fay@mail', 'Bookroomcount':'2', 'Bookactivitycount':'3','reservefoodcount':'12','Mostroomtype':'standart','Mostactivitytype':'Onsen' },
-            {'Username':'Fay', 'Firstname':'Fayyy', 'Lastname':'KK', 'Sex':'F', 'Phone':'093-xxx-xxxx','Age':'20','Email':'fay@mail', 'Bookroomcount':'2', 'Bookactivitycount':'3','reservefoodcount':'12','Mostroomtype':'standart','Mostactivitytype':'Onsen' },
-            {'Username':'Fay', 'Firstname':'Fayyy', 'Lastname':'KK', 'Sex':'F', 'Phone':'093-xxx-xxxx','Age':'20','Email':'fay@mail', 'Bookroomcount':'2', 'Bookactivitycount':'3','reservefoodcount':'12','Mostroomtype':'standart','Mostactivitytype':'Onsen' },
+            {'branch':'Bangkok', 'month':'02', 'year':'2002', 'activityname':'Onsen', 'avgperday':'15','mostpoptime':'19:00-21:00','mostpopday':'1,2,3' },
+            {'branch':'Bangkok', 'month':'02', 'year':'2002', 'activityname':'Onsen', 'avgperday':'15','mostpoptime':'19:00-21:00','mostpopday':'1,2,3' },
+            {'branch':'Bangkok', 'month':'02', 'year':'2002', 'activityname':'Onsen', 'avgperday':'15','mostpoptime':'19:00-21:00','mostpopday':'1,2,3' },
         ]
         
         buildTable(myArray)
@@ -82,18 +78,14 @@
     
             for (var i = 0; i < data.length; i++){
                 var row = `<tr>
-                                <td>${data[i].Username}</td>
-                                <td>${data[i].Firstname}</td>
-                                <td>${data[i].Lastname}</td>
-                                <td>${data[i].Sex}</td>
-                                <td>${data[i].Phone}</td>
-                                <td>${data[i].Age}</td>
-                                <td>${data[i].Email}</td>
-                                <td>${data[i].Bookroomcount}</td>
-                                <td>${data[i].Bookactivitycount}</td>
-                                <td>${data[i].reservefoodcount}</td>
-                                <td>${data[i].Mostroomtype}</td>
-                                <td>${data[i].Mostactivitytype}</td>
+                                <td>${data[i].branch}</td>
+                                <td>${data[i].month}</td>
+                                <td>${data[i].year}</td>
+                                <td>${data[i].activityname}</td>
+                                <td>${data[i].avgperday}</td>
+                                <td>${data[i].mostpoptime}</td>
+                                <td>${data[i].mostpopday}</td>
+                                
                           </tr>`
                 table.innerHTML += row
     

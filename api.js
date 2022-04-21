@@ -114,8 +114,8 @@ app.post('/get_promotion', jasonParser, (req, res) => {
 });
 
 app.post('/get_room', jasonParser, (req, res) => {
-    db.execute('SELECT room_id FROM room r WHERE r.room_type = ? AND r.branch_no = (SELECT branch_no FROM branch b WHERE b.county = ?) AND r.room_id NOT IN(SELECT room_id FROM date_room d WHERE ? > d.check_out)',
-    [req.body.room_type, req.body.county,req.body.check_in],
+    db.execute('SELECT room_id FROM room r WHERE r.room_type = ? AND r.branch_no = (SELECT branch_no FROM branch b WHERE b.county = ?) AND r.room_id NOT IN(SELECT room_id FROM date_room d WHERE ? > d.check_out OR ? < d.check_in)',
+    [req.body.room_type, req.body.county,req.body.check_in,req.body.check_out],
     function(err , results, fields){
         if(err){
             res.json({status: 'error', message: err});
@@ -124,7 +124,7 @@ app.post('/get_room', jasonParser, (req, res) => {
         else{
             var room_id = results[Math.floor( Math.random() * results.length )]
             var room_id_final = room_id.room_id
-            res.json({status: 'ok' , message: 'success query', room_id_final})
+            res.json({status: 'ok' , message: 'success query', room_id_final, room_empty: results.length})
         }
     }
     )
@@ -154,7 +154,7 @@ app.post('/insert_book', jasonParser, (req, res) => {
                             }
                             var Booking_id = GenBooking_id + booking_length.toString()
 
-                            // generate date_and_roo
+                            // generate date_and_room
                             var Gendateroom_id = "DAR"
                             for(let i=0; i< 13-date_and_room_length.toString().length ;i++){
                                 Gendateroom_id += "0";
@@ -176,21 +176,30 @@ app.post('/insert_book', jasonParser, (req, res) => {
                                             return
                                         }
                                         else{
-                                            res.json({status: 'ok', message: err});
+                                            if(req.body.user_and_promotion != null) {
+                                                db.execute('UPDATE view_user_promotion SET status = 0 WHERE user_and_promotion = ?',
+                                                [req.body.user_and_promotion],
+                                                function(err , results, fields){
+                                                    if(err){
+                                                        res.json({status: 'error', message: err});
+                                                        return
+                                                    }
+                                                    else{
+                                                        res.json({status: 'ok', message: err});
+                                                    }
+                                                });
+                                            }
+                                            else{
+                                                res.json({status: 'ok', message: err});
+                                            }
                                         }
-                                    }
-                                    )
-                                }
-                            }
-                            )
-                        } 
-                    }
-                );
-            }
-            
-        }
-    );
-    
+                                    })
+                                } 
+                            });
+                        }
+                    });
+                } 
+        });
 });
 
 // 'INSERT INTO view_user_promotion (user_and_promontion, promotion_id) VALUES (?,?,?)',
