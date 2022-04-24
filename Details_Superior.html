@@ -33,7 +33,7 @@
             </div>
           </div>
           <div class="mt-5 md:mt-0 md:col-span-2">
-            <form action="#" method="POST">
+            <form id="data" action="#" method="POST">
               <div class="shadow overflow-hidden sm:rounded-md">
                 <div class="px-4 py-5 bg-white sm:p-6">
                   <a class="text-sm text-gray-500 sm:mt-3">Price</a>
@@ -46,6 +46,7 @@
                       <select id="dayin" name="dayin" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
                         <option>select</option>
                         <option>01</option>
+                        <option>02</option>
                         <option>03</option>
                         <option>04</option>
                         <option>05</option>
@@ -82,18 +83,18 @@
                       <label for="country" class="block text-sm font-medium text-gray-700">Month</label>
                       <select id="monthin" name="monthin" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
                         <option>select</option>
-                        <option>January</option>
-                        <option>February</option>
-                        <option>March</option>
-                        <option>April</option>
-                        <option>May</option>
-                        <option>June</option>
-                        <option>July</option>
-                        <option>August</option>
-                        <option>September</option>
-                        <option>October</option>
-                        <option>November</option>
-                        <option>December</option>
+                        <option value="12">January</option>
+                        <option value="1">February</option>
+                        <option value="2">March</option>
+                        <option value="3">April</option>
+                        <option value="4">May</option>
+                        <option value="5">June</option>
+                        <option value="6">July</option>
+                        <option value="7">August</option>
+                        <option value="8">September</option>
+                        <option value="9">October</option>
+                        <option value="10">November</option>
+                        <option value="11">December</option>
                       </select>
                     </div>
 
@@ -116,6 +117,7 @@
                       <select id="dayout" name="dayout" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
                         <option>select</option>
                         <option>01</option>
+                        <option>02</option>
                         <option>03</option>
                         <option>04</option>
                         <option>05</option>
@@ -152,18 +154,18 @@
                       <label for="country" class="block text-sm font-medium text-gray-700">Month</label>
                       <select id="monthout" name="monthout" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
                         <option>select</option>
-                        <option>January</option>
-                        <option>February</option>
-                        <option>March</option>
-                        <option>April</option>
-                        <option>May</option>
-                        <option>June</option>
-                        <option>July</option>
-                        <option>August</option>
-                        <option>September</option>
-                        <option>October</option>
-                        <option>November</option>
-                        <option>December</option>
+                        <option value="12">January</option>
+                        <option value="1">February</option>
+                        <option value="2">March</option>
+                        <option value="3">April</option>
+                        <option value="4">May</option>
+                        <option value="5">June</option>
+                        <option value="6">July</option>
+                        <option value="7">August</option>
+                        <option value="8">September</option>
+                        <option value="9">October</option>
+                        <option value="10">November</option>
+                        <option value="11">December</option>
                       </select>
                     </div>
 
@@ -183,7 +185,7 @@
                         <br>
                         <label for="country" class="block text-sm font-medium text-gray-700">Branch</label>
                         <br>
-                        <select id="addbed" name="addbed" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
+                        <select id="county" name="county" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
                           <option>select</option>
                           <option>Bangkok</option>
                           <option>Phuket</option>
@@ -207,11 +209,6 @@
                       <label for="country" class="block text-sm font-medium text-gray-700">Promotion</label>
                       <br>
                       <select id="promotion" name="promotion" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
-                        <option>select</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
                       </select>
                     </div>
 
@@ -223,7 +220,7 @@
                   <button onclick="window.location = 'http\:/\/127.0.0.1:5500/babydata/BookLog.html';" type="button" class="inline-flex justify-center py-2 px-7 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-400 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     <a>Cancle</a></button>
 
-                  <button  type="button" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  <button  type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     <a>Book Now</a></button>
                 </div>
               </div>
@@ -275,6 +272,202 @@
           <div class="border-t border-gray-200"></div>
         </div>
       </div>
-      <script></script>
+      <script>
+      // prepare data promotion_id of that users
+      let text = localStorage.getItem('username');
+      const logindata = JSON.parse(text);
+      // check user is login
+      if(logindata.status === 'error'){
+        window.location = 'http://127.0.0.1:5500/babydata/Login.html';
+      }
+      var user_and_promotion_pk = { // for promotion make it global
+            pro_id: [],
+            user_and_promotion: []
+          }
+      const for_query_promotion = {username: logindata.username, now: new Date(),category: "Booking"}  // ***** for change category
+      fetch('http://localhost:3333/get_promotion', {
+        method: 'POST', // or 'PUT'
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(for_query_promotion), // send username of users to find promotion_id
+      })
+      .then(response => response.json())
+      .then(data => {
+
+        // when users don't have promotion
+        var promotion = '' // innerHTML must be var variable only
+        promotion = '<option value="'+null+'">Not use promotion</option>';
+        // when users have promotion
+        if(data.finalresult.promotion_id.length != 0) {
+          for(let i = 0; i<data.finalresult.promotion_id.length; i++){
+            promotion +='<option value="'+data.finalresult.promotion_id[i]+'">Discount '+data.finalresult.discount[i]+' %</option>';
+            user_and_promotion_pk.pro_id.push(data.finalresult.promotion_id[i])
+            user_and_promotion_pk.user_and_promotion.push(data.finalresult.user_and_promotion[i])
+          }
+        }
+        document.getElementById("promotion").innerHTML = promotion;
+        console.log(user_and_promotion_pk)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      //When submit the form we will get branch -> room_id
+      let submit = document.querySelector('#data');
+      submit.addEventListener('submit', (event) =>{
+        event.preventDefault();
+        //check in
+        var yearin = document.getElementById("yearin");
+        var yin = yearin.options[yearin.selectedIndex].text
+
+        var monthin = document.getElementById("monthin");
+        var min = monthin.value
+
+        var dayin = document.getElementById("dayin");
+        var din = dayin.options[dayin.selectedIndex].text
+        var check_in = new Date(
+          Number(yin)-1, 
+          min,
+          Number(din), 
+          12+7,// hours
+          0,  // miniutes
+          0,  // seconds
+          0); // milliseconds
+
+        //check out
+        var yearout = document.getElementById("yearout");
+        var yout = yearout.options[yearout.selectedIndex].text
+
+        var monthout = document.getElementById("monthout");
+        var mout = monthout.value
+
+        var dayout = document.getElementById("dayout");
+        var dout = dayout.options[dayout.selectedIndex].text
+        var check_out = new Date(
+          Number(yout)-1,
+          mout,
+          Number(dout),
+          14+7, // hours
+          0,  // miniutes
+          0,  // seconds
+          0); // milliseconds
+
+        // branch
+        var county = document.getElementById("county");
+        county = county.options[county.selectedIndex].text;
+
+        var participant = document.getElementById("participant");
+        participant = participant.options[participant.selectedIndex].text;
+
+        var promotion = document.getElementById("promotion")
+        var promotion_id = promotion.value;
+        // split -> discount 5 % to 5
+        var promotion_text_discount = promotion.options[promotion.selectedIndex].text;
+        var promotion_temp = promotion_text_discount.split(" ");
+        var promotion_discount = Number(promotion_temp[1])
+        console.log(check_in)
+        console.log(check_out)
+        console.log(Number(monthin.value))
+        var now2 = new Date();
+        
+        // check user select all ?
+        if(promotion_id == "select"||din=="select"||min=="select"||yin=="select"||dout=="select"||mout=="select"||yout=="select"||participant=="select")
+        {
+            alert("plese select all of the box")
+        }
+        else if(check_out < check_in) {
+          // check out > check in
+          alert("check out time is not correct")
+          window.location = 'http://127.0.0.1:5500/babydata/BookLog.html';
+        }
+        else if(check_in < now2 ){
+          let text = "You can't booking at this day \nbecause your booking time is passed 12.00 am"
+          alert(text)
+          window.location = 'http://127.0.0.1:5500/babydata/BookLog.html';
+        }
+        else{ // all data correct 
+            // query room_id for insert
+            if(confirm('Confirm Booking') == true) {
+            const for_query_roomid = {room_type: "Superior", county: county, check_in: check_in, check_out: check_out} // *** change room type here
+            fetch('http://localhost:3333/get_room', {
+              method: 'POST', // or 'PUT'
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(for_query_roomid),
+            })
+            .then(response => response.json())
+            .then(data => {
+              if(data.room_empty != 0){
+                var room_id = data.room_id_final
+                console.log(room_id);
+                // declare variable for insert into booking data
+                //const diffDays = (date, otherDate) => Math.ceil(Math.abs(date - otherDate) / (1000 * 60 * 60 * 24));
+                const find_diffDays = (date, otherDate) => Math.floor(Math.abs(date - otherDate) / (24 * 60 * 60 * 1000));
+                var total = 1400 * find_diffDays(check_in,check_out);           // ***** change price 
+                var total_discount = 0;
+                if(promotion_id != null){
+                  var findpromotion_id_use = user_and_promotion_pk.pro_id
+                  var index_pk_view_user = findpromotion_id_use.indexOf(promotion_id)
+                  var pk_view_user = user_and_promotion_pk.user_and_promotion[index_pk_view_user]
+                  total_discount = (total * promotion_discount) / 100;
+                }
+                else {
+                  pk_view_user = null;
+                }
+                var now = new Date();
+                now.setHours( now.getHours() + 7 );
+                document.write(now);
+                var numparticipant = Number(participant)
+                var insert_data = {
+                  username: logindata.username,
+                  booking_time: now,
+                  total: total,
+                  total_discount: total_discount,
+                  user_and_promotion: pk_view_user,
+                  participant: numparticipant, // participant is text convert to Num
+                  room_id: room_id,
+                  check_in: check_in,
+                  check_out: check_out, // addbed generate in api
+                  addbed: 0
+                }
+                console.log(check_in)
+                console.log(check_out)
+                console.log(room_id);
+                
+                // fetch -> insert in booking & date_room
+                fetch('http://localhost:3333/insert_book', {
+                  method: 'POST', // or 'PUT'
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify(insert_data),
+                })
+                .then(response => response.json())
+                .then(data => {
+                  if(data.status === 'ok'){
+                    alert('Booking Succesful !!')
+                    window.location = 'http://127.0.0.1:5500/babydata/HomeLog.html'
+                  }
+                  else{
+                    alert('Booking Error !, please check your information again')
+                    window.location = 'http://127.0.0.1:5500/babydata/Details_Superior.html'
+                  }
+                })
+                .catch((err) => {
+                  console.log(err);
+                })       
+              }
+              else{
+                alert('Our Superior Room is Full now,\nplease try Our room type.')
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            })
+          }
+        } // else
+    });
+      </script>
     </body>
 </html>
