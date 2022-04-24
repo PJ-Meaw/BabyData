@@ -28,7 +28,7 @@ for(let i=0; i< 13-date_and_room_length.toString().length ;i++){
     Gendateroom_id += "0";
 }
 var date_and_room = Gendateroom_id + date_and_room_length.toString()
-console.log(date_and_room)
+//console.log(date_and_room)
 
 // find different of 2 date and return results in days
 const diffDays = (date, otherDate) => Math.ceil(Math.abs(date - otherDate) / (1000 * 60 * 60 * 24));
@@ -38,10 +38,18 @@ var now = new Date();
 var dt = new Date(2022,03,20);
 //dt.setHours( dt.getHours() + 2 );
 //document.write( dt );
-console.log(now)
-console.log(dt)
+//console.log(now)
+//console.log(dt)
 var con
 if(dt < now) con = 1;
 else con =0;
 //console.log(Math.floor((now - dt)/(24*60*60*1000)));
-console.log(con)
+//console.log(con)
+
+// test split room -> room num
+// BB168 -> 68
+var room_id = "BB168"
+let temp = room_id.split("BB")
+let room_with_branch = temp[1]
+var room_num = room_with_branch.substring(1); 
+console.log(room_num)

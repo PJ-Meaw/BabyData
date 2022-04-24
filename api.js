@@ -130,6 +130,59 @@ app.post('/get_room', jasonParser, (req, res) => {
     )
 })
 
+app.post('/show_room', jasonParser, (req, res) => {
+    db.execute('SELECT room_id,date_and_room FROM date_room d WHERE d.booking_id IN(SELECT booking_id FROM booking b WHERE username = ?) AND check_in < ? AND check_out > ?',
+    [req.body.username, req.body.now, req.body.now],
+    function(err , results, fields){
+        if(err){
+            res.json({status: 'error', message: err});
+            return
+        }
+        else{
+            var room_id = [] 
+            for(let i =0; i< results.length; i++){
+                room_id.push(results[i].room_id);
+            }
+            var date_and_room = []
+            for(let i = 0; i< results.length; i++){
+                date_and_room.push(results[i].date_and_room)
+            }
+            res.json({status: 'ok' , message: 'success query', room_id, date_and_room})
+        }
+    }
+    )
+})
+
+
+app.post('/inserted_food', jasonParser, (req, res) => {
+    db.query('SELECT reserve_id FROM food_reserving',
+    function(err, results, fields) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            var fr_length = results.length+1;
+            // generate reserve_id
+            var Genreserve_id = "FR"
+            for(let i=0; i< 8-fr_length.toString().length ;i++){
+                Genreserve_id += "0";
+            }
+            var reserve_id = Genreserve_id + fr_length.toString()
+            db.execute('INSERT INTO food_reserving VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [reserve_id, req.body.food_id, req.body.user_and_promotion, req.body.date_and_room, req.body.total, req.body.total_discount, req.body.quantity],
+            function(err , results2, fields){
+                if(err){
+                    res.json({status: 'error', message: err});
+                    return
+                }
+                else{
+                    res.json({status: 'ok' , message: 'success inserted'})
+                }
+            });
+        }
+    });
+})
+
 app.post('/insert_book', jasonParser, (req, res) => {
     db.query(
         'SELECT booking_id FROM booking',
