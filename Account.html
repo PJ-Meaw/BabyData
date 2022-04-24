@@ -59,24 +59,23 @@
               </svg>
               <a>Book</a>
             </button>
-            &emsp;
           </span>
       
-          <span class="sm:ml-3">
-            <button onclick="window.location = 'http\:/\/127.0.0.1:5500/babydata/Account.html';" type="button" class="inline-flex items-center px-10 py-2 border-gray-300 rounded-md shadow-sm text-sm font-medium text-black bg-white hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-              <!-- Heroicon name: solid/check -->
-              <svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-              </svg>
-              <a id="username" ></a>&nbsp;
-              <img src="pic/profileicon.png" class="w-5 h-5 object-center object-cover">
-            </button>
-            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-          </span>
+          <span class="sm:block ml-3">
+          <div class="sm:px-10">
+            <select id="Cart" name="Cart" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
+              <option>Cart</option>
+              <option>Room Cart</option>
+              <option>Activity Cart</option>
+              <option>Food Cart</option>
+            </select><br>
+        </div>
+      </span>
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
         </div>
       </div>
 
-      <br><br>
+      <br>
           <h1 class="mt-6 text-center text-5xl font-extrabold text-white">My Profile</h1>
           <h2 class="mt-6 text-center text-2xl font-extrabold text-white">Manage and protect your account</h2>
 
@@ -274,36 +273,12 @@
                   <button onclick="window.location = 'http\:/\/127.0.0.1:5500/babydata/Password.html';" type="submit" class="inline-flex  py-2 px-4 border border-transparent shadow-sm text-sm font-medium 
                   rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 
                   focus:ring-cyan-600">Change Password</button>
-                
-                
-                  <button type="submit" class=" inline-flex py-2 px-4 border border-transparent shadow-sm text-sm font-medium 
+ 
+                  <button type="submit" class="inline-flex py-2 px-4 border border-transparent shadow-sm text-sm font-medium 
                   rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 
                   focus:ring-cyan-600">Save</button>
                 </div>
                 </div>
-                
-                <div class="hidden sm:block" aria-hidden="true">
-                  <div class="py-5">
-                    <div class="border-t border-gray-200"></div>
-                  </div>
-                </div>
-                
-                <div class="px-4 py-5 bg-gray-50 text-right sm:px-6 ">
-                  <div class="flex justify-between">
-                <button onclick="window.location = 'http\:/\/127.0.0.1:5500/babydata/Password.html';" type="submit" class="inline-flex  py-2 px-4 border border-transparent shadow-sm text-sm font-medium 
-                rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 
-                focus:ring-cyan-600">Room Cart</button>
-              
-                <button type="submit" class=" inline-flex py-2 px-4 border border-transparent shadow-sm text-sm font-medium 
-                rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 
-                focus:ring-cyan-600">Activity Cart</button>
-
-                <button type="submit" class=" inline-flex py-2 px-4 border border-transparent shadow-sm text-sm font-medium 
-                rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 
-                focus:ring-cyan-600">Food Cart</button>
-              </div>
-              </div>
-
               </div>
             </form>
           </div>
