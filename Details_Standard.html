@@ -276,7 +276,7 @@
         let text = localStorage.getItem('username');
         const logindata = JSON.parse(text);
         // check user is login
-        if(logindata.length == 0){
+        if(logindata.status === 'error'){
           window.location = 'http://127.0.0.1:5500/babydata/Login.html';
         }
         var user_and_promotion_pk = { // for promotion make it global
@@ -404,11 +404,12 @@
                   //const diffDays = (date, otherDate) => Math.ceil(Math.abs(date - otherDate) / (1000 * 60 * 60 * 24));
                   const find_diffDays = (date, otherDate) => Math.floor(Math.abs(date - otherDate) / (24 * 60 * 60 * 1000));
                   var total = 900 * find_diffDays(check_in,check_out);
-                  var total_discount = (total * promotion_discount) / 100;
+                  var total_discount = 0;
                   if(promotion_id != null){
                     var findpromotion_id_use = user_and_promotion_pk.pro_id
                     var index_pk_view_user = findpromotion_id_use.indexOf(promotion_id)
                     var pk_view_user = user_and_promotion_pk.user_and_promotion[index_pk_view_user]
+                    total_discount = (total * promotion_discount) / 100;
                   }
                   else {
                     pk_view_user = null;
