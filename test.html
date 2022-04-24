@@ -7,13 +7,14 @@
         color:#fff;
             }
 </style>
-
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
 
 <table class="table table-striped">
     <tr  class="bg-info">
         <th>Name</th>
         <th>Age</th>
         <th>Birthday</th>
+		<th>Birthday</th>
     </tr>
 
     <tbody id="myTable">
@@ -40,9 +41,13 @@
 
 		for (var i = 0; i < data.length; i++){
 			var row = `<tr>
+				<td><button onclick="window.location = 'http\:/\/127.0.0.1:5500/babydata/Login.html';" class="sm:ml-3 text-black">
+					<a>Cencle</a>
+				</button></td>
 							<td>${data[i].name}</td>
 							<td>${data[i].age}</td>
 							<td>${data[i].birthdate}</td>
+							
 					  </tr>`
 			table.innerHTML += row
 
