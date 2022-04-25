@@ -386,6 +386,10 @@ app.get('/home', jasonParser, (req, res) => {
     db.execute('')
 })
 
+/*
 app.listen(8090, function() {
+    console.log('Server is Running on port 8090...')
+})*/
+app.listen(3333, function() {
     console.log('Server is Running on port 8090...')
 })

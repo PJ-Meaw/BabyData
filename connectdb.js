@@ -1,6 +1,7 @@
 const mysql = require('mysql2');
 
 // create the connection to database
+/*
 var connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -8,11 +9,12 @@ var connection = mysql.createConnection({
   database: 'a7_babydata',
   port: '3306'
 });
-/*
+*/
+
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   database: 'babydata2',
 });
-*/
+
 module.exports = connection;
