@@ -284,7 +284,7 @@
             user_and_promotion: []
           }
       const for_query_promotion = {username: logindata.username, now: new Date(),category: "Booking"}  // ***** for change category
-      fetch('http://localhost:3333/get_promotion', {
+      fetch('https://a7.cpe231.cpe.kmutt.ac.th:8090/get_promotion', {
         method: 'POST', // or 'PUT'
         headers: {
           'Content-Type': 'application/json',
@@ -388,7 +388,7 @@
             // query room_id for insert
             if(confirm('Confirm Booking') == true) {
             const for_query_roomid = {room_type: "Deluxe", county: county, check_in: check_in, check_out: check_out} // *** change room type here
-            fetch('http://localhost:3333/get_room', {
+            fetch('https://a7.cpe231.cpe.kmutt.ac.th:8090/get_room', {
               method: 'POST', // or 'PUT'
               headers: {
                 'Content-Type': 'application/json',
@@ -435,7 +435,7 @@
                 console.log(room_id);
                 
                 // fetch -> insert in booking & date_room
-                fetch('http://localhost:3333/insert_book', {
+                fetch('https://a7.cpe231.cpe.kmutt.ac.th:8090/insert_book', {
                   method: 'POST', // or 'PUT'
                   headers: {
                     'Content-Type': 'application/json',

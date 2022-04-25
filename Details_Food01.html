@@ -101,7 +101,7 @@
       user_and_promotion: []
     }
     const for_query_promotion = {username: logindata.username, now: new Date(),category: "Food"}
-    fetch('http://localhost:3333/get_promotion', {
+    fetch('https://a7.cpe231.cpe.kmutt.ac.th:8090/get_promotion', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -139,7 +139,7 @@
       date_and_room: []
     }
     var room_num = '' //global variable
-    fetch('http://localhost:3333/show_room', {
+    fetch('https://a7.cpe231.cpe.kmutt.ac.th:8090/show_room', {
       method: 'POST', // or 'PUT'
       headers: {
           'Content-Type': 'application/json',
@@ -226,7 +226,7 @@
         quantity: quantity        
       }
       // fetch for inserted
-      fetch('http://localhost:3333/inserted_food', {
+      fetch('https://a7.cpe231.cpe.kmutt.ac.th:8090/inserted_food', {
             method: 'POST', // or 'PUT'
             headers: {
                'Content-Type': 'application/json',

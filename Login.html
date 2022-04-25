@@ -98,7 +98,7 @@
          new FormData(login).forEach((value, key) => data[key] = value)
          // {username: value , password: value}
          console.log(data)
-         fetch('http://localhost:3333/login', {
+         fetch('https://a7.cpe231.cpe.kmutt.ac.th:8090/login', {
             method: 'POST', // or 'PUT'
             headers: {
                'Content-Type': 'application/json',
