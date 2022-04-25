@@ -216,7 +216,7 @@
                   </div>
                 </div>
                 <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                  <button onclick="window.location = 'http\:/\/127.0.0.1:5500/babydata/BookLog.html';" type="button" class="inline-flex justify-center py-2 px-7 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-400 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  <button onclick="window.location = 'https\:/\/a7.cpe231.kmutt.in.th/BookLog.html';" type="button" class="inline-flex justify-center py-2 px-7 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-400 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     <a>Cancle</a></button>
 
                   <button  type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -277,7 +277,7 @@
       const logindata = JSON.parse(text);
       // check user is login
       if(logindata.status === 'error'){
-        window.location = 'http://127.0.0.1:5500/babydata/Login.html';
+        window.location = 'https://a7.cpe231.kmutt.in.th/Login.html';
       }
       var user_and_promotion_pk = { // for promotion make it global
             pro_id: [],
@@ -377,12 +377,12 @@
         else if(check_out < check_in) {
           // check out > check in
           alert("check out time is not correct")
-          window.location = 'http://127.0.0.1:5500/babydata/BookLog.html';
+          window.location = 'https://a7.cpe231.kmutt.in.th/BookLog.html';
         }
         else if(check_in < now2 ){
           let text = "You can't booking at this day \nbecause your booking time is passed 12.00 am"
           alert(text)
-          window.location = 'http://127.0.0.1:5500/babydata/BookLog.html';
+          window.location = 'https://a7.cpe231.kmutt.in.th/BookLog.html';
         }
         else{ // all data correct 
             // query room_id for insert
@@ -446,11 +446,11 @@
                 .then(data => {
                   if(data.status === 'ok'){
                     alert('Booking Succesful !!')
-                    window.location = 'http://127.0.0.1:5500/babydata/HomeLog.html'
+                    window.location = 'https://a7.cpe231.kmutt.in.th/HomeLog.html'
                   }
                   else{
                     alert('Booking Error !, please check your information again')
-                    window.location = 'http://127.0.0.1:5500/babydata/Details.html'
+                    window.location = 'https://a7.cpe231.kmutt.in.th/Details.html'
                   }
                 })
                 .catch((err) => {
