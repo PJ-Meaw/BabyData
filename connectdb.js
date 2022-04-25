@@ -5,7 +5,7 @@ var connection = mysql.createConnection({
   host: '202.28.7.92',
   user: 'a7_cpe231',
   password: '123456789',
-  database: 'a7_babydata2',
+  database: 'a7_babydata',
   port: '8090'
 });
 /*
