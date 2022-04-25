@@ -8,7 +8,7 @@ var jasonParser = bodyParser.json();
 
 app.use(cors());
 
-
+// {username: value , password: value}
 
 app.post('/login', jasonParser, (req, res) => {
     db.execute('SELECT * FROM user WHERE username=?',
@@ -309,7 +309,17 @@ app.post('/store_promotion', jasonParser, function (req, res, next) {
                                      res.json({ status: 'error', messsage: err })
                                      return
                                   }
-                                  res.json({ status: 'success'})
+                                  db.execute(
+                                    'UPDATE promotion SET amount = amount -1 WHERE promotion_id = ?',
+                                    [req.body.pro_id],
+                                    function (err, result, fields) {
+                                       if (err) {
+                                          res.json({ status: 'error', messsage: err })
+                                          return
+                                       }
+                                       res.json({ status: 'success'})
+                                    }
+                                 );
                                }
                             );
                          }
@@ -325,6 +335,47 @@ app.post('/store_promotion', jasonParser, function (req, res, next) {
  
        }
     );
+ })
+
+ app.post('/book_activity', jasonParser, function (req, res, next) { //insert data to Table booking_activity & view_date_activity
+   db.execute(
+      'SELECT booking_activity_id FROM booking_activity ORDER BY booking_activity_id DESC', // calling booking_activity_id for Gen value
+      function (err, Order_booking_activity_id, fields) {
+         if (err) {
+            res.json({ status: 'error', messsage: err })
+            return
+         }
+         let Last_Value = Order_booking_activity_id[0].booking_activity_id;
+         const ArraySplitNumSring = Last_Value.split("A");
+         let NumBook_activity = parseInt(ArraySplitNumSring[1]);
+         NumBook_activity ++; // Add 1 for new Book_activity_id or generate
+         let Gen_ID_Book_activity = "";
+         for (let i = 0; i < 4 - NumBook_activity.toString().length; i++) { // Add 0 until unit of 
+         Gen_ID_Book_activity += "0";
+         }
+         Gen_ID_Book_activity += NumBook_activity;
+         Gen_ID_Book_activity = "BA" + Gen_ID_Book_activity;
+         db.execute(
+            'SELECT date_and_room FROM date_room WHERE room_id = ? and booking_id = ? ORDER BY date_and_room DESC', // calling date_and_room for insert to booking activity
+            [req.body.room_id, req.body.booking_id],
+            function (err, Order_date_and_room, fields) {
+               if (err) {
+                  res.json({ status: 'error', messsage: err })
+                  return
+               }
+               let ValueOfDate_and_Room = Order_date_and_room[0].date_and_room; // !!!!!!! "let"
+               var Day = Date.getDate();
+               var Month = Date.getMonth() // start 0-11
+               var Year = Date.getFullYear()
+               let h = addZero(Date.getHours());
+               let m = addZero(Date.getMinutes());
+               let s = addZero(Date.getSeconds());
+               var time = h + ":" + m + ":" + s;
+
+            }
+         );
+      }
+   );
  })
 
 

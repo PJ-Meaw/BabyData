@@ -89,12 +89,14 @@
    </div>
    <script>
       const login = document.querySelector('#login');
+      //const login2 = document.getElementById("login")
       login.addEventListener('submit', (event) => {
 
          event.preventDefault(); // protect refresh / reload 
 
          const data = {}
          new FormData(login).forEach((value, key) => data[key] = value)
+         // {username: value , password: value}
          console.log(data)
          fetch('http://localhost:3333/login', {
             method: 'POST', // or 'PUT'
@@ -120,9 +122,6 @@
             console.error('Error:', error);
         });
       });
-      function next_home() {
-         window.location = 'http://127.0.0.1:5500/babydata/Home.html';
-      }
    </script>
 </body>
 

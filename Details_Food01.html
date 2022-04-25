@@ -135,8 +135,8 @@
     document.write(now);
     const for_query_roomid = {username: logindata.username, now: now} // *** change room type here
     var for_date_and_room = { // find date and room that user selected to insert into table
-      room_id = [],
-      date_and_room = []
+      room_id: [],
+      date_and_room: []
     }
     var room_num = '' //global variable
     fetch('http://localhost:3333/show_room', {
@@ -163,7 +163,7 @@
         }
         else{
           alert("You are not booking room yet, please booking room first.")
-          window.location = ;
+          window.location = 'http://127.0.0.1:5500/babydata/BookLog.html';
         }
       }
       else {
@@ -191,6 +191,7 @@
       // date_and_room
       var index_of_dar = for_date_and_room.room_id.indexOf(room_id_insert)
       var date_and_room_final = for_date_and_room.date_and_room[index_of_dar]
+      console.log(date_and_room_final)
 
       //promotion
       var promotion = document.getElementById("promotion")
