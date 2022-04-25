@@ -388,7 +388,7 @@
               // query room_id for insert
               if(confirm('Confirm Booking') == true) {
               const for_query_roomid = {room_type: "Standard", county: county, check_in: check_in, check_out: check_out} // *** change room type here
-              fetch('https://a7.cpe231.cpe.kmutt.ac.th:8090/get_room', {
+              fetch('https://a7.cpe231.kmutt.in.th/api/get_room', {
                 method: 'POST', // or 'PUT'
                 headers: {
                   'Content-Type': 'application/json',

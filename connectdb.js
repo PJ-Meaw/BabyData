@@ -2,11 +2,11 @@ const mysql = require('mysql2');
 
 // create the connection to database
 var connection = mysql.createConnection({
-  host: '202.28.7.92',
-  user: 'a7_cpe231',
+  host: 'localhost',
+  user: 'root',
   password: '123456789',
   database: 'a7_babydata',
-  port: '8090'
+  port: '3306'
 });
 /*
 const connection = mysql.createConnection({
