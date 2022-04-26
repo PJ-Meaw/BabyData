@@ -4,19 +4,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Account</title>
         <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
-        <style style="width: 100%; height: 100%; object-fit: none; object-position: center top;">
+        <style >
             body {
                 background-image: url('https://static.wixstatic.com/media/05e3dc_bf000e631ea9407f873689f0d62ddb7a.jpg/v1/fill/w_1920,h_610,al_c,q_85,enc_auto/05e3dc_bf000e631ea9407f873689f0d62ddb7a.jpg');
                 background-repeat: no-repeat;
-                background-position: top;              
+                background-position: top;  
+                background-size: contain;
             }
         </style> 
     </head>
 <body>
+  <div class="flex justify-center">
     <div class="lg:flex lg:items-center lg:justify-between">
-        <div class="flex-1 min-w-0">
-            <div class="mt-5 flex lg:mt-0 lg:ml-40">
-                <button onclick="window.location = 'https\:/\/a7.cpe231.kmutt.in.th/HomeLog.html';" class="sm:ml-40 lg:flex text-white">
+      
+        <div class="flex-1 min-w-0 mt-">
+            <div class="mt-6 flex lg:mt-0 lg:ml- ">
+                <button onclick="window.location = 'https\:/\/a7.cpe231.kmutt.in.th/HomeLog.html';" class="sm:ml-0 lg:flex text-white">
                     <a>
                         Home</a>
                       </button>
@@ -50,7 +53,7 @@
             </div>
         </div>
 
-        <div class="flex lg:mt-6 lg:ml-0">
+        <div class="flex lg:mt-6 lg:ml-20">
           <span class="sm:block ml-3">
             <button onclick=" window.location = 'https\:/\/a7.cpe231.kmutt.in.th/BookLog.html';" type="button" class="inline-flex items-center px-10 py-2 border-gray-300 rounded-md shadow-sm text-sm font-medium text-white bg-amber-400 hover:bg-amber-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               <!-- Heroicon name: solid/link -->
@@ -62,22 +65,37 @@
           </span>
       
           <span class="sm:block ml-3">
-          <div class="sm:px-10">
-            <select id="Cart" name="Cart" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
-              <option>Cart</option>
-              <option>Room Cart</option>
-              <option>Activity Cart</option>
-              <option>Food Cart</option>
+            <button onclick=" window.location = 'https\:/\/a7.cpe231.kmutt.in.th/BookLog.html';" type="button" class="inline-flex items-center px-8 py-2 border-gray-300 rounded-md shadow-sm text-sm font-medium text-black bg-gray-100 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              <!-- Heroicon name: solid/link -->
+              <svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd" />
+              </svg>
+              <a>Log&nbsp;Out</a>
+            </button>
+          </span>
+
+          <span class="sm:block">
+          <div class="sm:px-3">
+            <select onchange="selectCart()" id="Cart" name="Cart" autocomplete="country-name" class=" block py-2 px-4 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
+              <option >Cart</option>
+              <option value="1">Room Cart</option>
+              <option value="2">Activity Cart</option>
+              <option value="3">Food Cart</option>
             </select><br>
         </div>
       </span>
-        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+      
+        
         </div>
-      </div>
+      </div></div>
 
       <br>
-          <h1 class="mt-6 text-center text-5xl font-extrabold text-white">My Profile</h1>
-          <h2 class="mt-6 text-center text-2xl font-extrabold text-white">Manage and protect your account</h2>
+      <style>
+      h1 {text-shadow: 3px 3px #000000;}
+      h2 {text-shadow: 3px 3px #000000;}
+    </style>
+          <h1 class="mt-6 text-center text-5xl font-extrabold text-white ">My Profile</h1>
+          <h2 class="mt-6 text-center text-2xl font-extrabold text-white ">Manage and protect your account</h2>
 
       <div class="mt-10 sm:mt-20">
         <div class="md:grid md:grid-cols-4 md:gap-1">
@@ -284,6 +302,20 @@
           </div>
         </div>
       </div>
+<script>
+function selectCart(){
+  var cart = document.getElementById("Cart").value;
+  if(cart==1){
+    window.location = 'https\:/\/a7.cpe231.kmutt.in.th/CartRoom.html';
+  }else if(cart==2){
+    window.location = 'https\:/\/a7.cpe231.kmutt.in.th/CartActivity.html';
+  }else if(cart==3){
+    window.location = 'https\:/\/a7.cpe231.kmutt.in.th/CartFood.html';
+  }
 
+}
+
+
+</script>
 </body>
 </html>
