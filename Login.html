@@ -98,7 +98,8 @@
          new FormData(login).forEach((value, key) => data[key] = value)
          // {username: value , password: value}
          console.log(data)
-         fetch('https://a7.cpe231.kmutt.in.th/api/login', {
+         //https://a7.cpe231.kmutt.in.th/api/login
+         fetch('http://localhost:3333/login', {
             method: 'POST', // or 'PUT'
             headers: {
                'Content-Type': 'application/json',
@@ -111,7 +112,8 @@
               alert('Login success!!.')
               const callback = JSON.stringify(data);
               localStorage.setItem('username', callback)
-              window.location = 'https://a7.cpe231.kmutt.in.th/HomeLog.html'
+              //window.location = 'https://a7.cpe231.kmutt.in.th/HomeLog.html'
+              window.location = 'http://127.0.0.1:5500/babydata/Details_Food01.html'
             }
             else {
               alert('Login Failed!!.')

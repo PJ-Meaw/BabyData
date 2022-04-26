@@ -35,7 +35,7 @@
             </div>
           </div>
           <div class="mt-5 md:mt-0 md:col-span-2">
-            <form action="#" method="POST">
+            <form id="data" action="#" method="POST">
               <div class="shadow overflow-hidden sm:rounded-md">
                 <div class="px-4 py-5 bg-white sm:p-6">
                   <a class="text-sm text-gray-500 sm:mt-3">Price</a>
@@ -74,7 +74,7 @@
                   <button onclick="window.location = 'https\:/\/a7.cpe231.kmutt.in.th/Food.html';" type="button" class="inline-flex justify-center py-2 px-7 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-400 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     <a>Cancle</a></button>
 
-                  <button  type="button" class="inline-flex justify-center py-2 px-10 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  <button type="submit" class="inline-flex justify-center py-2 px-10 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     <a>Buy</a></button>
                 </div>
               </div>
@@ -89,19 +89,20 @@
         </div>
       </div>
   <script>
+    // *** change type of button = "submit"
     // prepare data promotion_id of that users
     let text = localStorage.getItem('username');
     const logindata = JSON.parse(text);
     // check user is login
     if(logindata.status === 'error'){
-      window.location = 'https\:/\/a7.cpe231.kmutt.in.th/Login.html';
+      window.location = 'https://a7.cpe231.kmutt.in.th/Login.html';
     }
     var user_and_promotion_pk = { // for promotion make it global
       pro_id: [],
       user_and_promotion: []
     }
     const for_query_promotion = {username: logindata.username, now: new Date(),category: "Food"}
-    fetch('https://a7.cpe231.cpe.kmutt.ac.th:8090/get_promotion', {
+    fetch('https://a7.cpe231.kmutt.in.th/api/get_promotion', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -122,7 +123,7 @@
           user_and_promotion_pk.user_and_promotion.push(data.finalresult.user_and_promotion[i])
         }
       }
-      document.getElementById("promotion").innerHTML = promotion;
+      document.getElementById("promotion").innerHTML = promotion; // *** check change id = promotion in HTML code in promotion box
       console.log(user_and_promotion_pk)
     })
     .catch((err) => {
@@ -139,7 +140,7 @@
       date_and_room: []
     }
     var room_num = '' //global variable
-    fetch('https://a7.cpe231.cpe.kmutt.ac.th:8090/show_room', {
+    fetch('https://a7.cpe231.kmutt.in.th/api/show_room', {
       method: 'POST', // or 'PUT'
       headers: {
           'Content-Type': 'application/json',
@@ -152,18 +153,18 @@
       if (data.status === 'ok') {
         if(data.room_id.length != 0) {
           for(let i = 0; i<data.room_id.length; i++){
-            let temp = data.room_id.split("BB")
+            let temp = data.room_id[i].split("BB")
             let room_with_branch = temp[1]
             room_num = room_with_branch.substring(1); 
-            option_room_id +='<option value="'+data.room_id[i]+'">room '+room_num+' %</option>';
+            option_room_id +='<option value="'+data.room_id[i]+'">Room '+room_num+' </option>';
             for_date_and_room.room_id.push(data.room_id[i])
             for_date_and_room.date_and_room.push(data.date_and_room[i])
           }
-          document.getElementById("room_id").innerHTML = option_room_id;
+          document.getElementById("room_id").innerHTML = option_room_id; // *** check change id = room_id in HTML code in room_id box
         }
         else{
           alert("You are not booking room yet, please booking room first.")
-          window.location = 'https\:/\/a7.cpe231.kmutt.in.th/BookLog.html';
+          window.location = 'https://a7.cpe231.kmutt.in.th/BookLog.html';
         }
       }
       else {
@@ -175,16 +176,16 @@
     });
 
     // after submit
-    let submit = document.querySelector('#data');
+    let submit = document.querySelector('#data'); // *** check add id = data in HTML code in <form> </form>
     submit.addEventListener('submit', (event) => {
       event.preventDefault();
 
       // quantity of food
-      var quantity = document.getElementById("Quantity").value;
+      var quantity = document.getElementById("Quantity").value; // *** check change id = Quantity in HTML code in Quantity box
       console.log("quantity : "+quantity)
 
       // room_id
-      let room_id_temp = document.getElementById("room_id")
+      let room_id_temp = document.getElementById("room_id") // *** check change id = room_id in HTML code in room_id box
       var room_id_insert =  room_id_temp.value
       console.log(room_id_insert)
 
@@ -194,7 +195,7 @@
       console.log(date_and_room_final)
 
       //promotion
-      var promotion = document.getElementById("promotion")
+      var promotion = document.getElementById("promotion") // *** check change id = promotion in HTML code in promotion box
       var promotion_id = promotion.value;
       // split -> discount 5 % to 5
       var promotion_text_discount = promotion.options[promotion.selectedIndex].text;
@@ -202,54 +203,62 @@
       var promotion_discount = Number(promotion_temp[1])
 
       // price 
-      var total = 80 * quantity; // ***
+      var total = 80 * Number(quantity); // *** change price ?
+      console.log(total)
       var total_discount = 0
+      var pk_view_user;
       // check are user use promotion
+
       if(promotion_id != null){ // if use
         var findpromotion_id_use = user_and_promotion_pk.pro_id
         var index_pk_view_user = findpromotion_id_use.indexOf(promotion_id)
-        var pk_view_user = user_and_promotion_pk.user_and_promotion[index_pk_view_user]
+        pk_view_user = user_and_promotion_pk.user_and_promotion[index_pk_view_user]
         total_discount = (total * promotion_discount) / 100;
       }
       else { // if not use
         pk_view_user = null;
       }
-      
+
       // insert data section
       var data_food = {
         //reserve_id generate in api insert
-        food_id: 'F01006', // ***
+        food_id: "F01006", // ***
         user_and_promotion: pk_view_user,
         date_and_room: date_and_room_final,
         total: total,
         total_discount: total_discount,
-        quantity: quantity        
+        quantity: Number(quantity)        
       }
       // fetch for inserted
-      fetch('https://a7.cpe231.kmutt.in.th/api/inserted_food', {
-            method: 'POST', // or 'PUT'
-            headers: {
-               'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data_food),
-         })
-      .then(response => response.json())
-      .then(data => {
-          if (data.status === 'ok') {
-            alert('Login success!!.')
-            const callback = JSON.stringify(data);
-            localStorage.setItem('username', callback)
-            window.location = 'https\:/\/a7.cpe231.kmutt.in.th/HomeLog.html'
-          }
-          else {
-            alert('Login Failed!!.')
-            window.location = 'https\:/\/a7.cpe231.kmutt.in.th/Login.html'
-          }
-      })
-      .catch((error) => {
-          console.error('Error:', error);
-      });
 
+      if(Number(quantity) == 0) // if not add quantity
+      {
+         alert("plese select quantity of food that you want")
+      }
+      else {
+        //https://a7.cpe231.kmutt.in.th/api/inserted_food
+        fetch('https://a7.cpe231.kmutt.in.th/api/inserted_food', {
+              method: 'POST', // or 'PUT'
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(data_food),
+          })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'ok') {
+              alert('Reserving success!!.')
+              window.location = 'https://a7.cpe231.kmutt.in.th/HomeLog.html'
+            }
+            else {
+              alert('Reserving Failed!!.')
+              window.location = 'https://a7.cpe231.kmutt.in.th/Login.html'
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+      }
 
     });
 

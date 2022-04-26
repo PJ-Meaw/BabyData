@@ -11,7 +11,7 @@ var connection = mysql.createConnection({
 });
 */
 
-const connection = mysql.createConnection({
+var connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   database: 'babydata2',
