@@ -6,6 +6,9 @@ var bodyParser = require('body-parser');
 
 var jasonParser = bodyParser.json();
 
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(cors());
 
 // {username: value , password: value}
