@@ -71,15 +71,13 @@
     </div>
     <script>
         var myArray = [
-            {'date':'01-01-2002', 'branch':'Bangkok', 'roomid':'BB101', 'person':'Party'},
+            {'date':'check_out', 'branch':'branch_name', 'roomid':'room_id', 'person':'first_name'},
             {'date':'01-01-2002', 'branch':'Bangkok', 'roomid':'BB101', 'person':'Party'},
             {'date':'01-01-2002', 'branch':'Bangkok', 'roomid':'BB101', 'person':'Party'},
         ]
         
         buildTable(myArray)
-    
-    
-    
+
         function buildTable(data){
             var table = document.getElementById('myTable')
     
@@ -92,11 +90,8 @@
                                 
                           </tr>`
                 table.innerHTML += row
-    
-    
             }
         }
-    
     </script>
 </div>
 </dl>
