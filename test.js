@@ -52,4 +52,14 @@ var room_id = "BB168"
 let temp = room_id.split("BB")
 let room_with_branch = temp[1]
 var room_num = room_with_branch.substring(1); 
-console.log(room_num)
+//console.log(room_num)
+
+
+var user_and_promotion_pk = { // for promotion make it global
+    room_id: ["BB168","BB178"],
+    user_and_promotion: []
+}
+var test1 = { pro_id: user_and_promotion_pk.pro_id }  
+var string = 'havefood'
+if(string == 'havefood') console.log("true")
+else console.log("false")

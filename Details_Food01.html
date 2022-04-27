@@ -102,7 +102,7 @@
       user_and_promotion: []
     }
     const for_query_promotion = {username: logindata.username, now: new Date(),category: "Food"}
-    fetch('https://a7.cpe231.kmutt.in.th/api/get_promotion', {
+    fetch('http://localhost:3333/get_promotion', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -140,7 +140,7 @@
       date_and_room: []
     }
     var room_num = '' //global variable
-    fetch('https://a7.cpe231.kmutt.in.th/api/show_room', {
+    fetch('http://localhost:3333/show_room', {
       method: 'POST', // or 'PUT'
       headers: {
           'Content-Type': 'application/json',
@@ -189,6 +189,35 @@
       var room_id_insert =  room_id_temp.value
       console.log(room_id_insert)
 
+
+      // part for check status of food in different branch *****
+      var check_food = {
+        room_id: room_id_insert,
+        food_name: "Fried Rice with Teriyaki Chicken" // ***** change name
+      }
+      fetch('http://localhost:3333/have_food', {
+        method: 'POST', // or 'PUT'
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(check_food),
+      })
+      .then(response => response.json())
+      .then(data => {
+        if(data.status === 'no-food'){
+          const havefood = "no-food"
+          localStorage.setItem('havefood', havefood)
+        }
+        else{
+          const havefood = "have-food"
+          localStorage.setItem('havefood', havefood)
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+      // end check food 
+
       // date_and_room
       var index_of_dar = for_date_and_room.room_id.indexOf(room_id_insert)
       var date_and_room_final = for_date_and_room.date_and_room[index_of_dar]
@@ -231,13 +260,19 @@
       }
       // fetch for inserted
 
+      // call have food to check 
+      const havefood = localStorage.getItem('havefood')
       if(Number(quantity) == 0) // if not add quantity
       {
-         alert("plese select quantity of food that you want")
+        alert("plese select quantity of food that you want")
+      }
+      else if (havefood == "no-food"){  // *****
+        alert("Ours food is out now, please try others food")
+        window.location = 'https://a7.cpe231.kmutt.in.th/Food.html'
       }
       else {
         //https://a7.cpe231.kmutt.in.th/api/inserted_food
-        fetch('https://a7.cpe231.kmutt.in.th/api/inserted_food', {
+        fetch('http://localhost:3333/inserted_food', {
               method: 'POST', // or 'PUT'
               headers: {
                 'Content-Type': 'application/json',
