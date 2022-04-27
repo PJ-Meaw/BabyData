@@ -16,7 +16,7 @@ app.use(cors());
 
 app.post('/login', jasonParser, (req, res) => {
     db.execute('SELECT * FROM user WHERE username=?',
-    [req.body.username],
+    [req.body.username],  
     function(err, results, fields) {
 // results is arrays like result[0] = {result[0].email, result[0].password, result[0].firstname ,etc.}
 // because when we query the data it be like more than 1 results 
@@ -30,7 +30,7 @@ app.post('/login', jasonParser, (req, res) => {
         }
         //bcrypt.compare(req.body.password, results[0].password, function(err, nowLogin) {
         if(req.body.password === results[0].password){
-            res.json({status: 'ok', message: 'Loging-in Success!!.', username: req.body.username}); 
+            res.json({status: 'ok', message: 'Loging-in Success!!.', username: req.body.username , role: results[0].role}); 
             }
         else{
             res.json({status: 'error', message: 'Loging-in Failed!!.'});

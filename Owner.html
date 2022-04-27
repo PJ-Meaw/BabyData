@@ -145,5 +145,12 @@
               </div>
             </div>
           </div>
+          <script>
+            const text = localStorage.getItem('username')
+            const logindata = JSON.parse(text);
+            document.getElementById("username").textContent = logindata.username
+            console.log(logindata)
+
+          </script>
 </body>
 </html>
