@@ -102,7 +102,7 @@
       user_and_promotion: []
     }
     const for_query_promotion = {username: logindata.username, now: new Date(),category: "Food"}
-    fetch('http://localhost:3333/get_promotion', {
+    fetch('https://a7.cpe231.kmutt.in.th/api/get_promotion', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -140,7 +140,7 @@
       date_and_room: []
     }
     var room_num = '' //global variable
-    fetch('http://localhost:3333/show_room', {
+    fetch('https://a7.cpe231.kmutt.in.th/api/show_room', {
       method: 'POST', // or 'PUT'
       headers: {
           'Content-Type': 'application/json',
@@ -195,7 +195,7 @@
         room_id: room_id_insert,
         food_name: "Fried Rice with Teriyaki Chicken" // ***** change name
       }
-      fetch('http://localhost:3333/have_food', {
+      fetch('https://a7.cpe231.kmutt.in.th/api/have_food', {
         method: 'POST', // or 'PUT'
         headers: {
             'Content-Type': 'application/json',
@@ -272,7 +272,8 @@
       }
       else {
         //https://a7.cpe231.kmutt.in.th/api/inserted_food
-        fetch('http://localhost:3333/inserted_food', {
+        //http://localhost:3333/inserted_food
+        fetch('https://a7.cpe231.kmutt.in.th/api/inserted_food', {
               method: 'POST', // or 'PUT'
               headers: {
                 'Content-Type': 'application/json',

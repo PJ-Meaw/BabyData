@@ -188,6 +188,34 @@
           let room_id_temp = document.getElementById("room_id") // *** check change id = room_id in HTML code in room_id box
           var room_id_insert =  room_id_temp.value
           console.log(room_id_insert)
+
+          // part for check status of food in different branch *****
+          var check_food = {
+            room_id: room_id_insert,
+            food_name: "Pizza" // ***** change name
+          }
+          fetch('https://a7.cpe231.kmutt.in.th/api/have_food', {
+            method: 'POST', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(check_food),
+          })
+          .then(response => response.json())
+          .then(data => {
+            if(data.status === 'no-food'){
+              const havefood = "no-food"
+              localStorage.setItem('havefood', havefood)
+            }
+            else{
+              const havefood = "have-food"
+              localStorage.setItem('havefood', havefood)
+            }
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+          // end check food 
     
           // date_and_room
           var index_of_dar = for_date_and_room.room_id.indexOf(room_id_insert)
@@ -230,10 +258,16 @@
             quantity: Number(quantity)        
           }
           // fetch for inserted
-    
+
+          // call have food to check 
+          const havefood = localStorage.getItem('havefood')
           if(Number(quantity) == 0) // if not add quantity
           {
              alert("plese select quantity of food that you want")
+          }
+          else if (havefood == "no-food"){  // *****
+            alert("Ours food is out now, please try others food")
+            window.location = 'https://a7.cpe231.kmutt.in.th/Food.html'
           }
           else {
             //https://a7.cpe231.kmutt.in.th/api/inserted_food
