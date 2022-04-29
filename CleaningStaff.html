@@ -72,26 +72,16 @@
     <script>
 
         var myArray = [
-            {'date':'check_out', 'branch':'branch_name', 'roomid':'room_id', 'person':'first_name'},
+            {'date':'check_out', 'branch':'branch_name', 'roomid':'room_id', 'person':'username'},
             {'date':'01-01-2002', 'branch':'Bangkok', 'roomid':'BB101', 'person':'Party'},
             {'date':'01-01-2002', 'branch':'Bangkok', 'roomid':'BB101', 'person':'Party'},
         ]
-        
+
         buildTable(myArray)
 
         function buildTable(data){
             var table = document.getElementById('myTable')
 
-            // for ('babydata2' of data){
-            //   date.textContent = '${babydata2.lat}';
-            //   branch_name.textContent = '${babydata2.lat}';
-            //   room_id.textContent = '${babydata2.lat}';
-            //   first_name.textContent = '${babydata2.lat}';
-
-            //   root.append(date, branch_name, room_id, first_name);
-            //   document.body.append(root);
-            // }
-            
             for (var i = 0; i < data.length; i++){
                 var row = `<tr>
                                 <td>${data[i].date}</td>
