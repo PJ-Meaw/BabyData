@@ -80,7 +80,7 @@
           console.log(data)
           var table = document.getElementById('myTable')
             for (var i = 0; i < data.branch.length; i++){
-                var row = "<tr> <td>"+data.branch[i]+"</td> <td>"+data.month[i]+"</td> <td>"+data.year[i]+"</td> <td>"+data.activity_name[i]+"</td> <td>"+data.totalmonth[i]+"</td> <td>"+data.maxperday[i]+"</td> <td>"+data.avgperday[i]+"</td> </tr>" ;
+                var row = "<tr> <td>"+data.branch[i]+"</td> <td>"+data.month[i]+"</td> <td>"+data.year[i]+"</td> <td>"+data.activity_name[i]+"</td> <td>"+data.totalmonth[i]+"</td> <td>"+data.maxperday[i]+"</td> <td>"+data.avgperday[i].toFixed(2);+"</td> </tr>" ;
                 table.innerHTML += row
 
             }
