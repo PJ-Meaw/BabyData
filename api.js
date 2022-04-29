@@ -28,6 +28,7 @@ app.get('/analyzeactivity', jasonParser, (req,res) => {
             var activity_name = [] 
             var totalmonth = [] 
             var maxperday = [] 
+            var avgperday = [] 
             for(let i =0; i< results.length; i++){
                 branch.push(results[i].BRANCH);
                 month.push(results[i].MONTH);
@@ -35,9 +36,29 @@ app.get('/analyzeactivity', jasonParser, (req,res) => {
                 activity_name.push(results[i].ACTNAME);
                 totalmonth.push(results[i].TOTALMONTH);
                 maxperday.push(results[i].MAXPERDAY);
+                if(results[i].YEAR % 4 == 0){
+                    if(results[i].MONTH ==2){
+                        avgperday.push(results[i].TOTALMONTH/29)
+                    }else if(results[i].MONTH == 1 ||results[i].MONTH == 3 ||results[i].MONTH ==5||results[i].MONTH ==7||results[i].MONTH ==8||results[i].MONTH ==10||results[i].MONTH ==12)
+                    {
+                        avgperday.push(results[i].TOTALMONTH/31)
+                    }else{
+                        avgperday.push(results[i].TOTALMONTH/30)
+                    }
+                }else{
+                    if(results[i].MONTH ==2){
+                        avgperday.push(results[i].TOTALMONTH/28)
+                    }else if(results[i].MONTH == 1 ||results[i].MONTH == 3 ||results[i].MONTH ==5||results[i].MONTH ==7||results[i].MONTH ==8||results[i].MONTH ==10||results[i].MONTH ==12)
+                    {
+                        avgperday.push(results[i].TOTALMONTH/31)
+                    }else{
+                        avgperday.push(results[i].TOTALMONTH/30)
+                    }
+
+                }
             }
 
-            res.json({branch,month,year,activity_name,totalmonth,maxperday})
+            res.json({branch,month,year,activity_name,totalmonth,maxperday,avgperday})
 
         }
     });
