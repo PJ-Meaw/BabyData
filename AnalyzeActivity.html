@@ -74,35 +74,22 @@
     </div>
     </div>
     <script>
-        var myArray = [
-            {'branch':'Bangkok', 'month':'02', 'year':'2002', 'activityname':'Onsen', 'avgperday':'15','mostpoptime':'19:00-21:00','mostpopday':'1,2,3' },
-            {'branch':'Bangkok', 'month':'02', 'year':'2002', 'activityname':'Onsen', 'avgperday':'15','mostpoptime':'19:00-21:00','mostpopday':'1,2,3' },
-            {'branch':'Bangkok', 'month':'02', 'year':'2002', 'activityname':'Onsen', 'avgperday':'15','mostpoptime':'19:00-21:00','mostpopday':'1,2,3' },
-        ]
-        
-        buildTable(myArray)
-    
-    
-    
-        function buildTable(data){
-            var table = document.getElementById('myTable')
-    
-            for (var i = 0; i < data.length; i++){
-                var row = `<tr>
-                                <td>${data[i].branch}</td>
-                                <td>${data[i].month}</td>
-                                <td>${data[i].year}</td>
-                                <td>${data[i].activityname}</td>
-                                <td>${data[i].avgperday}</td>
-                                <td>${data[i].mostpoptime}</td>
-                                <td>${data[i].mostpopday}</td>
-                                
-                          </tr>`
+        fetch('http://localhost:3333/analyzeactivity')
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+          var table = document.getElementById('myTable')
+            for (var i = 0; i < data.branch.length; i++){
+                var row = "<tr> <td>"+data.branch[i]+"</td> <td>"+data.month[i]+"</td> <td>"+data.year[i]+"</td> <td>"+data.activity_name[i]+"</td> <td>"+data.totalmonth[i]+"</td> <td>"+data.maxperday[i]+"</td> </tr>" ;
                 table.innerHTML += row
-    
-    
+
             }
-        }
+            table.innerHTML += row
+
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
 
       
     

@@ -14,6 +14,38 @@ app.use(cors());
 
 // {username: value , password: value}
 
+app.get('/analyzeactivity', jasonParser, (req,res) => {
+    db.query('SELECT  BRANCH,MONTH,YEAR,ACTNAME,SUM(SUMDAY) AS TOTALMONTH,MAX(SUMDAY) AS MAXPERDAY FROM (SELECT BRANCH,MONTH,YEAR,DAY,ACTNAME,SUM(part)AS SUMDAY FROM (SELECT SUM(b.participant) AS part,EXTRACT(DAY FROM v.check_in) AS DAY,EXTRACT(MONTH FROM v.check_in) AS MONTH,EXTRACT(YEAR FROM v.check_in) AS YEAR , BRANCH,ACTNAME FROM booking_activity b,view_date_activity v ,(SELECT h.branch_name AS BRANCH,t.activity_name AS ACTNAME,t.activity_no AS ACTIVITY FROM branch h, activity t WHERE h.branch_no=t.branch_no) AS ACT WHERE b.booking_activity_id=v.booking_activity_id AND ACTIVITY=v.activity_no GROUP BY v.activity_no,EXTRACT(MONTH FROM v.check_in) , EXTRACT(DAY FROM v.check_in) )AS sumpartbranch GROUP BY BRANCH,ACTNAME,YEAR,MONTH,DAY) AS summm GROUP BY BRANCH,ACTNAME,YEAR,MONTH;',
+    function(err, results, fields) {
+        if(err){
+            console.log(err);
+        }
+        else{
+
+            var branch = [] 
+            var month = [] 
+            var year = [] 
+            var activity_name = [] 
+            var totalmonth = [] 
+            var maxperday = [] 
+            for(let i =0; i< results.length; i++){
+                branch.push(results[i].BRANCH);
+                month.push(results[i].MONTH);
+                year.push(results[i].YEAR);
+                activity_name.push(results[i].ACTNAME);
+                totalmonth.push(results[i].TOTALMONTH);
+                maxperday.push(results[i].MAXPERDAY);
+            }
+
+            res.json({branch,month,year,activity_name,totalmonth,maxperday})
+
+        }
+    });
+})
+
+
+
+
 app.post('/login', jasonParser, (req, res) => {
     db.execute('SELECT * FROM user WHERE username=?',
     [req.body.username],  
