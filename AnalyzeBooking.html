@@ -56,6 +56,7 @@
         <thead>
           <tr class="table-primary ">
             
+            <th scope="col">Year</th>
             <th scope="col">Month</th>
             <th scope="col">Total_Booking</th>
             <th scope="col">Bangkok</th>
@@ -77,40 +78,23 @@
     </div>
     </div>
     <script>
-        var myArray = [
-            {'month':'12', 'totalbooking':'200', 'bangkok':'120', 'phuket':'80', 'totalincome':'120000','bangkokincome':'70000','phuketincome':'50000', 'totaldiscount':'2000', 'bangkokdiscount':'1200','phuketdiscount':'800' },
-            {'month':'12', 'totalbooking':'200', 'bangkok':'120', 'phuket':'80', 'totalincome':'120000','bangkokincome':'70000','phuketincome':'50000', 'totaldiscount':'2000', 'bangkokdiscount':'1200','phuketdiscount':'800' },
-            {'month':'12', 'totalbooking':'200', 'bangkok':'120', 'phuket':'80', 'totalincome':'120000','bangkokincome':'70000','phuketincome':'50000', 'totaldiscount':'2000', 'bangkokdiscount':'1200','phuketdiscount':'800' },
-            
-        ]
-        
-        buildTable(myArray)
-    
-    
-    
-        function buildTable(data){
-            var table = document.getElementById('myTable')
-    
-            for (var i = 0; i < data.length; i++){
-                var row = `<tr>
-                                <td>${data[i].month}</td>
-                                <td>${data[i].totalbooking}</td>
-                                <td>${data[i].bangkok}</td>
-                                <td>${data[i].phuket}</td>
-                                <td>${data[i].totalincome}</td>
-                                <td>${data[i].bangkokincome}</td>
-                                <td>${data[i].phuketincome}</td>
-                                <td>${data[i].totaldiscount}</td>
-                                <td>${data[i].bangkokdiscount}</td>
-                                <td>${data[i].phuketdiscount}</td>
-                                
-                          </tr>`
-                table.innerHTML += row
-    
-    
-            }
-        }
-    
+      fetch('http://localhost:3333/analyzebooking')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        var table = document.getElementById('myTable')
+          for (var i = 0; i < data.total.length; i++){
+              var row = "<tr> <td>"+data.year[i]+"</td> <td>"+data.month[i]+"</td> <td>"+data.num[i]+"</td> <td>"+data.b1num[i]+"</td> <td>"+data.b2num[i]+"</td> <td>"+data.total[i]+"</td>  <td>"+data.b1total[i]+"</td> <td>"+data.b2total[i]+"</td> <td>"+data.totaldiscount[i]+"</td> <td>"+data.b1td[i]+"</td><td>"+data.b2td[i]+"</td></tr>" ;
+              table.innerHTML += row
+
+          }
+          
+
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
     </script>
 </div>
 </dl>
