@@ -43,9 +43,6 @@ app.get('/analyzeactivity', jasonParser, (req,res) => {
     });
 })
 
-
-
-
 app.post('/login', jasonParser, (req, res) => {
     db.execute('SELECT * FROM user WHERE username=?',
     [req.body.username],  
@@ -271,6 +268,51 @@ app.post('/inserted_food', jasonParser, (req, res) => {
         }
     });
 })
+
+app.get('/get_client_history',jasonParser, (req,res) => {
+    now = new Date()
+    db.execute('CREATE VIEW booking_count AS SELECT u.username, u.first_name, u.last_name, u.sex, u.phone, FLOOR(Abs(? - u.date_of_birth)/(365*24*60*60*1000)) As age, u.email, COUNT(b.booking_id) As BookCount FROM user u, booking b WHERE u.username = b.username GROUP BY u.username;',
+    [now],
+    function(err, result1, fields){
+        if(err) console.log(err)
+        else {
+            db.execute('CREATE VIEW activity_count AS SELECT u.username, u.first_name, u.last_name, u.sex, u.phone, FLOOR(Abs(? - u.date_of_birth)/(365*24*60*60*1000)) As age, u.email, COUNT(ba.booking_activity_id) As ActivityCount FROM user u,booking_activity ba, date_room d, booking b WHERE ba.date_and_room = d.date_and_room AND d.booking_id = b.booking_id AND b.username = u.username GROUP BY u.username;',
+            [now],
+            function(err, result2, fields){
+                if(err) console.log(err)
+                else{
+                    db.query('CREATE VIEW food_count AS SELECT u.username, COUNT(fr.reserve_id) As FoodReserveCount FROM user u, food_reserving fr, date_room d, booking b WHERE fr.date_and_room = d.date_and_room AND d.booking_id = b.booking_id AND b.username = u.username GROUP BY u.username;',
+                    function(err, result3,fields){
+                        if(err) console.log(err)
+                        else {
+                            db.query('CREATE VIEW room_type_count AS (SELECT u.username, MAX(r.room_type) As RoomType FROM user u, booking b, date_room d, room r WHERE u.username = b.username AND b.booking_id = d.booking_id AND d.room_id = r.room_id GROUP BY u.username,d.date_and_room);',
+                            function(err, result4,fields){
+                                if(err) console.log(err)
+                                else{
+                                    db.query('SELECT b.*, a.ActivityCount, f.FoodReserveCount, RoomType,  CountType FROM booking_count b  LEFT JOIN activity_count a ON b.username = a.username LEFT JOIN food_count f ON b.username = f.username LEFT JOIN (SELECT username, COUNT(RoomType) CountType,RoomType FROM room_type_count GROUP BY username,RoomType) rtc ON b.username = rtc.username;',
+                                    function(err, result5, fields){
+                                        if(err) console.log(err)
+                                        else {
+                                            res.json({result5})
+                                            db.query('DROP VIEW IF EXISTS activity_count,booking_count,food_count,room_type_count;',
+                                            function(err,result6, fields){
+                                                if(err) console.log(err)
+                                                else {
+                                                    console.log("Successful Drop View Table!!.")
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+        
+    });
+});
 
 app.post('/insert_book', jasonParser, (req, res) => {
     db.query(
