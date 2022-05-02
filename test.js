@@ -63,3 +63,8 @@ var test1 = { pro_id: user_and_promotion_pk.pro_id }
 var string = 'havefood'
 if(string == 'havefood') console.log("true")
 else console.log("false")
+
+
+now = new Date()
+now = now.toString();
+console.log(now)
