@@ -28,7 +28,7 @@
         <div class="md:grid md:grid-cols-3 md:gap-6">
           <div class="md:col-span-1">
             <div class="px-4 sm:px-0">
-              <h3 class="text-2xl font-medium leading-6 text-gray-900">&emsp;&emsp;&emsp;Spa</h3><br>
+              <h3 class="text-2xl font-medium leading-6 text-gray-900" >&emsp;&emsp;&emsp;Spa</h3><br>
               &emsp;&emsp;&emsp;&emsp;&ensp;
               <a class="mt-1 text-1xl text-gray-500 sm:mt-3 sm:col-span-1">The spa that will make you feel relaxed and relieve 
                 <br>&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp;stress from a hard working day. Our hotel has 
@@ -37,11 +37,11 @@
             </div>
           </div>
           <div class="mt-5 md:mt-0 md:col-span-2">
-            <form action="#" method="POST">
+            <form action="#" method="POST" id="book">
               <div class="shadow overflow-hidden sm:rounded-md">
                 <div class="px-4 py-5 bg-white sm:p-6">
                   <a class="text-sm text-gray-500 sm:mt-3">Price</a>
-                  <a Id="textID" class="text-2xl text-gray-700 sm:mt-3">&emsp;฿500 per participant</a><br><br>
+                  <a  class="text-2xl text-gray-700 sm:mt-3" >&emsp;฿500 per participant</a><br><br>
                   
                   <div class="grid grid-cols-3 gap-3">
 
@@ -120,9 +120,9 @@
                 </div>
                 <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
                   <button onclick="window.location = 'http\:/\/127.0.0.1:5500/babydata/Activity.html';" type="button" class="inline-flex justify-center py-2 px-7 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-400 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    <a>Cancle</a></button>
+                    <a>Cancel</a></button>
 
-                  <button  type="button" class="inline-flex justify-center py-2 px-10 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  <button type="submit" id="No_activity" value ="Spa" class="inline-flex justify-center py-2 px-10 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     <a>Book</a></button>
                 </div>
               </div>
@@ -141,6 +141,66 @@
           var Act = parseInt(500)
           var num =document.getElementById("Participant").value
           
-            document.getElementById("totalresult").innerHTML ="Total : "+ num*Act }</script>
+         document.getElementById("totalresult").innerHTML ="Total : "+ num*Act }
+         // -------------------------------------------------- //   
+         let text = localStorage.getItem('username');
+         const logindata = JSON.parse(text);
+
+         const book = document.getElementById("book");
+         book.addEventListener('submit', (event) => {
+
+            event.preventDefault(); // protect refresh / reload 
+            // const data = {}
+            // new FormData(login).forEach((value, key) => data[key] = value)
+            
+            var data_participant = document.getElementById("Participant").value
+            var data_total = parseInt(500) * data_participant
+            var data_user_and_promotion = document.getElementById("Promotion").value
+            var data_check_in = document.getElementById("CheckIn").value
+            var data_check_out = document.getElementById("CheckOut").value
+            var data_name_activity = document.getElementById("No_activity").value
+
+            console.log(data_total)
+            console.log(data_participant)
+            console.log(data_user_and_promotion)
+            console.log(data_check_in)
+            console.log(data_check_out)
+            console.log(data_name_activity)
+
+            let NewJson = {
+               username : logindata.username,
+               total : data_total,
+               participant : data_participant,
+               user_and_promotion : data_user_and_promotion, 
+               check_in : data_check_in,
+               check_out : data_check_out,
+               name_activity : data_name_activity
+            }
+
+            // fetch('https://a7.cpe231.kmutt.in.th/api/book_activity', {
+            // method: 'POST', // or 'PUT'
+            // headers: {
+            //    'Content-Type': 'application/json',
+            // },
+            // body: JSON.stringify(NewJson),
+            // })
+            // .then(response => response.json())
+            // .then(data => {
+            //    if (data.status === 'success') {
+            //      alert('success!!')
+            //    }
+            //    else {
+            //       console.log(data.message)
+            //       alert('Failed!! ')
+            //    }
+            // })
+            // .catch((error) => {
+            //       console.error();
+            // });
+
+         }) 
+            
+            
+      </script>
     </body>
 </html>
