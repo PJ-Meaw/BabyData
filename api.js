@@ -433,13 +433,11 @@ app.post('/inserted_food', jasonParser, (req, res) => {
 
 app.get('/get_client_history',jasonParser, (req,res) => {
     now = new Date()
-    db.execute('CREATE VIEW booking_count AS SELECT u.username, u.first_name, u.last_name, u.sex, u.phone, FLOOR(Abs(? - u.date_of_birth)/(365*24*60*60*1000)) As age, u.email, COUNT(b.booking_id) As BookCount FROM user u, booking b WHERE u.username = b.username GROUP BY u.username;',
-    [now],
+    db.query('CREATE VIEW booking_count AS SELECT u.username, u.first_name, u.last_name, u.sex, u.phone, FLOOR((SELECT datediff((SELECT NOW()), date_of_birth))/365) As Age, u.email, COUNT(b.booking_id) As BookCount FROM user u, booking b WHERE u.username = b.username GROUP BY u.username;',
     function(err, result1, fields){
         if(err) console.log(err)
         else {
-            db.execute('CREATE VIEW activity_count AS SELECT u.username, u.first_name, u.last_name, u.sex, u.phone, FLOOR(Abs(? - u.date_of_birth)/(365*24*60*60*1000)) As age, u.email, COUNT(ba.booking_activity_id) As ActivityCount FROM user u,booking_activity ba, date_room d, booking b WHERE ba.date_and_room = d.date_and_room AND d.booking_id = b.booking_id AND b.username = u.username GROUP BY u.username;',
-            [now],
+            db.query('CREATE VIEW activity_count AS SELECT u.username, COUNT(ba.booking_activity_id) As ActivityCount FROM user u,booking_activity ba, date_room d, booking b WHERE ba.date_and_room = d.date_and_room AND d.booking_id = b.booking_id AND b.username = u.username GROUP BY u.username;',
             function(err, result2, fields){
                 if(err) console.log(err)
                 else{
@@ -646,124 +644,200 @@ app.post('/store_promotion', jasonParser, function (req, res, next) {
  })
 
  app.post('/book_activity', jasonParser, function (req, res, next) { //insert data to Table booking_activity & view_date_activity
-    db.execute(
-       'SELECT booking_activity_id FROM booking_activity ORDER BY booking_activity_id DESC', // calling booking_activity_id for Gen value
-       function (err, Order_booking_activity_id, fields) {
-          if (err) {
-             res.json({ status: 'error', messsage: err })
-             return
-          }
-          let Last_Value = Order_booking_activity_id[0].booking_activity_id;
-          const ArraySplitNumSring = Last_Value.split("A");
-          let NumBook_activity = parseInt(ArraySplitNumSring[1]);
-          NumBook_activity ++; // Add 1 for new Book_activity_id or generate
-          let Gen_ID_Book_activity = "";
-          for (let i = 0; i < 4 - NumBook_activity.toString().length; i++) { // Add 0 until unit of 
-          Gen_ID_Book_activity += "0";
-          }
-          Gen_ID_Book_activity += NumBook_activity;
-          Gen_ID_Book_activity = "BA" + Gen_ID_Book_activity;
-          
-          var today = new Date();
-          var TimeNow = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + " " 
-          + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-          total_discount = req.body.total * (req.body.discount) /100
-          
-          db.execute(
-             // "get booking_id" and "date_and_room" and "room_id" period booking Which booking_id don't repeat 
-             'SELECT date_and_room, booking_id, room_id FROM date_room d WHERE d.booking_id IN(SELECT booking_id FROM booking b WHERE username = ?) AND check_in < ? AND check_out > ? ORDER BY date_and_room DESC', // calling date_and_room for insert to booking activity
-             [req.body.username,TimeNow,TimeNow],
-             function (err, result_date_and_room, fields) {
-                if (err) {
-                   res.json({ status: 'error', messsage: err })
-                   return
-                }
-                var ValueOfDate_and_Room = result_date_and_room[0].date_and_room; // !!!!!!! "let"
- 
-                db.execute(
-                   'SELECT participant FROM booking WHERE booking_id = ?', // select participant from TB booking for using limit value from form  
-                   [result_date_and_room[0].booking_id],
-                   function (err,results_participant, fields) {
-                      if (err) {
-                         res.json({ status: 'error', messsage: err })
-                         return
-                      }
+   db.execute(
+      'SELECT booking_activity_id FROM booking_activity ORDER BY booking_activity_id DESC', // calling booking_activity_id for Gen value
+      function (err, Order_booking_activity_id, fields) {
+         if (err) {
+            res.json({ status: 'error', messsage: err })
+            return
+         }
+         let Last_Value = Order_booking_activity_id[0].booking_activity_id;
+         const ArraySplitNumSring = Last_Value.split("A");
+         let NumBook_activity = parseInt(ArraySplitNumSring[1]);
+         NumBook_activity ++; // Add 1 for new Book_activity_id or generate
+         let Gen_ID_Book_activity = "";
+         for (let i = 0; i < 4 - NumBook_activity.toString().length; i++) { // Add 0 until unit of 
+         Gen_ID_Book_activity += "0";
+         }
+         Gen_ID_Book_activity += NumBook_activity;
+         Gen_ID_Book_activity = "BA" + Gen_ID_Book_activity;
+         console.log(Gen_ID_Book_activity)
+         
+         var today = new Date();
+         var TimeNow = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + " " 
+         + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+         
+         
+         db.execute(
+            // "get booking_id" and "date_and_room" and "room_id" period booking Which booking_id don't repeat 
+            'SELECT date_and_room, booking_id, room_id FROM date_room d WHERE d.booking_id IN(SELECT booking_id FROM booking b WHERE username = ?) AND check_in < ? AND check_out > ? ORDER BY date_and_room DESC', // calling date_and_room for insert to booking activity
+            [req.body.username,TimeNow,TimeNow],
+            function (err, result_date_and_room, fields) {
+               if (err) {
+                  res.json({ status: 'error', messsage: err })
+                  return
+               }
+               var ValueOfDate_and_Room = result_date_and_room[0].date_and_room; // !!!!!!! "let"
 
-                      db.execute(
-                        'SELECT * FROM view_date_activity WHERE booking_activity_id = ?', //For get check_in, check_out are condition booking 
-                        [result_date_and_room[0].room_id],
-                        function (err,results_view_date_acticity, fields) {
-                           if (err) {
-                                 res.json({ status: 'error', messsage: err })
-                            return
-                           }
-                           
-                           db.execute(
-                              'SELECT activity_no FROM activity WHERE branch_no IN (SELECT branch_no FROM room WHERE room_id = ?)', //For get activity_no then calculate
-                              [result_date_and_room[0].room_id],
-                              function (err,result_activity, fields) {
-                                 if (err) {
-                                       res.json({ status: 'error', messsage: err })
-                                  return
-                                 }
-                                 if(results_participant[0].participant < req.body.participant) //condition 1
-                                    res.json({status: 'error', message: 'over participant'})
-                                 
-                                 var x = false; // x checking period time booking overlap
-                                 for(let i=0 ;i< results_view_date_acticity.length;i++){
-                                    if((req.body.check_in >= results_view_date_acticity[i].check_in) && ( req.body.check_out <= results_view_date_acticity[i].check_out)){
-                                       x = true; // Ex. 7-10 ->  7-10 : True
-                                    }else if((results_view_date_acticity[i].check_in >= req.body.check_in) && (results_view_date_acticity[i].check_out <= req.body.check_out)) {
-                                       x = true; // Ex. 7-10 ->  6-10 : True , 7-11 : True
-                                    }else if((req.body.check_in < results_view_date_acticity[i].check_in) && ( results_view_date_acticity[i].check_in < req.body.check_out) && (res.body.check_out < results_view_date_acticity[i].check_out)){
-                                       x = true; // Ex. 7-9 ->  6-8 : True 
-                                    }else if((req.body.check_out > results_view_date_acticity[i].check_out) && ( results_view_date_acticity[i].check_out > req.body.check_in) && (res.body.check_in > results_view_date_acticity[i].check_in)){
-                                       x = true;  // Ex. 7-9 ->  8-10 : True
-                                    }
-                                 }
-                                 if(x) //condition 2
-                                    res.json({status: 'error', message: 'time overlap'})
+               db.execute(
+                  'SELECT participant FROM booking WHERE booking_id = ?', // select participant from TB booking for using limit value from form  
+                  [result_date_and_room[0].booking_id],
+                  function (err,results_participant, fields) {
+                     if (err) {
+                        res.json({ status: 'error', messsage: err })
+                        return
+                     }
 
-                                 // if(req.body.check_in < TimeNow) // condition 3 
-                                 //    res.json({status: 'error', message: 'booking late'})
-                                 
-                                 if(req.body.check_in === req.body.check_out) // condition 4
-                                    res.json({status: 'error', message: 'check_in = check_out'})
+                     db.execute(
+                       'SELECT * FROM view_date_activity WHERE booking_activity_id IN (SELECT booking_activity_id FROM booking_activity WHERE date_and_room = ?)', //For get check_in, check_out are condition booking 
+                       [result_date_and_room[0].date_and_room],
+                       function (err,results_view_date_acticity, fields) {
+                          if (err) {
+                                res.json({ status: 'error', messsage: err })
+                           return
+                          }
+                          
+                          db.execute(
+                             'SELECT activity_no FROM activity WHERE branch_no IN (SELECT branch_no FROM room WHERE room_id = ?)', //For get activity_no then calculate
+                             [result_date_and_room[0].room_id],
+                             function (err,result_activity, fields) {
+                                if (err) {
+                                      res.json({ status: 'error', messsage: err })
+                                 return
+                                }
 
-                                 db.execute(
-                                 'INSERT INTO booking_activity (booking_activity_id, date_and_room, participant, booked_at, user_and_promotion, total, total_discount) VALUES (?,?,?,?,?,?,?)',
-                                 [Gen_ID_Book_activity ,ValueOfDate_and_Room, req.body.participant, TimeNow, req.body.user_and_promotion, req.body.total, total_discount],
-                                 function (err, result, fields) { //
+                                db.execute(
+                                 'SELECT discount FROM promotion WHERE promotion_id IN (SELECT promotion_id FROM view_user_promotion WHERE user_and_promotion = ?)', //For get discount of promotion
+                                 [req.body.user_and_promotion],
+                                 function (err,result_discount, fields) {
                                     if (err) {
-                                       res.json({ status: 'error', messsage: err })
-                                          return
+                                          res.json({ status: 'error', messsage: err })
+                                     return
                                     }
-                                    res.json({ status: 'success', messsage: err, results_view_date_acticity})
-                                    // let Last_Value = res[0].booking_activity_id;
-                                    // const ArraySplitNumSring = Last_Value.split("A");
-                                    // let NumBook_activity = parseInt(ArraySplitNumSring[1]);
-                                    // NumBook_activity ++; // Add 1 for new Book_activity_id or generate
-                                    // let Gen_ID_Book_activity = "";
-                                    // for (let i = 0; i < 4 - NumBook_activity.toString().length; i++) { // Add 0 until unit of 
-                                    // Gen_ID_Book_activity += "0";
-                                    // }
-                                    // Gen_ID_Book_activity += NumBook_activity;
-                                    // Gen_ID_Book_activity = "BA" + Gen_ID_Book_activity;
 
+                                    console.log(result_discount[0].discount)
+
+                                    total_discount = req.body.total * (result_discount[0].discount) /100
+                                
+                                    for(let i=0; i< result_activity.length;i++){
+                                          var name = result_activity[i].activity_no.split("0")
+                                          if(req.body.name_activity == name[0]){
+                                             var actua_name_activity = result_activity[i].activity_no;   
+                                          }
+                                    }
+
+
+                                    if(results_participant[0].participant < req.body.participant) //condition 1
+                                       res.json({status: 'error', message: 'over participant'})
+                                    var TextDate = new Date(TimeNow); //Type date of Timestamp
+
+                                    //timecompare.setHours( timecompare.getHours() + 7 );
+                                    /* Part User */
+                                    var Check_in_user = new Date(req.body.check_in);
+                                    var Check_in_user_time_demo = Check_in_user.toLocaleTimeString(); // 21:00:00
+                                    var Check_in_user_time_split = Check_in_user_time_demo.split(":"); 
+                                    var Check_in_user_time = Check_in_user_time_split[0]; // Number value Ex. 20 21
+
+                                    var Check_out_user = new Date(req.body.check_out); 
+                                    var Check_out_user_time_demo = Check_out_user.toLocaleTimeString(); // 21:00:00
+                                    var Check_out_user_time_split = Check_out_user_time_demo.split(":"); 
+                                    var Check_out_user_time = Check_out_user_time_split[0]; // Number value Ex. 20 21
+
+                                    //   if(Check_in_user.getTime() < TextDate.getTime()) // condition 2 
+                                    //       res.json({status: 'error', message: 'booking late'})
+
+                                    var x = 0; // x checking period time booking overlap
+                                    for(let i=0 ;i< results_view_date_acticity.length;i++){
+                                       var Check_in_database = results_view_date_acticity[i].check_in
+                                       var Check_in_database_date = Check_in_database.toLocaleDateString(); // 29/4/2565
+                                       var Check_in_database_time_demo = Check_in_database.toLocaleTimeString(); // 21:00:00
+                                       var Check_in_database_time_split = Check_in_database_time_demo.split(":"); 
+                                       var Check_in_database_time = Check_in_database_time_split[0]; // Number value Ex. 20 21
+
+                                       var Check_out_database = results_view_date_acticity[i].check_out
+                                       //var Check_out_database_date = Check_out_database.toLocaleDateString();
+                                       var Check_out_database_time_demo = Check_out_database.toLocaleTimeString();
+                                       var Check_out_database_time_split = Check_out_database_time_demo.split(":"); 
+                                       var Check_out_database_time = Check_out_database_time_split[0]; // Number value Ex. 20 21
+                                       
+                                       /* --------------------------   */
+
+                                       if(TextDate.toLocaleDateString() == Check_in_database_date){ // condition since each value is hour So date must be equal date
+                                          /* Part database several row*/
+                                          if((Check_in_user_time >= Check_in_database_time) && ( Check_out_user_time <= Check_out_database_time)){
+                                             x = 1; // Ex. 7-10 ->  7-10 : True
+                                          }else if((Check_in_database_time >= Check_in_user_time) && (Check_out_database_time <= Check_out_user_time)) {
+                                             x = 1; // Ex. 7-10 ->  6-10 : True , 7-11 : True
+                                          }else if((Check_in_user_time < Check_in_database_time) && ( Check_in_database_time < Check_out_user_time) && (res.body.check_out < Check_out_database_time)){
+                                             x = 1; // Ex. 7-9 ->  6-8 : True 
+                                          }else if((Check_out_user_time > Check_out_database_time) && ( Check_out_database_time > Check_in_user_time) && (res.body.check_in > Check_in_database_time)){
+                                             x = 1;  // Ex. 7-9 ->  8-10 : True
+                                          }
+                                       }
+                                    }
+                                    
+                                    if(x) //condition 3
+                                          return res.json({status: 'error', message: 'time overlap'})
+
+
+                                    if(req.body.check_in === req.body.check_out) // condition 4
+                                       res.json({status: 'error', message: 'check_in = check_out'})
+
+                                    db.execute(
+                                    'INSERT INTO booking_activity (booking_activity_id, date_and_room, participant, booked_at, user_and_promotion, total, total_discount) VALUES (?,?,?,?,?,?,?)',
+                                    [Gen_ID_Book_activity ,ValueOfDate_and_Room, req.body.participant, TimeNow, req.body.user_and_promotion, req.body.total, total_discount],
+                                    function (err, result, fields) { //
+                                       if (err) {
+                                          res.json({ status: 'error', messsage: err })
+                                             return
+                                       }
+                                       db.execute(
+                                          'SELECT no_date_activity FROM view_date_activity ORDER BY no_date_activity DESC',
+                                          function (err, no_date_activity_Order, fields) {
+                                             if (err) {
+                                                res.json({ status: 'error', messsage: err })
+                                                   return
+                                             }
+                                             
+                                             let Store = no_date_activity_Order[0].no_date_activity
+                                             const NumSring = Store.split("-");
+                                             let Num_no_date = parseInt(NumSring[1]);
+                                             Num_no_date ++; // Add 1 for new Book_activity_id or generate
+                                             let Gen_no_date_activity = "";
+                                             for (let i = 0; i < 12 - Num_no_date.toString().length; i++) { // Add 0 until unit of 
+                                             Gen_no_date_activity += "0";
+                                             }
+                                             Gen_no_date_activity += Num_no_date;
+                                             Gen_no_date_activity = "VDA-" + Gen_no_date_activity;
+                                             db.execute(
+                                                'INSERT INTO view_date_activity (no_date_activity, check_in, check_out, activity_no, booking_activity_id) VALUES (?,?,?,?,?)',
+                                                [Gen_no_date_activity, req.body.check_in, req.body.check_out,actua_name_activity ,results_view_date_acticity[0].booking_activity_id ],
+                                                function (err, result, fields) {
+                                                   if (err) {
+                                                      res.json({ status: 'error', messsage: err })
+                                                         return
+                                                   }
+                                                   res.json({ status: 'success', messsage: err, results_view_date_acticity}) 
+                                                }
+                                             );
+                                          }
+                                          );
+                                    }
+                                    );
                                  }
-                                 );
-                              }
-                            );
-                        }
-                      );
-                      
-                   }
-                );  
-             }
-          );
-       }
-    );
-  })
+                                );   
+                             }
+                           );
+                       }
+                     );
+                     
+                  }
+               );  
+            }
+         );
+      }
+   );
+})
 
 
 app.get('/home', jasonParser, (req, res) => {
