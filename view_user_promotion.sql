@@ -45,3 +45,18 @@ INSERT INTO `view_user_promotion` (`user_and_promotion`, `promotion_id`, `userna
 
 
 INSERT INTO `view_user_promotion` (`user_and_promotion`, `promotion_id`, `username`, `status`) VALUES ('UAP0000000000400', 'A111', 'Sophie_tracer', 0), ('UAP0000000000401', 'A201','Sophie_tracer', 1), ('UAP0000000000402', 'A500','Sophie_tracer', 0),('UAP0000000000403', 'A500','Sophie_tracer', 1), ('UAP0000000000404', 'A900','Sophie_tracer', 0), ('UAP0000000000405', 'A900','Sophie_tracer', 1),('UAP0000000000406', 'B001','Sophie_tracer', 0) , ('UAP0000000000407', 'B123', 'Sophie_tracer', 0), ('UAP0000000000408', 'B123', 'Sophie_tracer', 0), ('UAP0000000000409', 'B123','Sophie_tracer', 0),('UAP0000000000410', 'B234','Sophie_tracer', 1),('UAP0000000000411', 'B333','Sophie_tracer', 1),('UAP0000000000412', 'B333','Sophie_tracer', 1),('UAP0000000000413', 'D123','Sophie_tracer', 1),('UAP0000000000414', 'D123','Sophie_tracer', 0),('UAP0000000000415', 'D333','Sophie_tracer', 1),('UAP0000000000416', 'D333','Sophie_tracer', 1),('UAP0000000000417', 'D333','Sophie_tracer', 0),('UAP0000000000418', 'D333','Sophie_tracer', 0),('UAP0000000000419', 'D333','Sophie_tracer', 0),('UAP0000000000420', 'D567','Sophie_tracer', 0),('UAP0000000000421', 'D567','Sophie_tracer', 1),('UAP0000000000422', 'D567','Sophie_tracer', 1),('UAP0000000000423', 'D567','Sophie_tracer', 1);
+
+
+
+
+
+
+
+
+/*Update Total of booking */
+UPDATE `booking` SET `total` = '4410' WHERE `booking`.`booking_id` = 'BR-0000001'
+UPDATE `booking` SET `total` = '2040' WHERE `booking`.`booking_id` = 'BR-0000002'
+UPDATE `booking` SET `total` = '2160' WHERE `booking`.`booking_id` = 'BR-0000003'
+UPDATE `booking` SET `total` = '8330' WHERE `booking`.`booking_id` = 'BR-0000007'
+UPDATE `booking` SET `total` = '3780' WHERE `booking`.`booking_id` = 'BR-0000009'
+UPDATE `booking` SET `total` = '4165' WHERE `booking`.`booking_id` = 'BR-0000010'
