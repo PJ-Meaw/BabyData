@@ -118,6 +118,93 @@ app.get('/analyzebooking', jasonParser, (req,res) => {
 
 
 
+app.get('/cleaningstaff2', jasonParser, (req,res) => {
+    db.query('SELECT DAY,MONTH,YEAR,BRANCH,COUNT(ROOM_DATE_ID) AS COUNT_ROOM FROM (SELECT DAY,MONTH,YEAR,ROOM_DATE_ID,BRANCH FROM (SELECT EXTRACT(DAY FROM check_out) AS DAY, EXTRACT(MONTH FROM check_out) AS MONTH, EXTRACT(YEAR FROM check_out) AS YEAR,room_id AS ROOM_DATE_ID FROM date_room)AS DATER,(SELECT EXTRACT(DAY FROM NOW()) AS DATEDAY, EXTRACT(MONTH FROM NOW()) AS DATEMONTH, EXTRACT(YEAR FROM NOW()) AS DATEYEAR) AS DATEE, (SELECT c.county AS BRANCH,r.room_id AS ROOM_ROOM FROM room r, branch c WHERE r.branch_no=c.branch_no)AS BRANCHNAME WHERE DAY=DATEDAY AND MONTH=DATEMONTH AND YEAR=DATEYEAR AND ROOM_ROOM=ROOM_DATE_ID)AS ROM GROUP BY BRANCH;',
+    function(err, results, fields) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            
+            var countroom=[]        
+
+            for(let i =0; i< results.length; i++){
+                countroom.push(results[i].COUNT_ROOM);                 
+            }
+
+            db.query('SELECT CT,COUNT(CT) AS COUNT_EM FROM (SELECT e.first_name,e.last_name,c.county AS CT FROM employee e,branch c WHERE e.position="Housekeeper" AND e.branch_no=c.branch_no) AS Em GROUP BY CT;',
+            function(err, results, fields) {
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    var countem=[]
+                    var ct=[]
+                    for(let i =0; i< results.length; i++){
+
+                        ct.push(results[i].CT);
+                        countem.push(Number(results[i].COUNT_EM));
+                                  
+                    }
+
+                    db.query('SELECT DAY,MONTH,YEAR,ROOM_DATE_ID,BRANCH FROM (SELECT EXTRACT(DAY FROM check_out) AS DAY, EXTRACT(MONTH FROM check_out) AS MONTH, EXTRACT(YEAR FROM check_out) AS YEAR,room_id AS ROOM_DATE_ID FROM date_room)AS DATER, (SELECT EXTRACT(DAY FROM NOW()) AS DATEDAY, EXTRACT(MONTH FROM NOW()) AS DATEMONTH, EXTRACT(YEAR FROM NOW()) AS DATEYEAR) AS DATEE, (SELECT c.county AS BRANCH,r.room_id AS ROOM_ROOM FROM room r, branch c WHERE r.branch_no=c.branch_no)AS BRANCHNAME WHERE DAY=DATEDAY AND MONTH=DATEMONTH AND YEAR=DATEYEAR AND ROOM_ROOM=ROOM_DATE_ID ORDER BY BRANCH,ROOM_DATE_ID;',
+                function(err, results, fields) {
+                    if(err){
+                        console.log(err);
+                    }
+                    else{
+                        var day=[]
+                        var month=[]
+                        var year=[]
+                        var room=[]
+                        var branch=[]
+
+                        for(let i =0; i< results.length; i++){
+                            day.push(results[i].DAY);
+                            month.push(results[i].MONTH);
+                            year.push(results[i].YEAR);    
+                            branch.push(results[i].BRANCH);  
+                            room.push(results[i].ROOM_DATE_ID);
+                        }
+
+                        db.query('SELECT e.first_name,e.last_name,c.county FROM employee e,branch c WHERE e.position="Housekeeper" AND e.branch_no=c.branch_no;',
+                    function(err, results, fields) {
+                        if(err){
+                            console.log(err);
+                        }
+                        else{
+
+                            var emf=[]
+                            var eml=[]
+                            var branchem=[]
+
+                            for(let i =0; i< results.length; i++){
+                                emf.push(results[i].first_name);
+                                eml.push(results[i].last_name);
+                                branchem.push(results[i].county);  
+                            
+                                
+                            }
+                            res.json({countroom,countem,day,month,year,branch,room,emf,eml})                   
+                        }
+                        });
+
+                    }
+                    });
+                    
+                }
+                });
+                    
+                
+                    
+
+
+                            
+
+        }
+    });
+})
+
 app.post('/login', jasonParser, (req, res) => {
     db.execute('SELECT * FROM user WHERE username=?',
     [req.body.username],  
@@ -346,13 +433,11 @@ app.post('/inserted_food', jasonParser, (req, res) => {
 
 app.get('/get_client_history',jasonParser, (req,res) => {
     now = new Date()
-    db.execute('CREATE VIEW booking_count AS SELECT u.username, u.first_name, u.last_name, u.sex, u.phone, FLOOR(Abs(? - u.date_of_birth)/(365*24*60*60*1000)) As age, u.email, COUNT(b.booking_id) As BookCount FROM user u, booking b WHERE u.username = b.username GROUP BY u.username;',
-    [now],
+    db.query('CREATE VIEW booking_count AS SELECT u.username, u.first_name, u.last_name, u.sex, u.phone, FLOOR((SELECT datediff((SELECT NOW()), date_of_birth))/365) As Age, u.email, COUNT(b.booking_id) As BookCount FROM user u, booking b WHERE u.username = b.username GROUP BY u.username;',
     function(err, result1, fields){
         if(err) console.log(err)
         else {
-            db.execute('CREATE VIEW activity_count AS SELECT u.username, u.first_name, u.last_name, u.sex, u.phone, FLOOR(Abs(? - u.date_of_birth)/(365*24*60*60*1000)) As age, u.email, COUNT(ba.booking_activity_id) As ActivityCount FROM user u,booking_activity ba, date_room d, booking b WHERE ba.date_and_room = d.date_and_room AND d.booking_id = b.booking_id AND b.username = u.username GROUP BY u.username;',
-            [now],
+            db.query('CREATE VIEW activity_count AS SELECT u.username, COUNT(ba.booking_activity_id) As ActivityCount FROM user u,booking_activity ba, date_room d, booking b WHERE ba.date_and_room = d.date_and_room AND d.booking_id = b.booking_id AND b.username = u.username GROUP BY u.username;',
             function(err, result2, fields){
                 if(err) console.log(err)
                 else{
