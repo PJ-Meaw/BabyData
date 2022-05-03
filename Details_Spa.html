@@ -95,9 +95,9 @@
                       <label for="RoomID" class="block text-sm font-medium text-gray-700">RoomID</label>
                       <select id="RoomID" name="RoomID" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
                         <option>RoomID</option>
-                        <option>B001</option>
-                        <option>B002</option>
-                        <option>B003</option>
+                        <option>BB288</option>
+                        <option>BB252</option>
+                        <option>BB233</option>
                       </select>
                     </div>
                   </div><br>
@@ -107,7 +107,7 @@
                         <label for="Promotion" class="block text-sm font-medium text-gray-700">Promotion</label>
                         <select id="Promotion" name="Promotion" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
                           <option>Select</option>
-                          <option>Promotion1</option>
+                          <option>A500</option>
                           <option>Promotion2</option>
                           <option>Promotion3</option>
                         </select>
@@ -137,14 +137,44 @@
         </div>
       </div>
 
-      <script>function display(){
+      <script>
+         //-----------------------about UI---------------------//
+         function display(){
           var Act = parseInt(500)
           var num =document.getElementById("Participant").value
           
          document.getElementById("totalresult").innerHTML ="Total : "+ num*Act }
          // -------------------------------------------------- //   
-         let text = localStorage.getItem('username');
+         let text = localStorage.getItem('username'); //get value for using username 
          const logindata = JSON.parse(text);
+
+         //{username: value , password: value}
+
+         // fetch('http://localhost:3333/book_activity', {
+         //    method: 'POST', // or 'PUT'
+         //    headers: {
+         //       'Content-Type': 'application/json',
+         //    },
+         //    body: JSON.stringify(NewJson),
+         //    })
+         //    .then(response => response.json())
+         //    .then(data => {
+         //       if (data.status === 'success') {
+         //          for()
+         //       }
+         //       else {
+         //          console.log(data.message)
+         //          alert('Failed!! ')
+         //       }
+         //    })
+         //    .catch((error) => {
+         //          console.error();
+         //    });
+            
+
+
+         //---- -----------------Fetch Post ----------------//
+         
 
          const book = document.getElementById("book");
          book.addEventListener('submit', (event) => {
@@ -160,6 +190,7 @@
             var data_check_out = document.getElementById("CheckOut").value
             var data_name_activity = document.getElementById("No_activity").value
 
+            console.log(logindata.username)
             console.log(data_total)
             console.log(data_participant)
             console.log(data_user_and_promotion)
@@ -171,36 +202,36 @@
                username : logindata.username,
                total : data_total,
                participant : data_participant,
-               user_and_promotion : data_user_and_promotion, 
+               promotion_id : data_user_and_promotion, 
                check_in : data_check_in,
                check_out : data_check_out,
                name_activity : data_name_activity
             }
 
-            // fetch('https://a7.cpe231.kmutt.in.th/api/book_activity', {
-            // method: 'POST', // or 'PUT'
-            // headers: {
-            //    'Content-Type': 'application/json',
-            // },
-            // body: JSON.stringify(NewJson),
-            // })
-            // .then(response => response.json())
-            // .then(data => {
-            //    if (data.status === 'success') {
-            //      alert('success!!')
-            //    }
-            //    else {
-            //       console.log(data.message)
-            //       alert('Failed!! ')
-            //    }
-            // })
-            // .catch((error) => {
-            //       console.error();
-            // });
+            fetch('http://localhost:3333/book_activity', {
+            method: 'POST', // or 'PUT'
+            headers: {
+               'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(NewJson),
+            })
+            .then(response => response.json())
+            .then(data => {
+               if (data.status === 'success') {
+                  console.log(data.message)
+                 alert('booking activity success!!')
+               }
+               else {
+                  console.log(data.message)
+                  alert('Failed!! ')
+               }
+            })
+            .catch((error) => {
+                  console.error();
+            });
+         })
 
-         }) 
-            
-            
+
       </script>
     </body>
 </html>
