@@ -45,3 +45,26 @@ INSERT INTO `view_user_promotion` (`user_and_promotion`, `promotion_id`, `userna
 
 
 INSERT INTO `view_user_promotion` (`user_and_promotion`, `promotion_id`, `username`, `status`) VALUES ('UAP0000000000400', 'A111', 'Sophie_tracer', 0), ('UAP0000000000401', 'A201','Sophie_tracer', 1), ('UAP0000000000402', 'A500','Sophie_tracer', 0),('UAP0000000000403', 'A500','Sophie_tracer', 1), ('UAP0000000000404', 'A900','Sophie_tracer', 0), ('UAP0000000000405', 'A900','Sophie_tracer', 1),('UAP0000000000406', 'B001','Sophie_tracer', 0) , ('UAP0000000000407', 'B123', 'Sophie_tracer', 0), ('UAP0000000000408', 'B123', 'Sophie_tracer', 0), ('UAP0000000000409', 'B123','Sophie_tracer', 0),('UAP0000000000410', 'B234','Sophie_tracer', 1),('UAP0000000000411', 'B333','Sophie_tracer', 1),('UAP0000000000412', 'B333','Sophie_tracer', 1),('UAP0000000000413', 'D123','Sophie_tracer', 1),('UAP0000000000414', 'D123','Sophie_tracer', 0),('UAP0000000000415', 'D333','Sophie_tracer', 1),('UAP0000000000416', 'D333','Sophie_tracer', 1),('UAP0000000000417', 'D333','Sophie_tracer', 0),('UAP0000000000418', 'D333','Sophie_tracer', 0),('UAP0000000000419', 'D333','Sophie_tracer', 0),('UAP0000000000420', 'D567','Sophie_tracer', 0),('UAP0000000000421', 'D567','Sophie_tracer', 1),('UAP0000000000422', 'D567','Sophie_tracer', 1),('UAP0000000000423', 'D567','Sophie_tracer', 1);
+
+
+
+
+
+
+/*5/3/2022
+
+/*Update Total of booking */
+UPDATE `booking` SET `total` = '4410' WHERE `booking`.`booking_id` = 'BR-0000001'
+UPDATE `booking` SET `total` = '2040' WHERE `booking`.`booking_id` = 'BR-0000002'
+UPDATE `booking` SET `total` = '2160' WHERE `booking`.`booking_id` = 'BR-0000003'
+UPDATE `booking` SET `total` = '8330' WHERE `booking`.`booking_id` = 'BR-0000007'
+UPDATE `booking` SET `total` = '3780' WHERE `booking`.`booking_id` = 'BR-0000009'
+UPDATE `booking` SET `total` = '4165' WHERE `booking`.`booking_id` = 'BR-0000010'
+
+UPDATE `promotion` SET `out_of_date` = '2022-12-31 23:59:59' WHERE `promotion`.`promotion_id` = 'B234'
+UPDATE `view_user_promotion` SET `promotion_id` = 'B123' WHERE `view_user_promotion`.`user_and_promotion` = 'UAP0000000000005'
+INSERT INTO `booking` (`booking_id`, `username`, `booking_time`, `total`, `total_discount`, `user_and_promotion`, `participant`) VALUES ('BR-0000011', 'Dadadamianw', '2022-09-01 01:01:01', '4760', '840', 'UAP0000000000005', '2')
+INSERT INTO `date_room` (`date_and_room`, `check_in`, `check_out`, `room_id`, `booking_id`, `add_bed`) VALUES ('DAR0000000000013', '2022-09-02 10:51:49 ', '2022-09-05 13:59:58', 'BB126', 'BR-0000011', '0')
+UPDATE `view_user_promotion` SET `status` = '0' WHERE `view_user_promotion`.`user_and_promotion` = 'UAP0000000000005'
+
+UPDATE `date_room` SET `check_in` = '2022-08-02 10:00:00', `check_out` = '2022-08-03 13:30:00' WHERE `date_room`.`date_and_room` = 'DAR0000000000001'; UPDATE `date_room` SET `check_in` = '2022-08-04 08:00:00', `check_out` = '2022-08-05 13:58:00' WHERE `date_room`.`date_and_room` = 'DAR0000000000002';
