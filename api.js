@@ -346,13 +346,11 @@ app.post('/inserted_food', jasonParser, (req, res) => {
 
 app.get('/get_client_history',jasonParser, (req,res) => {
     now = new Date()
-    db.execute('CREATE VIEW booking_count AS SELECT u.username, u.first_name, u.last_name, u.sex, u.phone, FLOOR(Abs(? - u.date_of_birth)/(365*24*60*60*1000)) As age, u.email, COUNT(b.booking_id) As BookCount FROM user u, booking b WHERE u.username = b.username GROUP BY u.username;',
-    [now],
+    db.query('CREATE VIEW booking_count AS SELECT u.username, u.first_name, u.last_name, u.sex, u.phone, FLOOR((SELECT datediff((SELECT NOW()), date_of_birth))/365) As Age, u.email, COUNT(b.booking_id) As BookCount FROM user u, booking b WHERE u.username = b.username GROUP BY u.username;',
     function(err, result1, fields){
         if(err) console.log(err)
         else {
-            db.execute('CREATE VIEW activity_count AS SELECT u.username, u.first_name, u.last_name, u.sex, u.phone, FLOOR(Abs(? - u.date_of_birth)/(365*24*60*60*1000)) As age, u.email, COUNT(ba.booking_activity_id) As ActivityCount FROM user u,booking_activity ba, date_room d, booking b WHERE ba.date_and_room = d.date_and_room AND d.booking_id = b.booking_id AND b.username = u.username GROUP BY u.username;',
-            [now],
+            db.query('CREATE VIEW activity_count AS SELECT u.username, COUNT(ba.booking_activity_id) As ActivityCount FROM user u,booking_activity ba, date_room d, booking b WHERE ba.date_and_room = d.date_and_room AND d.booking_id = b.booking_id AND b.username = u.username GROUP BY u.username;',
             function(err, result2, fields){
                 if(err) console.log(err)
                 else{
