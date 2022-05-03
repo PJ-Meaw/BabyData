@@ -55,10 +55,13 @@
         <thead>
           <tr class="table-primary ">
             
-            <th scope="col">Date</th>
+            <th scope="col">Day</th>
+            <th scope="col">Month</th>
+            <th scope="col">Year</th>
             <th scope="col">Branch</th>
             <th scope="col">Room_ID</th>
-            <th scope="col">Responsible_Person</th>
+            <th scope="col">Responsible_First_name</th>
+            <th scope="col">Responsible_Last_name</th>
             
           </tr>
         </thead>
@@ -71,28 +74,56 @@
     </div>
     <script>
 
-        var myArray = [
-            {'date':'check_out', 'branch':'branch_name', 'roomid':'room_id', 'person':'username'},
-            {'date':'01-01-2002', 'branch':'Bangkok', 'roomid':'BB101', 'person':'Party'},
-            {'date':'01-01-2002', 'branch':'Bangkok', 'roomid':'BB101', 'person':'Party'},
-        ]
+      fetch('http://localhost:3333/cleaningstaff2')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        console.log(data.countroom[0])
+        var table = document.getElementById('myTable')
+        var count=0;
 
-        buildTable(myArray)
+        var roomperem1 = Math.floor(parseInt(data.countroom[0])/parseInt(data.countem[0]))
+        var roomperem2 = Math.floor(parseInt(data.countroom[1])/parseInt(data.countem[1]))
+        var rem2 = Math.floor(parseInt(data.countroom[1])%parseInt(data.countem[1]))
+        var rem1 = Math.floor(parseInt(data.countroom[0])%parseInt(data.countem[0]))
 
-        function buildTable(data){
-            var table = document.getElementById('myTable')
-
-            for (var i = 0; i < data.length; i++){
-                var row = `<tr>
-                                <td>${data[i].date}</td>
-                                <td>${data[i].branch}</td>
-                                <td>${data[i].roomid}</td>
-                                <td>${data[i].person}</td>
-                                
-                          </tr>`
-                table.innerHTML += row
-            }
+        console.log(roomperem1)
+        for(let i=0;i<data.countem[0];i++){
+          for(let j=0;j<roomperem1;j++){
+            var row = "<tr> <td>"+data.day[0]+"</td> <td>"+data.month[0]+"</td> <td>"+data.year[0]+"</td> <td>"+data.branch[count]+"</td> <td>"+data.room[count]+"</td> <td>"+data.emf[i]+"</td>  <td>"+data.eml[i]+"</td> </tr>" ;
+            table.innerHTML += row;
+            count++;
+          }
         }
+
+        
+        for(let i=0;i<rem1;i++){
+          var row = "<tr> <td>"+data.day[0]+"</td> <td>"+data.month[0]+"</td> <td>"+data.year[0]+"</td> <td>"+data.branch[count]+"</td> <td>"+data.room[count]+"</td> <td>"+data.emf[i]+"</td>  <td>"+data.eml[i]+"</td> </tr>" ;
+          table.innerHTML += row;
+          count++;
+        }
+
+        for(let i=0+parseInt(data.countem[1]);i<data.countem[1]+parseInt(data.countem[1]);i++){
+          for(let j=0;j<roomperem2;j++){
+            var row = "<tr> <td>"+data.day[0]+"</td> <td>"+data.month[0]+"</td> <td>"+data.year[0]+"</td> <td>"+data.branch[count]+"</td> <td>"+data.room[count]+"</td> <td>"+data.emf[i]+"</td>  <td>"+data.eml[i]+"</td> </tr>" ;
+            table.innerHTML += row;
+            count++;
+          }
+        }
+
+        for(let i=0+parseInt(data.countem[1]);i<rem2+parseInt(data.countem[1]);i++){
+          var row = "<tr> <td>"+data.day[0]+"</td> <td>"+data.month[0]+"</td> <td>"+data.year[0]+"</td> <td>"+data.branch[count]+"</td> <td>"+data.room[count]+"</td> <td>"+data.emf[i]+"</td>  <td>"+data.eml[i]+"</td> </tr>" ;
+          table.innerHTML += row;
+          count++;
+        }       
+          
+
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+
     </script>
 </div>
 </dl>
