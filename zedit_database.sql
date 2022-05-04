@@ -52,7 +52,18 @@ INSERT INTO `view_user_promotion` (`user_and_promotion`, `promotion_id`, `userna
 
 
 /*5/3/2022
-
+/*Update out_of_date Promtion*/
+UPDATE `promotion` SET `out_of_date` = '2022-10-31 23:59:59' WHERE `promotion`.`promotion_id` = 'A111'
+UPDATE `promotion` SET `out_of_date` = '2022-10-31 23:59:59' WHERE `promotion`.`promotion_id` = 'A201'
+UPDATE `promotion` SET `out_of_date` = '2022-10-31 23:59:59' WHERE `promotion`.`promotion_id` = 'A500'
+UPDATE `promotion` SET `out_of_date` = '2022-10-31 23:59:59' WHERE `promotion`.`promotion_id` = 'A900'
+UPDATE `promotion` SET `out_of_date` = '2022-12-31 23:59:59' WHERE `promotion`.`promotion_id` = 'B001'
+UPDATE `promotion` SET `out_of_date` = '2022-12-31 23:59:59' WHERE `promotion`.`promotion_id` = 'B123'
+UPDATE `promotion` SET `out_of_date` = '2022-08-31 23:59:59' WHERE `promotion`.`promotion_id` = 'B333'
+UPDATE `promotion` SET `out_of_date` = '2022-09-30 23:59:59' WHERE `promotion`.`promotion_id` = 'D001'
+UPDATE `promotion` SET `out_of_date` = '2022-10-31 23:59:59' WHERE `promotion`.`promotion_id` = 'D123'
+UPDATE `promotion` SET `out_of_date` = '2022-11-30 23:59:59' WHERE `promotion`.`promotion_id` = 'D333'
+UPDATE `promotion` SET `out_of_date` = '2022-08-31 23:59:59' WHERE `promotion`.`promotion_id` = 'D567'
 /*Update Total of booking */
 UPDATE `booking` SET `total` = '4410' WHERE `booking`.`booking_id` = 'BR-0000001'
 UPDATE `booking` SET `total` = '2040' WHERE `booking`.`booking_id` = 'BR-0000002'
@@ -61,6 +72,18 @@ UPDATE `booking` SET `total` = '8330' WHERE `booking`.`booking_id` = 'BR-0000007
 UPDATE `booking` SET `total` = '3780' WHERE `booking`.`booking_id` = 'BR-0000009'
 UPDATE `booking` SET `total` = '4165' WHERE `booking`.`booking_id` = 'BR-0000010'
 
+/*Update Date room*/
+UPDATE `date_room` SET `check_in` = '2022-08-05 11:59:00', `check_out` = '2022-08-06 12:59:59' WHERE `date_room`.`date_and_room` = 'DAR0000000000003';
+UPDATE `date_room` SET `check_in` = '2022-08-05 05:40:55', `check_out` = '2022-08-06 09:00:00' WHERE `date_room`.`date_and_room` = 'DAR0000000000004';
+UPDATE `date_room` SET `check_in` = '2022-08-08 10:00:00', `check_out` = '2022-08-09 12:58:47' WHERE `date_room`.`date_and_room` = 'DAR0000000000005';
+UPDATE `date_room` SET `check_in` = '2022-08-12 07:45:00', `check_out` = '2022-08-14 13:58:57' WHERE `date_room`.`date_and_room` = 'DAR0000000000006';
+UPDATE `date_room` SET `check_in` = '2022-08-05 02:00:00', `check_out` = '2022-08-07 11:00:00' WHERE `date_room`.`date_and_room` = 'DAR0000000000007';
+UPDATE `date_room` SET `check_in` = '2022-08-14 00:01:00', `check_out` = '2022-08-16 13:58:00' WHERE `date_room`.`date_and_room` = 'DAR0000000000008';
+UPDATE `booking` SET `total` = '3780', `total_discount` = '420' WHERE `booking`.`booking_id` = 'BR-0000009';
+UPDATE `date_room` SET `check_in` = '2022-08-15 03:40:00', `check_out` = '2022-08-16 13:00:00' WHERE `date_room`.`date_and_room` = 'DAR0000000000009';
+UPDATE `date_room` SET `check_in` = '2022-08-15 03:40:00', `check_out` = '2022-08-16 13:00:00' WHERE `date_room`.`date_and_room` = 'DAR0000000000010'; UPDATE `date_room` SET `check_in` = '2022-08-15 03:40:00', `check_out` = '2022-08-16 13:00:00' WHERE `date_room`.`date_and_room` = 'DAR0000000000011';
+UPDATE `date_room` SET `check_in` = '2022-08-14 00:59:00', `check_out` = '2022-08-15 13:59:59' WHERE `date_room`.`date_and_room` = 'DAR0000000000012'
+/*BR-0000011- Dadadamian 4days*/
 UPDATE `promotion` SET `out_of_date` = '2022-12-31 23:59:59' WHERE `promotion`.`promotion_id` = 'B234'
 UPDATE `view_user_promotion` SET `promotion_id` = 'B123' WHERE `view_user_promotion`.`user_and_promotion` = 'UAP0000000000005'
 INSERT INTO `booking` (`booking_id`, `username`, `booking_time`, `total`, `total_discount`, `user_and_promotion`, `participant`) VALUES ('BR-0000011', 'Dadadamianw', '2022-09-01 01:01:01', '4760', '840', 'UAP0000000000005', '2')
@@ -68,3 +91,14 @@ INSERT INTO `date_room` (`date_and_room`, `check_in`, `check_out`, `room_id`, `b
 UPDATE `view_user_promotion` SET `status` = '0' WHERE `view_user_promotion`.`user_and_promotion` = 'UAP0000000000005'
 
 UPDATE `date_room` SET `check_in` = '2022-08-02 10:00:00', `check_out` = '2022-08-03 13:30:00' WHERE `date_room`.`date_and_room` = 'DAR0000000000001'; UPDATE `date_room` SET `check_in` = '2022-08-04 08:00:00', `check_out` = '2022-08-05 13:58:00' WHERE `date_room`.`date_and_room` = 'DAR0000000000002';
+INSERT INTO `booking_activity` (`booking_activity_id`, `date_and_room`, `participant`, `booked_at`, `user_and_promotion`, `total`, `total_discount`) VALUES ('BA0011', 'DAR0000000000013', '2', '2022-09-02 19:59:59', 'UAP0000000000003', '900', '100')
+INSERT INTO `view_date_activity` (`no_date_activity`, `check_in`, `check_out`, `activity_no`, `booking_activity_id`) VALUES ('VDR-000000000011', '2022-09-02 23:00:00', '2022-09-03 00:00:00', 'Spa01', 'BA0011')
+INSERT INTO `food_reserving` (`reserve_id`, `food_id`, `user_and_promotion`, `date_and_room`, `total`, `total_discount`, `quantity`) VALUES ('FR00000006', 'F01010', 'UAP0000000000105', 'DAR0000000000013', '240', '60', '2');
+UPDATE `view_user_promotion` SET `status` = '0' WHERE `view_user_promotion`.`user_and_promotion` = 'UAP0000000000105';
+
+/*BR-0000012- Sophie_tracer 3Night*/
+INSERT INTO `booking` (`booking_id`, `username`, `booking_time`, `total`, `total_discount`, `user_and_promotion`, `participant`) VALUES ('BR-0000012', 'Sophie_tracer', '2022-09-01 01:55:09', '11025', '3675', 'UAP0000000000406', '2');
+INSERT INTO `date_room` (`date_and_room`, `check_in`, `check_out`, `room_id`, `booking_id`, `add_bed`) VALUES ('DAR0000000000014', '2022-09-02 10:21:45', '2022-09-04 13:51:46', 'BB176', 'BR-0000012', '0');
+INSERT INTO `booking_activity` (`booking_activity_id`, `date_and_room`, `participant`, `booked_at`, `user_and_promotion`, `total`, `total_discount`) VALUES ('BA0012', 'DAR0000000000014', '2', '2022-09-02 11:51:59', 'UAP0000000000400', '475', '125');
+INSERT INTO `view_date_activity` (`no_date_activity`, `check_in`, `check_out`, `activity_no`, `booking_activity_id`) VALUES ('VDR-000000000012', '2022-09-02 13:00:00', '2022-09-03 15:00:00', 'Onsen01', 'BA0012');
+INSERT INTO `food_reserving` (`reserve_id`, `food_id`, `user_and_promotion`, `date_and_room`, `total`, `total_discount`, `quantity`) VALUES ('FR00000007', 'F01014', 'UAP0000000000414', 'DAR0000000000014', '236.3', '41.7', '2');
