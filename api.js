@@ -436,7 +436,7 @@ app.post('/inserted_food', jasonParser, (req, res) => {
  }
  */
  app.post('/cart_room_getbookingid', jasonParser, (req,res) => {
-    db.execute('SELECT b.booking_id,participant,total,total_discount,d.check_in,d.check_out,d.room_id,r.room_type, r.room_image, r.branch_no, br.branch_name FROM booking b, date_room d, room r, branch br WHERE b.username = ? AND ? < d.check_in AND b.booking_id = d.booking_id AND d.room_id = r.room_id AND r.branch_no = br.branch_no GROUP BY b.booking_id,d.room_id;',
+    db.execute('SELECT b.booking_id,b.user_and_promotion,participant,total,total_discount,d.check_in,d.check_out,d.room_id,r.room_type, r.room_image, r.branch_no, br.branch_name FROM booking b, date_room d, room r, branch br WHERE b.username = ? AND ? < d.check_in AND b.booking_id = d.booking_id AND d.room_id = r.room_id AND r.branch_no = br.branch_no GROUP BY b.booking_id,d.room_id;',
     [req.body.username,req.body.now],
     function(err, result1, fields) {
        if(err) console.log(err)
@@ -445,13 +445,29 @@ app.post('/inserted_food', jasonParser, (req, res) => {
        }
     });
 });
-app.post('', jasonParser, (req,res) => {
-    db.execute('DELETE FROM date_room d WHERE d.room_id = ? AND d.booking_id = ?',
-    [req.body.room_id, req.body.booking_id],
+app.post('/delete_booking', jasonParser, (req,res) => {
+    db.execute('DELETE FROM date_room WHERE booking_id = ?',
+    [req.body.booking_id],
     function(err, result1, fields){
         if(err) console.log(err)
         else {
-            db.execute('DELETE FROM booking b WHERE b.booking ')
+            db.execute('DELETE FROM booking WHERE booking_id = ? ',
+            [req.body.booking_id],
+            function(err, result2, fields){
+                if(err) console.log(err)
+                else {
+                    if(req.body.user_and_promotion != null){
+                        db.execute('UPDATE view_user_promotion SET status = 1 WHERE user_and_promotion = ?',
+                        [req.body.user_and_promotion],
+                        function(err, result3,fields){
+                            if(err) console.log(err)
+                            else {
+                                res.json({status: 'ok'})
+                            }
+                        })
+                    }
+                }
+            });
         }
     });
 });
