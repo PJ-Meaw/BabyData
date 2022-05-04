@@ -117,6 +117,120 @@ app.get('/analyzebooking', jasonParser, (req,res) => {
 })
 
 
+app.get('/analyzepromotion', jasonParser, (req,res) => {
+    db.query('SELECT count(ID) AS NUM FROM (SELECT v.user_and_promotion ,v.promotion_id AS ID FROM booking b , view_user_promotion v WHERE b.user_and_promotion!="NULL" AND b.user_and_promotion=v.user_and_promotion ORDER BY v.promotion_id)AS PROMO GROUP BY ID;',
+    function(err, results, fields) {
+        if(err){
+            console.log(err);
+        }
+        else{
+                var numbook=[]
+                for(let i =0; i< results.length; i++){
+                    numbook.push(results[i].NUM);                 
+                }
+
+                db.query('SELECT count(ID) AS NUM FROM (SELECT v.user_and_promotion ,v.promotion_id AS ID FROM booking_activity b , view_user_promotion v WHERE b.user_and_promotion!="NULL" AND b.user_and_promotion=v.user_and_promotion ORDER BY v.promotion_id)AS PROMO GROUP BY ID;',
+                function(err, results, fields) {
+                    if(err){
+                        console.log(err);
+                    }
+                    else{
+                            var numact=[]
+                            for(let i =0; i< results.length; i++){
+                                numact.push(results[i].NUM);                 
+                            }
+            
+                            db.query('SELECT count(ID) AS NUM FROM (SELECT v.user_and_promotion ,v.promotion_id AS ID FROM food_reserving b , view_user_promotion v WHERE b.user_and_promotion!="NULL" AND b.user_and_promotion=v.user_and_promotion ORDER BY v.promotion_id)AS PROMO GROUP BY ID;',
+                            function(err, results, fields) {
+                                if(err){
+                                    console.log(err);
+                                }
+                                else{
+                                        var numfood=[]
+                                        for(let i =0; i< results.length; i++){
+                                            numfood.push(results[i].NUM);                 
+                                        }
+                        
+                                        db.query('SELECT v.promotion_id AS ID , p.category,p.discount FROM booking b , view_user_promotion v ,promotion p WHERE b.user_and_promotion!="NULL" AND b.user_and_promotion=v.user_and_promotion AND p.promotion_id=v.promotion_id GROUP BY ID ORDER BY v.promotion_id;',
+                                        function(err, results, fields) {
+                                            if(err){
+                                                console.log(err);
+                                            }
+                                            else{
+                                                    var idbook=[]
+                                                    var catbook=[]
+                                                    var disbook=[]
+                                                    for(let i =0; i< results.length; i++){
+                                                        idbook.push(results[i].ID);                 
+                                                        catbook.push(results[i].category);                 
+                                                        disbook.push(results[i].discount);                 
+                                                    }
+
+                                                    db.query('SELECT v.promotion_id AS ID , p.category,p.discount FROM booking_activity b , view_user_promotion v ,promotion p WHERE b.user_and_promotion!="NULL" AND b.user_and_promotion=v.user_and_promotion AND p.promotion_id=v.promotion_id GROUP BY ID ORDER BY v.promotion_id;',
+                                                    function(err, results, fields) {
+                                                        if(err){
+                                                            console.log(err);
+                                                        }
+                                                        else{
+                                                                var idact=[]
+                                                                var catact=[]
+                                                                var disact=[]
+                                                                for(let i =0; i< results.length; i++){
+                                                                    idact.push(results[i].ID);                 
+                                                                    catact.push(results[i].category);                 
+                                                                    disact.push(results[i].discount);                 
+                                                                }
+                                                
+                                                                db.query('SELECT v.promotion_id AS ID , p.category,p.discount FROM food_reserving b , view_user_promotion v ,promotion p WHERE b.user_and_promotion!="NULL" AND b.user_and_promotion=v.user_and_promotion AND p.promotion_id=v.promotion_id GROUP BY ID ORDER BY v.promotion_id;',
+                                                                function(err, results, fields) {
+                                                                    if(err){
+                                                                        console.log(err);
+                                                                    }
+                                                                    else{
+                                                                            var idfood=[]
+                                                                            var catfood=[]
+                                                                            var disfood=[]
+                                                                            for(let i =0; i< results.length; i++){
+                                                                                idfood.push(results[i].ID);                 
+                                                                                catfood.push(results[i].category);                 
+                                                                                disfood.push(results[i].discount);                 
+                                                                            }
+                                                            
+                                                                            res.json({numbook,numact,numfood,idbook,catbook,disbook,idact,catact,disact,idfood,catfood,disfood})   
+                                                            
+                                                                        }
+                                                                        
+                                                                    
+                                                                });
+                                                
+                                                            }
+                                                            
+                                                        
+                                                    });
+                                                    
+                                    
+                                                }
+                                                
+                                            
+                                        });
+                        
+                                    }
+                                    
+                                
+                            });
+            
+                        }
+                        
+                    
+                });
+
+            }
+            
+        
+    });
+})
+
+
 
 app.get('/cleaningstaff2', jasonParser, (req,res) => {
     db.query('SELECT DAY,MONTH,YEAR,BRANCH,COUNT(ROOM_DATE_ID) AS COUNT_ROOM FROM (SELECT DAY,MONTH,YEAR,ROOM_DATE_ID,BRANCH FROM (SELECT EXTRACT(DAY FROM check_out) AS DAY, EXTRACT(MONTH FROM check_out) AS MONTH, EXTRACT(YEAR FROM check_out) AS YEAR,room_id AS ROOM_DATE_ID FROM date_room)AS DATER,(SELECT EXTRACT(DAY FROM NOW()) AS DATEDAY, EXTRACT(MONTH FROM NOW()) AS DATEMONTH, EXTRACT(YEAR FROM NOW()) AS DATEYEAR) AS DATEE, (SELECT c.county AS BRANCH,r.room_id AS ROOM_ROOM FROM room r, branch c WHERE r.branch_no=c.branch_no)AS BRANCHNAME WHERE DAY=DATEDAY AND MONTH=DATEMONTH AND YEAR=DATEYEAR AND ROOM_ROOM=ROOM_DATE_ID)AS ROM GROUP BY BRANCH;',

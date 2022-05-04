@@ -71,35 +71,44 @@
     </div>
     </div>
     <script>
-        var myArray = [
-            {'promotion':'Food20', 'discount':'20', 'category':'food', 'count':'35'},
-            {'promotion':'Food20', 'discount':'20', 'category':'food', 'count':'35'},
-            {'promotion':'Food20', 'discount':'20', 'category':'food', 'count':'35'},
-            
-            
-        ]
-        
-        buildTable(myArray)
-    
-    
-    
-        function buildTable(data){
-            var table = document.getElementById('myTable')
-    
-            for (var i = 0; i < data.length; i++){
-                var row = `<tr>
-                                <td>${data[i].promotion}</td>
-                                <td>${data[i].discount}</td>
-                                <td>${data[i].category}</td>
-                                <td>${data[i].count}</td>
-                                
-                          </tr>`
-                table.innerHTML += row
-    
-    
-            }
+        let text = localStorage.getItem('username');
+        const logindata = JSON.parse(text);
+        if(logindata.role != 'Owner'){
+          window.location = 'https://a7.cpe231.kmutt.in.th/Login.html';
         }
+
+        fetch('http://localhost:3333/analyzepromotion')
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+          var table = document.getElementById('myTable')
+  
+          for(let i=0;i<data.numbook.length;i++){
+            var row = "<tr> <td>"+data.idbook[i]+"</td> <td>"+data.catbook[i]+"</td> <td>"+data.disbook[i]+"</td> <td>"+data.numbook[i]+"</td> </tr>" ;
+            table.innerHTML += row;
+
+          }
+          for(let i=0;i<data.numact.length;i++){
+            var row = "<tr> <td>"+data.idact[i]+"</td> <td>"+data.catact[i]+"</td> <td>"+data.disact[i]+"</td> <td>"+data.numact[i]+"</td> </tr>" ;
+            table.innerHTML += row;
+
+          }
+          for(let i=0;i<data.numfood.length;i++){
+            var row = "<tr> <td>"+data.idfood[i]+"</td> <td>"+data.catfood[i]+"</td> <td>"+data.disfood[i]+"</td> <td>"+data.numfood[i]+"</td> </tr>" ;
+            table.innerHTML += row;
+
+          }
+            
+            
+
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
     
+
+        res.json({numbook,numact,numfood,idbook,catbook,disbook,idact,catact,disact,idfood,catfood,disfood})
+
     </script>
 </div>
 </dl>
