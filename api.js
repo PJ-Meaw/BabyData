@@ -544,6 +544,31 @@ app.post('/inserted_food', jasonParser, (req, res) => {
         }
     });
 })
+ /* get data = {
+     username: u001
+     now: date / timestamp
+ }
+ */
+ app.post('/cart_room_getbookingid', jasonParser, (req,res) => {
+    db.execute('SELECT b.booking_id,participant,total,total_discount,d.check_in,d.check_out,d.room_id,r.room_type, r.room_image, r.branch_no, br.branch_name FROM booking b, date_room d, room r, branch br WHERE b.username = ? AND ? < d.check_in AND b.booking_id = d.booking_id AND d.room_id = r.room_id AND r.branch_no = br.branch_no GROUP BY b.booking_id,d.room_id;',
+    [req.body.username,req.body.now],
+    function(err, result1, fields) {
+       if(err) console.log(err)
+       else {
+           res.json({result1})
+       }
+    });
+});
+app.post('', jasonParser, (req,res) => {
+    db.execute('DELETE FROM date_room d WHERE d.room_id = ? AND d.booking_id = ?',
+    [req.body.room_id, req.body.booking_id],
+    function(err, result1, fields){
+        if(err) console.log(err)
+        else {
+            db.execute('DELETE FROM booking b WHERE b.booking ')
+        }
+    });
+});
 
 app.get('/get_client_history',jasonParser, (req,res) => {
     now = new Date()
