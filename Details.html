@@ -347,7 +347,7 @@
         var dayin = document.getElementById("dayin");
         var din = dayin.options[dayin.selectedIndex].text
         var check_in = new Date(
-          Number(yin)-1, 
+          Number(yin), 
           min,
           Number(din), 
           12+7,// hours
@@ -365,7 +365,7 @@
         var dayout = document.getElementById("dayout");
         var dout = dayout.options[dayout.selectedIndex].text
         var check_out = new Date(
-          Number(yout)-1,
+          Number(yout),
           mout,
           Number(dout),
           14+7, // hours

@@ -590,7 +590,18 @@ app.post('/inserted_food', jasonParser, (req, res) => {
      now: date / timestamp
  }
  */
- app.post('/cart_room_getbookingid', jasonParser, (req,res) => {
+app.post('/cart_food_getreserveid', jasonParser, (req,res) => {
+    db.execute('SELECT fr.reserve_id, fr.quantity, fr.total, fr.total_discount, fr.user_and_promotion, d.room_id, f.food_name, f.food_image FROM food_reserving fr, date_room d, food f, booking b WHERE fr.date_and_room = d.date_and_room AND fr.food_id = f.food_id AND b.username = ? AND d.booking_id = b.booking_id AND d.check_in < ? AND d.check_out > ? GROUP BY fr.reserve_id;',
+    [req.body.username,req.body.now,req.body.now],
+    function(err, result1, fields) {
+       if(err) console.log(err)
+       else {
+           res.json({result1})
+       }
+    });
+});
+
+app.post('/cart_room_getbookingid', jasonParser, (req,res) => {
     db.execute('SELECT b.booking_id,b.user_and_promotion,participant,total,total_discount,d.check_in,d.check_out,d.room_id,r.room_type, r.room_image, r.branch_no, br.branch_name FROM booking b, date_room d, room r, branch br WHERE b.username = ? AND ? < d.check_in AND b.booking_id = d.booking_id AND d.room_id = r.room_id AND r.branch_no = br.branch_no GROUP BY b.booking_id,d.room_id;',
     [req.body.username,req.body.now],
     function(err, result1, fields) {
@@ -600,6 +611,7 @@ app.post('/inserted_food', jasonParser, (req, res) => {
        }
     });
 });
+
 app.post('/delete_booking', jasonParser, (req,res) => {
     db.execute('DELETE FROM date_room WHERE booking_id = ?',
     [req.body.booking_id],
@@ -623,6 +635,26 @@ app.post('/delete_booking', jasonParser, (req,res) => {
                     }
                 }
             });
+        }
+    });
+});
+
+app.post('/delete_food', jasonParser, (req,res) => {
+    db.execute('DELETE FROM food_reserving WHERE reserve_id = ? ',
+    [req.body.reserve_id],
+    function(err, result2, fields){
+        if(err) console.log(err)
+        else {
+            if(req.body.user_and_promotion != null){
+                db.execute('UPDATE view_user_promotion SET status = 1 WHERE user_and_promotion = ?',
+                [req.body.user_and_promotion],
+                function(err, result3,fields){
+                    if(err) console.log(err)
+                    else {
+                        res.json({status: 'ok'})
+                    }
+                });
+            }
         }
     });
 });

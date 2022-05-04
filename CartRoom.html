@@ -160,7 +160,7 @@
                     username: logindata.username,
                     now: now
                   }
-                  fetch('http://localhost:3333/cart_room_getbookingid', {
+                  fetch('https://a7.cpe231.kmutt.in.th/api/cart_room_getbookingid', {
                       method: 'POST', // or 'PUT'
                       headers: {
                         'Content-Type': 'application/json',
@@ -201,7 +201,7 @@
                         user_and_promotion: user_and_promotion
                       }
                       //https://a7.cpe231.kmutt.in.th/api/delete_booking
-                      fetch('http://localhost:3333/delete_booking', {
+                      fetch('https://a7.cpe231.kmutt.in.th/api/delete_booking', {
                         method: 'POST', // or 'PUT'
                         headers: {
                           'Content-Type': 'application/json',
