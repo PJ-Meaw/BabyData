@@ -65,7 +65,7 @@
           </span>
       
           <span class="sm:block ml-3">
-            <button onclick=" window.location = 'https\:/\/a7.cpe231.kmutt.in.th/Login.html';" type="button" class="inline-flex items-center px-8 py-2 border-gray-300 rounded-md shadow-sm text-sm font-medium text-black bg-gray-100 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <button onclick="logout()" type="button" class="inline-flex items-center px-8 py-2 border-gray-300 rounded-md shadow-sm text-sm font-medium text-black bg-gray-100 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               <!-- Heroicon name: solid/link -->
               <svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd" />
@@ -105,47 +105,46 @@
             <form action="#" method="POST">
               <div class="shadow overflow-hidden sm:rounded-md">
                 <div class="px-4 py-5 bg-white sm:p-6">
+                  <a id="username" class="sm:px-10 text-sm font-medium text-gray-700"></a>
                   <div class="grid grid-cols-1 gap-1 mt-6">
-                      <a class="sm:px-10 text-sm font-medium text-gray-700">First name: Baby</a>
+                    
+                      <a id="first_name" class="sm:px-10 text-sm font-medium text-gray-700">First name: Baby</a>
 
                     <div class="sm:px-10">
                       <label for="first-name" class="block text-sm font-medium text-gray-700">First name</label>
                       <input type="text" name="first-name" id="first-name" autocomplete="given-name" class="mt-1 focus:ring-cyan-600 focus:border-cyan-600 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                     </div>
       
-                    <a class="sm:px-10 text-sm font-medium text-gray-700">Last name: Data</a>
+                    <a id="last_name" class="sm:px-10 text-sm font-medium text-gray-700">Last name: Data</a>
                     
                     <div class="sm:px-10">
                       <label for="last-name" class="block text-sm font-medium text-gray-700">Last name</label>
                       <input type="text" name="last-name" id="last-name" autocomplete="family-name" class="mt-1 focus:ring-cyan-600 focus:border-cyan-600 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                     </div>
 
-                    <a class="sm:px-10 text-sm font-medium text-gray-700">Email address: Baby@mail.com</a>
+                    <a id="email" class="sm:px-10 text-sm font-medium text-gray-700">Email address: Baby@mail.com</a>
                     <div class="sm:px-10 col-span-6 sm:col-span-1">
                       <label for="email-address" class="block text-sm font-medium text-gray-700">Email address</label>
                       <input type="text" name="email-address" id="email-address" autocomplete="email" class="mt-1 focus:ring-cyan-600 focus:border-cyan-600 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                     </div>
 
-                    <a class="sm:px-10 text-sm font-medium text-gray-700">Phone: 093-xxx-xxxx</a>
+                    <a id="phone" class="sm:px-10 text-sm font-medium text-gray-700">Phone: 093-xxx-xxxx</a>
                     <div class="sm:px-10 ">
                         <label for="last-name" class="block text-sm font-medium text-gray-700">Phone</label>
-                        <input type="text" name="last-name" id="last-name" autocomplete="family-name" class="mt-1 focus:ring-cyan-600 focus:border-cyan-600 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                        <input type="text" name="last-name" id="phonechange" autocomplete="family-name" class="mt-1 focus:ring-cyan-600 focus:border-cyan-600 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                     </div>
-                    <a class="sm:px-10 text-sm font-medium text-gray-700">Sex: Female</a>
+                    <a id="sex" class="sm:px-10 text-sm font-medium text-gray-700">Sex: Female</a>
                     <div class="sm:px-10">
                         <a class="block text-sm font-medium text-gray-700">Sex</a>
-                        <select id="yearin" name="yearin" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
-                          <option>select</option>
-                          <option>Female</option>
-                          <option>Male</option>
-                          <option>other</option>
+                        <select id="sexchange" name="yearin" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
+                          <option>F</option>
+                          <option>M</option>
                         </select><br>
                     </div>
       
                       <div class="sm:px-10 col-span-6 sm:col-span-2">
-                        <a class="block text-sm font-medium text-gray-700">Day</a>
-                        <select id="yearin" name="yearin" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
-                            <option>select</option>
+                        <a class="block text-sm font-medium text-gray-700">Date of birth</a><a class="block text-sm font-medium text-gray-700">Day</a>
+                        <select id="daychange" name="yearin" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
                             <option>01</option>
                             <option>03</option>
                             <option>04</option>
@@ -181,27 +180,25 @@
       
                       <div class="sm:px-10 col-span-6 sm:col-span-2">
                         <a class="block text-sm font-medium text-gray-700">Month</a>
-                        <select id="yearin" name="yearin" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
-                            <option>select</option>  
-                            <option>select</option>
-                            <option>January</option>
-                            <option>February</option>
-                            <option>March</option>
-                            <option>April</option>
-                            <option>May</option>
-                            <option>June</option>
-                            <option>July</option>
-                            <option>August</option>
-                            <option>September</option>
-                            <option>October</option>
-                            <option>November</option>
-                            <option>December</option>
+                        <select id="monthchange" name="yearin" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
+                          <option value="12">January</option>
+                          <option value="1">February</option>
+                          <option value="2">March</option>
+                          <option value="3">April</option>
+                          <option value="4">May</option>
+                          <option value="5">June</option>
+                          <option value="6">July</option>
+                          <option value="7">August</option>
+                          <option value="8">September</option>
+                          <option value="9">October</option>
+                          <option value="10">November</option>
+                          <option value="11">December</option>
                         </select><br>
                       </div>
       
                       <div class="sm:px-10 col-span-6 sm:col-span-2">
                         <a class="block text-sm font-medium text-gray-700">Year</a>
-                        <select id="yearin" name="yearin" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
+                        <select id="yearchange" name="yearin" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
                             <option>2022</option>
                             <option>2021</option>
                             <option>2020</option>
@@ -277,11 +274,8 @@
                         </select><br>
                       </div>
 
-                    <a class="sm:px-10 text-sm font-medium text-gray-700">Username: BabyData</a>
-                    <div class="sm:px-10 col-span-6 sm:col-span-1">
-                        <label for="first-name" class="block text-sm font-medium text-gray-700">Username</label>
-                        <input type="text" name="first-name" id="first-name" autocomplete="given-name" class="mt-1 focus:ring-cyan-600 focus:border-cyan-600 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                      </div>
+                    
+                   
         
                   </div>
                 </div>
@@ -292,7 +286,7 @@
                   rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 
                   focus:ring-cyan-600">Change Password</button>
  
-                  <button type="submit" class="inline-flex py-2 px-4 border border-transparent shadow-sm text-sm font-medium 
+                  <button onclick="changeuser()" type="button" class="inline-flex py-2 px-4 border border-transparent shadow-sm text-sm font-medium 
                   rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 
                   focus:ring-cyan-600">Save</button>
                 </div>
@@ -303,6 +297,94 @@
         </div>
       </div>
 <script>
+  const text = localStorage.getItem('username')
+  const logindata = JSON.parse(text);
+  if(logindata.status === 'error'){
+    window.location = 'https://a7.cpe231.kmutt.in.th/Login.html';
+  }
+  const for_query_promotion = {username: logindata.username}
+    fetch('http://localhost:3333/account', {
+      method: 'POST', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(for_query_promotion), // send username of users to find promotion_id
+    })
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById("username").textContent="Username : "+data.username
+      document.getElementById("first_name").textContent="Firstname : "+data.firstname
+      document.getElementById("last_name").textContent="Lastname : "+data.lastname
+      document.getElementById("email").textContent="Email : "+data.email
+      document.getElementById("phone").textContent="Phone : "+data.phone
+      document.getElementById("sex").textContent="Sex : "+data.sex
+ 
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+    
+    function changeuser()
+    {
+        var fn=document.getElementById("first-name").value
+        var ln=document.getElementById("last-name").value
+        var ea=document.getElementById("email-address").value
+        var pc=document.getElementById("phonechange").value
+        var sc=document.getElementById("sexchange").value
+        var dc=document.getElementById("daychange").value
+        var mc=document.getElementById("monthchange").value
+        var yc=document.getElementById("yearchange").value
+        const d = new Date(yc-1, mc ,dc);
+        const visitDate = new Date (d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+
+        d.setHours(0, 0, 0, 0);
+        function padTo2Digits(num) {
+            return num.toString().padStart(2, '0');
+        }
+        function formatDate(d) {
+            return [
+              d.getFullYear(),
+              padTo2Digits(d.getMonth() + 1),
+              padTo2Digits(d.getDate()),
+            ].join('-');
+        }
+
+        console.log(formatDate(d));
+
+        console.log(fn)
+        console.log(ln)
+        console.log(ea)
+        console.log(pc)
+        console.log(sc)
+        console.log(d)
+        const for_query_change={firstname:fn,lastname:ln,email:ea,phone:pc,sex:sc,dateofbirth:formatDate(d),username:logindata.username}
+        fetch('http://localhost:3333/account_change', {
+          method: 'POST', // or 'PUT'
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(for_query_change), // send username of users to find promotion_id
+        })
+        .then(response => response.json())
+        .then(data => {
+          alert("success");
+          document.location.reload(true);
+     
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+
+    }
+
+
+
+  function logout(){
+    localStorage.clear();
+    window.location = 'https\:/\/a7.cpe231.kmutt.in.th/Login.html';
+  }
+
 function selectCart(){
   var cart = document.getElementById("Cart").value;
   if(cart==1){
@@ -312,7 +394,7 @@ function selectCart(){
   }else if(cart==3){
     window.location = 'https\:/\/a7.cpe231.kmutt.in.th/CartFood.html';
   }
-
+  
 }
 
 
