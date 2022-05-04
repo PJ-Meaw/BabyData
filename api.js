@@ -402,6 +402,33 @@ app.post('/have_food', jasonParser, (req, res) => {
         
     })
 })
+
+app.post('/account', jasonParser, (req, res) => {
+    db.execute('SELECT EXTRACT(DAY FROM date_of_birth)AS DAY,EXTRACT(MONTH FROM date_of_birth)AS MONTH,EXTRACT(YEAR FROM date_of_birth)AS YEAR,username,first_name,last_name,email,phone,sex FROM user WHERE username = ? ',
+    [req.body.username],
+    function(err , results, fields){
+        if(err){
+            res.json({status: 'error', message: err});
+            return           
+        }
+        else{
+            var day=[]; day.push(results[0].DAY);
+            var month=[]; month.push(results[0].MONTH);
+            var year=[]; year.push(results[0].YEAR);
+            var username=[]; username.push(results[0].username);
+            var firstname=[]; firstname.push(results[0].first_name);
+            var lastname=[]; lastname.push(results[0].last_name);
+            var email=[]; email.push(results[0].email);
+            var phone=[]; phone.push(results[0].phone);
+            var sex=[]; sex.push(results[0].sex);
+            res.json({day,month,year,username,firstname,lastname,email,phone,sex});
+            
+        }
+
+    }
+    )
+});
+
 app.post('/get_promotion', jasonParser, (req, res) => {
     db.execute('SELECT promotion_id,user_and_promotion FROM view_user_promotion WHERE username = ? AND status = 1',
     [req.body.username],
@@ -489,6 +516,20 @@ app.post('/show_room', jasonParser, (req, res) => {
     )
 })
 
+app.post('/account_change', jasonParser, (req, res) => {
+    db.execute('UPDATE user SET first_name=?,last_name=?,email=?,phone=?,sex=?,date_of_birth=? WHERE username=?',
+    [req.body.firstname, req.body.lastname, req.body.email,req.body.phone,req.body.sex,req.body.dateofbirth,req.body.username],
+    function(err , results, fields){
+        if(err){
+            res.json({status: 'error', message: err});
+            return
+        }
+        else{
+            res.json({status:'ok'});
+        }
+    }
+    )
+})
 
 app.post('/inserted_food', jasonParser, (req, res) => {
     db.query('SELECT reserve_id FROM food_reserving',
