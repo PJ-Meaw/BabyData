@@ -363,6 +363,14 @@
   </div>
 </div>
 </div>
-    <script></script>
+    <script>
+      const text = localStorage.getItem('username')
+      const logindata = JSON.parse(text);
+      if(logindata.status === 'error'){
+        window.location = 'https://a7.cpe231.kmutt.in.th/Login.html';
+      }
+      document.getElementById("username").textContent = logindata.username
+      console.log(logindata)
+    </script>
     </body>
 </html>
