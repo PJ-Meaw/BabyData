@@ -445,6 +445,16 @@ app.post('/inserted_food', jasonParser, (req, res) => {
        }
     });
 });
+app.post('', jasonParser, (req,res) => {
+    db.execute('DELETE FROM date_room d WHERE d.room_id = ? AND d.booking_id = ?',
+    [req.body.room_id, req.body.booking_id],
+    function(err, result1, fields){
+        if(err) console.log(err)
+        else {
+            db.execute('DELETE FROM booking b WHERE b.booking ')
+        }
+    });
+});
 
 app.get('/get_client_history',jasonParser, (req,res) => {
     now = new Date()
