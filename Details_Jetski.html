@@ -88,7 +88,7 @@
 
                     <div class="col-span-6 sm:col-span-1">
                         <label for="Participant" class="block text-sm font-medium text-gray-700">Participant</label>
-                        <input oninput="display()" type="text" name="Participant" id="Participant" autocomplete="given-name" class="mt-1 focus:ring-cyan-600 focus:border-cyan-600 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                        <input oninput="Newdisplay()" type="text" name="Participant" id="Participant" autocomplete="given-name" class="mt-1 focus:ring-cyan-600 focus:border-cyan-600 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                       </div>
 
                     <div class="col-span-6 sm:col-span-1">
@@ -105,7 +105,7 @@
                   <div class="grid grid-cols-3 gap-3">
                     <div class="col-span-6 sm:col-span-1">
                         <label for="Promotion" class="block text-sm font-medium text-gray-700">Promotion</label>
-                        <select id="Promotion" name="Promotion" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
+                        <select id="Promotion" onchange = "Newdisplay()" name="Promotion" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
                           <option>Select</option>
                           <option>Promotion1</option>
                           <option>Promotion2</option>
@@ -120,9 +120,9 @@
                 </div>
                 <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
                   <button onclick="window.location = 'http\:/\/127.0.0.1:5500/babydata/Activity.html';" type="button" class="inline-flex justify-center py-2 px-7 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-400 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    <a>Cancle</a></button>
+                    <a>Cancel</a></button>
 
-                  <button  type="button" class="inline-flex justify-center py-2 px-10 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  <button  type="button" id="No_activity" value ="jetski" class="inline-flex justify-center py-2 px-10 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     <a>Book</a></button>
                 </div>
               </div>
@@ -137,10 +137,141 @@
         </div>
       </div>
 
-      <script>function display(){
-          var Act = parseInt(1500)
-          var num =document.getElementById("Participant").value
-          
-            document.getElementById("totalresult").innerHTML ="Total : "+ num*Act }</script>
+      <script>
+         //-----------------------about UI---------------------//
+         
+         var Array_Promotion_discount = {
+            promotion_id : [],
+            discount : []
+         }
+
+         function Newdisplay(){
+            var Act = parseInt(1500)
+            var num =document.getElementById("Participant").value
+            var temp = document.getElementById('Promotion').value
+            var select_discount
+
+            //console.log(Array_Promotion_discount.discount[0])
+            console.log(temp)
+            if(temp == "null"){
+               document.getElementById("totalresult").innerHTML ="Total : "+ num*Act
+            }else{
+               for(let i=0; i< Array_Promotion_discount.promotion_id.length;i++){
+                  if(Array_Promotion_discount.promotion_id[i] == temp)
+                     select_discount = Array_Promotion_discount.discount[i] 
+               }
+               console.log(select_discount)
+               
+               document.getElementById("totalresult").innerHTML ="Total : "+ num*Act* (100-select_discount)/100
+            }
+         }
+         // -------------------------------------------------- //   
+         let text = localStorage.getItem('username'); //get value for using username
+         const logindata = JSON.parse(text);
+         //{username: value , password: value}
+         
+
+         fetch('http://localhost:3333/get_actvity', {
+            method: 'POST', // or 'PUT'
+            headers: {
+               'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(logindata),
+            })
+            .then(response => response.json())
+            .then(data => {
+               if (data.status === 'success') {
+                  
+                  var options_room = ''
+                  options_room = '<option value="'+null+'">Not Select Room</option>';
+                  for (let i = 0; i < data.result_room_id.length; i++) {
+                     options_room += '<option value="' + data.result_room_id[i].room_id + '">' + data.result_room_id[i].room_id + '</option>';
+                  }
+                  console.log(data.result_room_id[0].room_id)
+                  document.getElementById("RoomID").innerHTML = options_room;
+
+                  var options_promotion = ''
+                  options_promotion = '<option value="'+null+'">Not use promotion</option>';
+                  for (let i = 0; i < data.result_promotionId_discount.length; i++) {
+                     options_promotion += '<option value="' + data.result_promotionId_discount[i].promotion_id + '">' + "Discount " + data.result_promotionId_discount[i].discount + " %"+ '</option>';
+                     Array_Promotion_discount.promotion_id.push(data.result_promotionId_discount[i].promotion_id)
+                     Array_Promotion_discount.discount.push( data.result_promotionId_discount[i].discount)
+                  }
+                  console.log(Array_Promotion_discount)
+                  document.getElementById("Promotion").innerHTML = options_promotion;
+                  
+
+               
+               }
+               else {
+                  console.log(data.message)
+                  alert('Failed!! ')
+               }
+            })
+            .catch((error) => {
+                  console.error();
+            });
+            
+
+
+         //---- -----------------Fetch Post ----------------//
+         
+
+         const book = document.getElementById("book");
+         book.addEventListener('submit', (event) => {
+
+            event.preventDefault(); // protect refresh / reload 
+            // const data = {}
+            // new FormData(login).forEach((value, key) => data[key] = value)
+            
+            var data_participant = document.getElementById("Participant").value
+            var data_total = parseInt(1500) * data_participant
+            var data_user_and_promotion = document.getElementById("Promotion").value
+            var data_check_in = document.getElementById("CheckIn").value
+            var data_check_out = document.getElementById("CheckOut").value
+            var data_name_activity = document.getElementById("No_activity").value
+
+            console.log(logindata.username)
+            console.log(data_total)
+            console.log(data_participant)
+            console.log(data_user_and_promotion)
+            console.log(data_check_in)
+            console.log(data_check_out)
+            console.log(data_name_activity)
+
+            let NewJson = {
+               username : logindata.username,
+               total : data_total,
+               participant : data_participant,
+               promotion_id : data_user_and_promotion, 
+               check_in : data_check_in,
+               check_out : data_check_out,
+               name_activity : data_name_activity
+            }
+
+            fetch('http://localhost:3333/book_activity', {
+            method: 'POST', // or 'PUT'
+            headers: {
+               'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(NewJson),
+            })
+            .then(response => response.json())
+            .then(data => {
+               if (data.status === 'success') {
+                  console.log(data.message)
+                 alert('booking activity success!!')
+               }
+               else {
+                  console.log(data.message)
+                  alert('Failed!! ')
+               }
+            })
+            .catch((error) => {
+                  console.error();
+            });
+         })
+            
+         </script>
     </body>
 </html>
