@@ -566,20 +566,24 @@ app.post('/password', jasonParser, (req, res) => {
 
 
 app.post('/inserted_food', jasonParser, (req, res) => {
-    db.query('SELECT reserve_id FROM food_reserving',
+    db.query('SELECT reserve_id FROM food_reserving ORDER BY reserve_id ASC',
     function(err, results, fields) {
         if(err){
             console.log(err);
         }
         else{
-            var fr_length = results.length+1;
+            var fr_length = results.length;
             var user_and_promotion;
             // generate reserve_id
+            let tempgen = results[fr_length-1].reserve_id
+            const myArray = tempgen.split("R")
+            var numgen = Number(myArray[1]) + 1
+
             var Genreserve_id = "FR"
-            for(let i=0; i< 8-fr_length.toString().length ;i++){
-                Genreserve_id += "0";
+            for(let i = 0 ; i < 8-numgen.toString().length ; i++){
+                Genreserve_id += "0"
             }
-            var reserve_id = Genreserve_id + fr_length.toString()
+            var reserve_id = Genreserve_id + numgen.toString()
             if(req.body.user_and_promotion == null){
                 db.execute('INSERT INTO food_reserving VALUES (?, ?, ?, ?, ?, ?, ?)',
                 [reserve_id, req.body.food_id, null, req.body.date_and_room, req.body.total, req.body.total_discount, req.body.quantity],
@@ -738,34 +742,41 @@ app.get('/get_client_history',jasonParser, (req,res) => {
 
 app.post('/insert_book', jasonParser, (req, res) => {
     db.query(
-        'SELECT booking_id FROM booking',
+        'SELECT booking_id FROM booking ORDER BY booking_id ASC',
         function(err, results, fields) {
             if(err){
                 console.log(err)
             }
             else{
-                var booking_length = results.length +1;
+                var booking_length = results.length;
                 db.query(
-                    'SELECT date_and_room FROM date_room',
+                    'SELECT date_and_room FROM date_room ORDER BY date_and_room ASC',
                     function(err2, results2, fields) {
                         if(err2){
                             console.log(err2)
                         }
                         else{
-                            var date_and_room_length = results2.length +1;
-                            // generate booking_id
+                            var date_and_room_length = results2.length;
+                            let tempgen = results[booking_length-1].booking_id
+                            const myArray = tempgen.split("-")
+                            var numgen = Number(myArray[1]) + 1
                             var GenBooking_id = "BR-"
-                            for(let i=0; i< 7-booking_length.toString().length ;i++){
-                                GenBooking_id += "0";
+                            for(let i = 0 ; i < 7-numgen.toString().length ; i++){
+                                GenBooking_id += "0"
                             }
-                            var Booking_id = GenBooking_id + booking_length.toString()
+                            var Booking_id = GenBooking_id + numgen.toString()
+                            console.log(results)
+                            console.log(Booking_id)
 
                             // generate date_and_room
+                            let tempgen2 = results2[date_and_room_length-1].date_and_room
+                            const myArray2 = tempgen2.split("R")
+                            var numgen2 = Number(myArray2[1]) + 1
                             var Gendateroom_id = "DAR"
-                            for(let i=0; i< 13-date_and_room_length.toString().length ;i++){
-                                Gendateroom_id += "0";
+                            for(let i = 0 ; i < 13-numgen2.toString().length ; i++){
+                                Gendateroom_id += "0"
                             }
-                            var date_and_room = Gendateroom_id + date_and_room_length.toString()
+                            var date_and_room = Gendateroom_id + numgen2.toString()
                             if(req.body.user_and_promotion != null) { // if user use promotion
                                 db.execute('INSERT INTO booking VALUES (?, ?, ?, ?, ?, ?, ?)',
                                 [Booking_id, req.body.username, req.body.booking_time, req.body.total, req.body.total_discount, req.body.user_and_promotion, req.body.participant],
