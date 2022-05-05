@@ -531,6 +531,40 @@ app.post('/account_change', jasonParser, (req, res) => {
     )
 })
 
+
+app.post('/change_password', jasonParser, (req, res) => {
+    db.execute('UPDATE user SET password=? WHERE username=?',
+    [req.body.newpass,req.body.username],
+    function(err , results, fields){
+        if(err){
+            res.json({status: 'error', message: err});
+            return
+        }
+        else{
+            res.json({status:'ok'});
+        }
+    }
+    )
+})
+
+app.post('/password', jasonParser, (req, res) => {
+    db.execute('SELECT username,password FROM user WHERE username=?;',
+    [req.body.username],
+    function(err , results, fields){
+        if(err){
+            res.json({status: 'error', message: err});
+            return
+        }
+        else{
+            var password=[]
+            password.push(results[0].password);
+            res.json({password});
+        }
+    }
+    )
+})
+
+
 app.post('/inserted_food', jasonParser, (req, res) => {
     db.query('SELECT reserve_id FROM food_reserving',
     function(err, results, fields) {
