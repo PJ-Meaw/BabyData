@@ -564,6 +564,39 @@ app.post('/password', jasonParser, (req, res) => {
     )
 })
 
+app.post('/check_register', jasonParser, (req, res) => {
+    db.execute('SELECT COUNT(username) AS NUM FROM(SELECT username FROM user WHERE username=?) AS US;',
+    [req.body.username],
+    function(err , results, fields){
+        if(err){
+            res.json({status: 'error', message: err});
+            return
+        }
+        else{
+            var num=[]
+            num.push(results[0].NUM);
+            res.json({num});
+        }
+    }
+    )
+})
+
+
+app.post('/register', jasonParser, (req, res) => {
+    db.execute('INSERT INTO user(username,password,first_name,last_name,date_of_birth,sex,email,phone,role) VALUES(?,?,?,?,?,?,?,?,"User");',
+    [req.body.username,req.body.password,req.body.firstname,req.body.lastname,req.body.dateofbirth,req.body.sex,req.body.email,req.body.phone],
+    function(err , results, fields){
+        if(err){
+            res.json({status: 'error', message: err});
+            return
+        }
+        else{
+            res.json({status:'ok'});
+        }
+    }
+    )
+})
+
 
 app.post('/inserted_food', jasonParser, (req, res) => {
     db.query('SELECT reserve_id FROM food_reserving ORDER BY reserve_id ASC',
