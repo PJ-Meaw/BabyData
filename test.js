@@ -68,3 +68,31 @@ else console.log("false")
 now = new Date()
 now = now.toString();
 console.log(now)
+/*
+const date1 = new Date();
+date1.setHours(0, 0, 0, 0);
+function padTo2Digits(num) {
+    return num.toString().padStart(2, '0');
+}
+function formatDate(date1) {
+    return [
+      date1.getFullYear(),
+      padTo2Digits(date1.getMonth() + 1),
+      padTo2Digits(date1.getDate()),
+    ].join('-');
+}
+console.log(formatDate(date1));
+*/
+let tempgen2 = "DAR0000000000011"
+const myArray2 = tempgen2.split("R")
+var numgen2 = Number(myArray2[1]) + 1
+console.log(myArray2[1])
+console.log(numgen2)
+var Gendateroom_id = "DAR"
+for(let i = 0 ; i < 13-numgen2.toString().length ; i++){
+    Gendateroom_id += "0"
+}
+var date_and_room = Gendateroom_id + numgen2.toString()
+console.log(date_and_room)
+
+
