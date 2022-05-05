@@ -145,3 +145,6 @@ UPDATE `view_user_promotion` SET `status` = '0' WHERE `view_user_promotion`.`use
 INSERT INTO `view_date_activity` (`no_date_activity`, `check_in`, `check_out`, `activity_no`, `booking_activity_id`) VALUES ('VDR-000000000013', '2022-05-06 18:00:00', '2022-05-06 20:00:00', 'Spa01', 'BA0013');
 INSERT INTO `booking_activity` (`booking_activity_id`, `date_and_room`, `participant`, `booked_at`, `user_and_promotion`, `total`, `total_discount`) VALUES ('BA0014', 'DAR0000000000016', '1', '2022-05-05 17:35:05', 'UAP0000000000136', '480', '120');
 INSERT INTO `view_date_activity` (`no_date_activity`, `check_in`, `check_out`, `activity_no`, `booking_activity_id`) VALUES ('VDR-000000000014', '2022-05-05 18:00:00', '2022-05-05 18:00:00', 'Onsen02', 'BA0014');
+
+UPDATE `booking` SET `user_and_promotion` = 'UAP0000000000136' WHERE `booking`.`booking_id` = 'BR-0000016'
+UPDATE `booking_activity` SET `user_and_promotion` = 'UAP0000000000132' WHERE `booking_activity`.`booking_activity_id` = 'BA0014'
