@@ -114,7 +114,7 @@
     
           // when users don't have promotion
           var promotion = '' // innerHTML must be var variable only
-          promotion = '<option value="'+null+'">Not use promotion</option>';
+          promotion = '<option value='+null+'>Not use promotion</option>';
           // when users have promotion
           if(data.finalresult.promotion_id.length != 0) {
             for(let i = 0; i<data.finalresult.promotion_id.length; i++){
@@ -238,7 +238,7 @@
           var pk_view_user;
           // check are user use promotion
     
-          if(promotion_id != null){ // if use
+          if(promotion_id != 'null'){ // if use
             var findpromotion_id_use = user_and_promotion_pk.pro_id
             var index_pk_view_user = findpromotion_id_use.indexOf(promotion_id)
             pk_view_user = user_and_promotion_pk.user_and_promotion[index_pk_view_user]
