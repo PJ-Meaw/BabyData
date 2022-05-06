@@ -849,17 +849,29 @@ app.post('/insert_book', jasonParser, (req, res) => {
                                 }); 
                             }
                             else { // if not use promotion
-                                db.execute('INSERT INTO booking VALUES (?, ?, ?, ?, ?, ?, ?)',
+                                db.execute('INSERT INTO booking (booking_id, username, booking_time,total,total_discount,user_and_promotion, participant) VALUES (?, ?, ?, ?, ?, ?, ?)',
                                 [Booking_id, req.body.username, req.body.booking_time, req.body.total, req.body.total_discount, null, req.body.participant],
                                 function(err , results6, fields){
                                     if(err){
                                         res.json({status: 'error', message: err});
+                                        console.log(err)
                                         return
                                     }
                                     else{
                                         res.json({status: 'ok', message: err});
+                                        db.execute('INSERT INTO date_room VALUES (?, ?, ?, ?, ?, ?)',
+                                        [date_and_room, req.body.check_in, req.body.check_out, req.body.room_id, Booking_id, req.body.addbed],
+                                        function(err , results, fields){
+                                            if(err){
+                                                res.json({status: 'error', message: err});
+                                                return
+                                            }
+                                            else{
+                                                res.json({status: 'ok', message: err});
+                                            }
+                                        });
                                     } 
-                                }); 
+                                });
                             }
                         }
                     });
@@ -985,7 +997,7 @@ app.post('/store_promotion', jasonParser, function (req, res, next) {
                   return
                }
                var ValueOfDate_and_Room = result_date_and_room[0].date_and_room; // !!!!!!! "let"
-
+               console.log(result_date_and_room)
                db.execute(
                   'SELECT participant FROM booking WHERE booking_id = ?', // select participant from TB booking for using limit value from form  
                   [result_date_and_room[0].booking_id],
@@ -1004,6 +1016,7 @@ app.post('/store_promotion', jasonParser, function (req, res, next) {
                            return
                           }
                           
+                          
                           db.execute(
                              'SELECT activity_no FROM activity WHERE branch_no IN (SELECT branch_no FROM room WHERE room_id = ?)', //For get activity_no then calculate
                              [result_date_and_room[0].room_id],
@@ -1012,7 +1025,6 @@ app.post('/store_promotion', jasonParser, function (req, res, next) {
                                       res.json({ status: 'error', messsage: err })
                                  return
                                 }
-
                                 db.execute(
                                  'SELECT discount FROM promotion WHERE promotion_id = ?', //For get discount of promotion
                                  [req.body.promotion_id],

@@ -149,12 +149,24 @@
             var Act = parseInt(500)
             var num =document.getElementById("Participant").value
             var temp = document.getElementById('Promotion').value
+            var start = document.getElementById('CheckIn').value
+            var stop = document.getElementById('CheckOut').value
+            var temp1 = start.split(":")
+            var temp2 = stop.split(":")
+            console.log(hours)
+            console.log(start + stop)
+            
             var select_discount
+            if(temp2[0] == 0){
+              temp2[0] = 24
+            }
+            var hours = temp2[0] - temp1[0]
+            
 
             //console.log(Array_Promotion_discount.discount[0])
             console.log(temp)
             if(temp == "null"){
-               document.getElementById("totalresult").innerHTML ="Total : "+ num*Act
+               document.getElementById("totalresult").innerHTML ="Total : "+ num*Act*hours
             }else{
                for(let i=0; i< Array_Promotion_discount.promotion_id.length;i++){
                   if(Array_Promotion_discount.promotion_id[i] == temp)
@@ -162,7 +174,7 @@
                }
                console.log(select_discount)
                
-               document.getElementById("totalresult").innerHTML ="Total : "+ num*Act* (100-select_discount)/100
+               document.getElementById("totalresult").innerHTML ="Total : "+ num*Act* (100-select_discount)/100 *hours
             }
          }
          // -------------------------------------------------- //   
