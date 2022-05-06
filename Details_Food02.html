@@ -102,6 +102,8 @@
           user_and_promotion: []
         }
         const for_query_promotion = {username: logindata.username, now: new Date(),category: "Food"}
+        //http://localhost:3333/
+        //https://a7.cpe231.kmutt.in.th/api/
         fetch('https://a7.cpe231.kmutt.in.th/api/get_promotion', {
           method: 'POST', // or 'PUT'
           headers: {
