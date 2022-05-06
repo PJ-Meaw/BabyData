@@ -145,3 +145,28 @@ UPDATE `view_user_promotion` SET `status` = '0' WHERE `view_user_promotion`.`use
 INSERT INTO `view_date_activity` (`no_date_activity`, `check_in`, `check_out`, `activity_no`, `booking_activity_id`) VALUES ('VDR-000000000013', '2022-05-06 18:00:00', '2022-05-06 20:00:00', 'Spa01', 'BA0013');
 INSERT INTO `booking_activity` (`booking_activity_id`, `date_and_room`, `participant`, `booked_at`, `user_and_promotion`, `total`, `total_discount`) VALUES ('BA0014', 'DAR0000000000016', '1', '2022-05-05 17:35:05', 'UAP0000000000136', '480', '120');
 INSERT INTO `view_date_activity` (`no_date_activity`, `check_in`, `check_out`, `activity_no`, `booking_activity_id`) VALUES ('VDR-000000000014', '2022-05-05 18:00:00', '2022-05-05 18:00:00', 'Onsen02', 'BA0014');
+
+UPDATE `booking` SET `user_and_promotion` = 'UAP0000000000136' WHERE `booking`.`booking_id` = 'BR-0000016';
+UPDATE `booking_activity` SET `user_and_promotion` = 'UAP0000000000132' WHERE `booking_activity`.`booking_activity_id` = 'BA0014';
+UPDATE `booking_activity` SET `booked_at` = '2022-08-04 17:09:58' WHERE `booking_activity`.`booking_activity_id` = 'BA0002';
+UPDATE `view_date_activity` SET `check_in` = '2022-08-14 15:00:00' WHERE `view_date_activity`.`no_date_activity` = 'VDA-000000000007';
+UPDATE `view_date_activity` SET `check_out` = '2022-08-14 16:00:00' WHERE `view_date_activity`.`no_date_activity` = 'VDA-000000000007';
+UPDATE `booking_activity` SET `booked_at` = '2022-08-14 14:59:57' WHERE `booking_activity`.`booking_activity_id` = 'BA0003';
+UPDATE `booking_activity` SET `booked_at` = '2022-08-15 14:47:42' WHERE `booking_activity`.`booking_activity_id` = 'BA0005';
+UPDATE `booking_activity` SET `booked_at` = '2022-08-05 16:20:20' WHERE `booking_activity`.`booking_activity_id` = 'BA0007';
+UPDATE `booking_activity` SET `booked_at` = '2022-09-02 15:51:59' WHERE `booking_activity`.`booking_activity_id` = 'BA0012';
+UPDATE `view_date_activity` SET `check_in` = '2022-09-02 16:00:00' WHERE `view_date_activity`.`no_date_activity` = 'VDR-000000000012';
+UPDATE `view_date_activity` SET `check_out` = '2022-09-02 18:00:00' WHERE `view_date_activity`.`no_date_activity` = 'VDR-000000000012';
+UPDATE `view_date_activity` SET `check_out` = '2022-05-05 19:00:00' WHERE `view_date_activity`.`no_date_activity` = 'VDR-000000000014';
+UPDATE `booking_activity` SET `booked_at` = '2022-08-15 15:20:30' WHERE `booking_activity`.`booking_activity_id` = 'BA0006';
+UPDATE `date_room` SET `check_out` = '2022-05-07 09:53:35' WHERE `date_room`.`date_and_room` = 'DAR0000000000016';
+
+/*Isabella_EB B001 UAP0000000168 DAR17 BB285 */
+INSERT INTO `booking` (`booking_id`, `username`, `booking_time`, `total`, `total_discount`, `user_and_promotion`, `participant`) VALUES ('BR-0000017', 'Isabella_EB', '2022-05-06 05:07:49', '7350', '2450', 'UAP0000000000168', '1');
+UPDATE `view_user_promotion` SET `status` = '0' WHERE `view_user_promotion`.`user_and_promotion` = 'UAP0000000000168';
+INSERT INTO `date_room` (`date_and_room`, `check_in`, `check_out`, `room_id`, `booking_id`, `add_bed`) VALUES ('DAR0000000000017', '2022-05-07 16:47:42', '2022-05-09 10:53:35', 'BB285', 'BR-0000017', '0');
+
+/*Mia_barbara B234 UAP00000000000266 DAR18 BB150*/
+INSERT INTO `booking` (`booking_id`, `username`, `booking_time`, `total`, `total_discount`, `user_and_promotion`, `participant`) VALUES ('BR-0000018', 'Mia_barbara', '2022-05-08 05:07:49', '3150', '1050', 'UAP0000000000266', '1');
+UPDATE `view_user_promotion` SET `status` = '0' WHERE `view_user_promotion`.`user_and_promotion` = 'UAP0000000000266';
+INSERT INTO `date_room` (`date_and_room`, `check_in`, `check_out`, `room_id`, `booking_id`, `add_bed`) VALUES ('DAR0000000000018', '2022-05-09 14:47:42', '2022-05-12 10:53:35', 'BB150', 'BR-0000018', '0');

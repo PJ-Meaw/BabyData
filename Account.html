@@ -367,9 +367,10 @@
         })
         .then(response => response.json())
         .then(data => {
+          if(String(data.status[0])==="ok"){
           alert("success");
           document.location.reload(true);
-     
+          }else{window.location = 'https://a7.cpe231.kmutt.in.th/Account.html';}
         })
         .catch((err) => {
           console.log(err);
