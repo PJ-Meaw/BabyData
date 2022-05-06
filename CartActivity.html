@@ -134,7 +134,7 @@
                   //                           <svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                   //                             <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                   //                           </svg>
-                  //                           <a>Cancle</a>
+                  //                           <a>Cancel</a>
                   //                           </button></td>
                                           
                   //                   </tr>`
@@ -151,27 +151,80 @@
                   .then(response => response.json())
                   .then(data => {
                   if (data.status === 'success') {
-                  
-                  var options_room = ''
-                  options_room = '<option value="'+null+'">Not Select Room</option>';
-                  for (let i = 0; i < data.result_room_id.length; i++) {
-                     options_room += '<option value="' + data.result_room_id[i].room_id + '">' + data.result_room_id[i].room_id + '</option>';
-                  }
-                  console.log(data.result_room_id[0].room_id)
-                  document.getElementById("RoomID").innerHTML = options_room;
+                     
+                     var row_activity = ''
+                     
+                     for (let i = 0; i < data.result_Card_activity.length; i++) {
+                        var Check_in_user = new Date(data.result_Card_activity[i].check_in);
+                        var Check_in_user_time = Check_in_user.toLocaleTimeString();
+                        var Check_in_user_date = Check_in_user.toLocaleDateString();
 
-                  var options_promotion = ''
-                  options_promotion = '<option value="'+null+'">Not use promotion</option>';
-                  for (let i = 0; i < data.result_promotionId_discount.length; i++) {
-                     options_promotion += '<option value="' + data.result_promotionId_discount[i].promotion_id + '">' + "Discount " + data.result_promotionId_discount[i].discount + " %"+ '</option>';
-                     Array_Promotion_discount.promotion_id.push(data.result_promotionId_discount[i].promotion_id)
-                     Array_Promotion_discount.discount.push( data.result_promotionId_discount[i].discount)
-                  }
-                  console.log(Array_Promotion_discount)
-                  document.getElementById("Promotion").innerHTML = options_promotion;
-                  
+                        var Check_out_user = new Date(data.result_Card_activity[i].check_out);
+                        var Check_out_user_time = Check_out_user.toLocaleTimeString();
+                        var Check_out_user_date = Check_out_user.toLocaleDateString();
 
+                        var get_name_activity = data.result_Card_activity[i].activity_no
+                        var name_activity_split = get_name_activity.split("0");
+                        var name_activity = name_activity_split[0] 
                
+                        if(name_activity == "Spa"){
+                           row_activity += `<tr>
+                                             <td><img src="pic/spa.jpg" alt="Standard Room" width="80px" height="80px"></td>
+                                             <td>${data.result_Card_activity[i].activity_no}</td>
+                                             <td>${data.result_Card_activity[i].room_id}</td>
+                                             <td>${data.result_Card_activity[i].participant}</td>
+                                             <td>${Check_in_user_date + " " + Check_in_user_time}</td>
+                                             <td>${Check_out_user_date + " " + Check_out_user_time}</td>
+                                             <td>${data.result_Card_activity[i].total + data.result_Card_activity[i].total_discount}</td>
+                                             <td>${data.result_Card_activity[i].total_discount}</td>
+                                             <td>${data.result_Card_activity[i].total}</td>
+                                             <td><button onclick ="DeleteBooking('`+data.result_Card_activity[i].booking_activity_id+`','`+data.result_Card_activity[i].user_and_promotion+`')" type="button" class="inline-flex items-center px-1 py-1 border-gray-300 rounded-md shadow-sm text-sm font-medium text-white bg-gray-400 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                             <svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                             </svg>
+                                             <a>Cancel</a>
+                                             </button></td>
+                                       </tr>`;
+                        }else if(name_activity == "Onsen"){
+                           row_activity += `<tr>
+                                             <td><img src="pic/onsen.jpg" alt="Standard Room" width="80px" height="80px"></td>
+                                             <td>${data.result_Card_activity[i].activity_no}</td>
+                                             <td>${data.result_Card_activity[i].room_id}</td>
+                                             <td>${data.result_Card_activity[i].participant}</td>
+                                             <td>${Check_in_user_date + " " + Check_in_user_time}</td>
+                                             <td>${Check_out_user_date + " " + Check_out_user_time}</td>
+                                             <td>${data.result_Card_activity[i].total + data.result_Card_activity[i].total_discount}</td>
+                                             <td>${data.result_Card_activity[i].total_discount}</td>
+                                             <td>${data.result_Card_activity[i].total}</td>
+                                             <td><button onclick="window.location = 'https\:/\/a7.cpe231.kmutt.in.th/Activity.html';" type="button" class="inline-flex items-center px-1 py-1 border-gray-300 rounded-md shadow-sm text-sm font-medium text-white bg-gray-400 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                             <svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                             </svg>
+                                             <a>Cancel</a>
+                                             </button></td>
+                                       </tr>`;
+                        }else{
+                           row_activity += `<tr>
+                                             <td><img src="pic/jetski.jpg" alt="Standard Room" width="80px" height="80px"></td>
+                                             <td>${data.result_Card_activity[i].activity_no}</td>
+                                             <td>${data.result_Card_activity[i].room_id}</td>
+                                             <td>${data.result_Card_activity[i].participant}</td>
+                                             <td>${Check_in_user_date + " " + Check_in_user_time}</td>
+                                             <td>${Check_out_user_date + " " + Check_out_user_time}</td>
+                                             <td>${data.result_Card_activity[i].total + data.result_Card_activity[i].total_discount}</td>
+                                             <td>${data.result_Card_activity[i].total_discount}</td>
+                                             <td>${data.result_Card_activity[i].total}</td>
+                                             <td><button onclick="window.location = 'https\:/\/a7.cpe231.kmutt.in.th/Activity.html';" type="button" class="inline-flex items-center px-1 py-1 border-gray-300 rounded-md shadow-sm text-sm font-medium text-white bg-gray-400 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                             <svg class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                             </svg>
+                                             <a>Cancel</a>
+                                             </button></td>
+                                       </tr>`;
+                        }
+                     }
+                     //console.log(data.result_Card_activity.length)
+                     document.getElementById("myTable").innerHTML = row_activity;        
                }
                else {
                   console.log(data.message)
@@ -181,7 +234,41 @@
             .catch((error) => {
                   console.error();
             });
+            
 
+            function DeleteBooking(booking_activity_id,user_and_promotion){
+               console.log(booking_activity_id)
+               console.log(user_and_promotion)
+               if(confirm("Are you sure to cancel booking ?") == true){
+                  var for_delete_booking = {
+                     booking_activity_id: booking_activity_id,
+                     user_and_promotion: user_and_promotion
+                  }
+                   //https://a7.cpe231.kmutt.in.th/api/delete_booking
+                   fetch('http://localhost:3333/delete_activity', {
+                  method: 'POST', // or 'PUT'
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                        body: JSON.stringify(for_delete_booking),
+                   })
+                  .then(response => response.json())
+                  .then(data => {
+                  if(data.status === 'ok'){
+                     alert('Cancel Succesful !!')
+                     document.location.reload(true);
+                     //window.location = 'https://a7.cpe231.kmutt.in.th/CartRoom.html'
+                  }
+                  else{
+                     alert('Cancel Error, something should be wrong')
+                     window.location = 'https://a7.cpe231.kmutt.in.th/CartRoom.html'
+                  }
+                  })
+                  .catch((err) => {
+                  console.log(err);
+                  })  
+               } // end if confirm
+            }
               
               </script> 
         </div>

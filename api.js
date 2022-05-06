@@ -1214,7 +1214,7 @@ app.post('/get_Card_actvity', jasonParser, (req, res) => {
          + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
    db.execute(
-      'SELECT v.*,temp.* FROM (SELECT b.* FROM booking_activity b WHERE b.date_and_room IN (SELECT d.date_and_room FROM date_room d WHERE d.booking_id IN (SELECT bk.booking_id FROM booking bk WHERE bk.username = ?) AND d.check_in < ? AND d.check_out > ? )) AS temp INNER JOIN view_date_activity v ON temp.booking_activity_id = v.booking_activity_id',
+      'SELECT viewact.*,b.*,d.* FROM (SELECT * FROM view_date_activity WHERE booking_activity_id IN (SELECT booking_activity_id FROM booking_activity WHERE date_and_room IN (SELECT date_and_room FROM date_room WHERE booking_id IN (SELECT booking_id FROM booking WHERE username="CharliePenkyle"))) AND check_in>NOW()) AS viewact, booking_activity b, date_room d WHERE b.booking_activity_id=viewact.booking_activity_id AND b.date_and_room = d.date_and_room',
       //SELECT view_date.*,temp.* FROM (SELECT b.* FROM booking_activity b WHERE b.date_and_room IN (SELECT d.date_and_room FROM date_room d WHERE d.booking_id IN (SELECT bk.booking_id FROM booking bk WHERE bk.username = "CharliePenkyle") AND d.check_in < NOW() AND d.check_out > NOW() )) AS temp INNER JOIN (SELECT v.* FROM view_date_activity v WHERE v.check_in > NOW()) AS view_date ON temp.booking_activity_id = view_date.booking_activity_id
       [req.body.username, TimeNow, TimeNow],
       function (err, result_Card_activity, fields) {
@@ -1223,10 +1223,36 @@ app.post('/get_Card_actvity', jasonParser, (req, res) => {
                return
          }
          res.json({ status: 'success', messsage: err, result_Card_activity})
-          
       }
    );
 })
+
+app.post('/delete_activity', jasonParser, (req,res) => {
+   db.execute('DELETE FROM view_date_activity WHERE booking_activity_id = ?',
+   [req.body.booking_activity_id],
+   function(err, result1, fields){
+       if(err) console.log(err)
+       else {
+           db.execute('DELETE FROM booking_activity WHERE booking_activity_id = ? ',
+           [req.body.booking_activity_id],
+           function(err, result2, fields){
+               if(err) console.log(err)
+               else {
+                   if(req.body.user_and_promotion != null){
+                       db.execute('UPDATE view_user_promotion SET status = 1 WHERE user_and_promotion = ?',
+                       [req.body.user_and_promotion],
+                       function(err, result3,fields){
+                           if(err) console.log(err)
+                           else {
+                               res.json({status: 'ok'})
+                           }
+                       })
+                   }
+               }
+           });
+         }
+   });
+});
 
 
 app.get('/home', jasonParser, (req, res) => {
