@@ -150,11 +150,23 @@
             var num =document.getElementById("Participant").value
             var temp = document.getElementById('Promotion').value
             var select_discount
+            var start = document.getElementById('CheckIn').value
+            var stop = document.getElementById('CheckOut').value
+            var temp1 = start.split(":")
+            var temp2 = stop.split(":")
+            console.log(hours)
+            console.log(start + stop)
+            
+            var select_discount
+            if(temp2[0] == 0){
+              temp2[0] = 24
+            }
+            var hours = temp2[0] - temp1[0]
 
             //console.log(Array_Promotion_discount.discount[0])
             console.log(temp)
             if(temp == "null"){
-               document.getElementById("totalresult").innerHTML ="Total : "+ num*Act
+               document.getElementById("totalresult").innerHTML ="Total : "+ num*Act*hours
             }else{
                for(let i=0; i< Array_Promotion_discount.promotion_id.length;i++){
                   if(Array_Promotion_discount.promotion_id[i] == temp)
@@ -162,7 +174,7 @@
                }
                console.log(select_discount)
                
-               document.getElementById("totalresult").innerHTML ="Total : "+ num*Act* (100-select_discount)/100
+               document.getElementById("totalresult").innerHTML ="Total : "+ num*Act* (100-select_discount)/100 * hours
             }
          }
          // -------------------------------------------------- //   
@@ -183,7 +195,7 @@
                if (data.status === 'success') {
                   
                   var options_room = ''
-                  options_room = '<option value="'+null+'">Not Select Room</option>';
+                  options_room = '<option value='+null+'>Not Select Room</option>';
                   for (let i = 0; i < data.result_room_id.length; i++) {
                      options_room += '<option value="' + data.result_room_id[i].room_id + '">' + data.result_room_id[i].room_id + '</option>';
                   }
@@ -191,7 +203,7 @@
                   document.getElementById("RoomID").innerHTML = options_room;
 
                   var options_promotion = ''
-                  options_promotion = '<option value="'+null+'">Not use promotion</option>';
+                  options_promotion = '<option value='+null+'>Not use promotion</option>';
                   for (let i = 0; i < data.result_promotionId_discount.length; i++) {
                      options_promotion += '<option value="' + data.result_promotionId_discount[i].promotion_id + '">' + "Discount " + data.result_promotionId_discount[i].discount + " %"+ '</option>';
                      Array_Promotion_discount.promotion_id.push(data.result_promotionId_discount[i].promotion_id)
