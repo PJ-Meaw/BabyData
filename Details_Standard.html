@@ -317,7 +317,7 @@
 
           // when users don't have promotion
           var promotion = '' // innerHTML must be var variable only
-          promotion = '<option value="'+null+'">Not use promotion</option>';
+          promotion = '<option value='+null+'>Not use promotion</option>';
           // when users have promotion
           if(data.finalresult.promotion_id.length != 0) {
             for(let i = 0; i<data.finalresult.promotion_id.length; i++){
@@ -426,7 +426,8 @@
                   const find_diffDays = (date, otherDate) => Math.floor(Math.abs(date - otherDate) / (24 * 60 * 60 * 1000));
                   var total = 900 * find_diffDays(check_in,check_out);
                   var total_discount = 0;
-                  if(promotion_id != null){
+                  console.log("promotion_id : "+promotion_id)
+                  if(promotion_id != 'null'){
                     var findpromotion_id_use = user_and_promotion_pk.pro_id
                     var index_pk_view_user = findpromotion_id_use.indexOf(promotion_id)
                     var pk_view_user = user_and_promotion_pk.user_and_promotion[index_pk_view_user]
@@ -434,6 +435,7 @@
                   }
                   else {
                     pk_view_user = null;
+                    total_discount = 0
                   }
                   var now = new Date();
                   now.setHours( now.getHours() + 7 );

@@ -816,17 +816,29 @@ app.post('/insert_book', jasonParser, (req, res) => {
                                 }); 
                             }
                             else { // if not use promotion
-                                db.execute('INSERT INTO booking VALUES (?, ?, ?, ?, ?, ?, ?)',
+                                db.execute('INSERT INTO booking (booking_id, username, booking_time,total,total_discount,user_and_promotion, participant) VALUES (?, ?, ?, ?, ?, ?, ?)',
                                 [Booking_id, req.body.username, req.body.booking_time, req.body.total, req.body.total_discount, null, req.body.participant],
                                 function(err , results6, fields){
                                     if(err){
                                         res.json({status: 'error', message: err});
+                                        console.log(err)
                                         return
                                     }
                                     else{
                                         res.json({status: 'ok', message: err});
+                                        db.execute('INSERT INTO date_room VALUES (?, ?, ?, ?, ?, ?)',
+                                        [date_and_room, req.body.check_in, req.body.check_out, req.body.room_id, Booking_id, req.body.addbed],
+                                        function(err , results, fields){
+                                            if(err){
+                                                res.json({status: 'error', message: err});
+                                                return
+                                            }
+                                            else{
+                                                res.json({status: 'ok', message: err});
+                                            }
+                                        });
                                     } 
-                                }); 
+                                });
                             }
                         }
                     });
