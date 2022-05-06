@@ -303,7 +303,7 @@
     window.location = 'https://a7.cpe231.kmutt.in.th/Login.html';
   }
   const for_query_promotion = {username: logindata.username}
-    fetch('http://localhost:3333/account', {
+    fetch('https://a7.cpe231.kmutt.in.th/api/account', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -358,7 +358,7 @@
         console.log(sc)
         console.log(d)
         const for_query_change={firstname:fn,lastname:ln,email:ea,phone:pc,sex:sc,dateofbirth:formatDate(d),username:logindata.username}
-        fetch('http://localhost:3333/account_change', {
+        fetch('https://a7.cpe231.kmutt.in.th/api/account_change', {
           method: 'POST', // or 'PUT'
           headers: {
             'Content-Type': 'application/json',
