@@ -894,6 +894,7 @@ app.post('/store_promotion', jasonParser, function (req, res, next) {
              res.json({ status: 'error', messsage: err })
              return
           }
+          console.log(promotion_tbPromotion)
           if (promotion_tbPromotion.length > 0) { // if there is promotion_id 
              //res.json({status: 'ok'}) //testing and then passing!!
              db.execute(
@@ -1070,40 +1071,42 @@ app.post('/store_promotion', jasonParser, function (req, res, next) {
 
                                     // if(Check_in_user.getTime() < TextDate.getTime()) // condition 2 
                                     //    return res.json({status: 'error', message: 'booking late'})
-                                    console.log(actua_name_activity)
-                                    console.log(results_view_date_acticity[0].activity_no)
-                                    console.log("test" + actua_name_activity == results_view_date_acticity[0].activity_no)
-                                    console.log(TextDate.toLocaleDateString() == Check_in_database_date && actua_name_activity == results_view_date_acticity[i].activity_no)
-                                   
-                                    var x = 0; // x checking period time booking overlap
-                                    for(let i=0 ;i< results_view_date_acticity.length;i++){
-                                       var Check_in_database = results_view_date_acticity[i].check_in
-                                       var Check_in_database_date = Check_in_database.toLocaleDateString(); // 29/4/2565
-                                       var Check_in_database_time_demo = Check_in_database.toLocaleTimeString(); // 21:00:00
-                                       var Check_in_database_time_split = Check_in_database_time_demo.split(":"); 
-                                       var Check_in_database_time = Check_in_database_time_split[0]; // Number value Ex. 20 21
-
-                                       var Check_out_database = results_view_date_acticity[i].check_out
-                                       //var Check_out_database_date = Check_out_database.toLocaleDateString();
-                                       var Check_out_database_time_demo = Check_out_database.toLocaleTimeString();
-                                       var Check_out_database_time_split = Check_out_database_time_demo.split(":"); 
-                                       var Check_out_database_time = Check_out_database_time_split[0]; // Number value Ex. 20 21
-                                       
-                                       /* --------------------------   */
-
-                                       if(TextDate.toLocaleDateString() == Check_in_database_date && actua_name_activity == results_view_date_acticity[i].activity_no){ // condition since each value is hour So date must be equal date
-                                          /* Part database several row*/
-
-                                          if((Check_in_user_time >= Check_in_database_time) && ( Check_out_user_time <= Check_out_database_time)){
-                                             x = 1; // Ex. 7-10 ->  7-10 : True
-                                          }else if((Check_in_database_time >= Check_in_user_time) && (Check_out_database_time <= Check_out_user_time)) {
-                                             x = 1; // Ex. 7-10 ->  6-10 : True , 7-11 : True
-                                          }else if((Check_in_user_time < Check_in_database_time) && ( Check_in_database_time < Check_out_user_time) && (res.body.check_out < Check_out_database_time)){
-                                             x = 1; // Ex. 7-9 ->  6-8 : True 
-                                          }else if((Check_out_user_time > Check_out_database_time) && ( Check_out_database_time > Check_in_user_time) && (res.body.check_in > Check_in_database_time)){
-                                             x = 1;  // Ex. 7-9 ->  8-10 : True
-                                          }
-                                       }
+                                    if(results_view_date_acticity.length != 0){
+                                        console.log(actua_name_activity)
+                                        console.log(results_view_date_acticity[0].activity_no)
+                                        console.log("test" + actua_name_activity == results_view_date_acticity[0].activity_no)
+                                        console.log(TextDate.toLocaleDateString() == Check_in_database_date && actua_name_activity == results_view_date_acticity[i].activity_no)
+                                     
+                                        var x = 0; // x checking period time booking overlap
+                                        for(let i=0 ;i< results_view_date_acticity.length;i++){
+                                           var Check_in_database = results_view_date_acticity[i].check_in
+                                           var Check_in_database_date = Check_in_database.toLocaleDateString(); // 29/4/2565
+                                           var Check_in_database_time_demo = Check_in_database.toLocaleTimeString(); // 21:00:00
+                                           var Check_in_database_time_split = Check_in_database_time_demo.split(":"); 
+                                           var Check_in_database_time = Check_in_database_time_split[0]; // Number value Ex. 20 21
+ 
+                                           var Check_out_database = results_view_date_acticity[i].check_out
+                                           //var Check_out_database_date = Check_out_database.toLocaleDateString();
+                                           var Check_out_database_time_demo = Check_out_database.toLocaleTimeString();
+                                           var Check_out_database_time_split = Check_out_database_time_demo.split(":"); 
+                                           var Check_out_database_time = Check_out_database_time_split[0]; // Number value Ex. 20 21
+                                           
+                                           /* --------------------------   */
+ 
+                                           if(TextDate.toLocaleDateString() == Check_in_database_date && actua_name_activity == results_view_date_acticity[i].activity_no){ // condition since each value is hour So date must be equal date
+                                              /* Part database several row*/
+ 
+                                              if((Check_in_user_time >= Check_in_database_time) && ( Check_out_user_time <= Check_out_database_time)){
+                                                 x = 1; // Ex. 7-10 ->  7-10 : True
+                                              }else if((Check_in_database_time >= Check_in_user_time) && (Check_out_database_time <= Check_out_user_time)) {
+                                                 x = 1; // Ex. 7-10 ->  6-10 : True , 7-11 : True
+                                              }else if((Check_in_user_time < Check_in_database_time) && ( Check_in_database_time < Check_out_user_time) && (res.body.check_out < Check_out_database_time)){
+                                                 x = 1; // Ex. 7-9 ->  6-8 : True 
+                                              }else if((Check_out_user_time > Check_out_database_time) && ( Check_out_database_time > Check_in_user_time) && (res.body.check_in > Check_in_database_time)){
+                                                 x = 1;  // Ex. 7-9 ->  8-10 : True
+                                              }
+                                           }
+                                        }
                                     }
                                     
                                     if(x){ //condition 3
@@ -1226,7 +1229,7 @@ app.post('/get_Card_actvity', jasonParser, (req, res) => {
          + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
    db.execute(
-      'SELECT viewact.*,b.*,d.* FROM (SELECT * FROM view_date_activity WHERE booking_activity_id IN (SELECT booking_activity_id FROM booking_activity WHERE date_and_room IN (SELECT date_and_room FROM date_room WHERE booking_id IN (SELECT booking_id FROM booking WHERE username="CharliePenkyle"))) AND check_in>NOW()) AS viewact, booking_activity b, date_room d WHERE b.booking_activity_id=viewact.booking_activity_id AND b.date_and_room = d.date_and_room',
+      'SELECT viewact.*,b.*,d.room_id FROM (SELECT * FROM view_date_activity WHERE booking_activity_id IN (SELECT booking_activity_id FROM booking_activity WHERE date_and_room IN (SELECT date_and_room FROM date_room WHERE booking_id IN (SELECT booking_id FROM booking WHERE username="CharliePenkyle"))) AND check_in>NOW()) AS viewact, booking_activity b, date_room d WHERE b.booking_activity_id=viewact.booking_activity_id AND b.date_and_room = d.date_and_room',
       //SELECT view_date.*,temp.* FROM (SELECT b.* FROM booking_activity b WHERE b.date_and_room IN (SELECT d.date_and_room FROM date_room d WHERE d.booking_id IN (SELECT bk.booking_id FROM booking bk WHERE bk.username = "CharliePenkyle") AND d.check_in < NOW() AND d.check_out > NOW() )) AS temp INNER JOIN (SELECT v.* FROM view_date_activity v WHERE v.check_in > NOW()) AS view_date ON temp.booking_activity_id = view_date.booking_activity_id
       [req.body.username, TimeNow, TimeNow],
       function (err, result_Card_activity, fields) {

@@ -141,7 +141,7 @@
                   //         table.innerHTML += row
                   //     }
                   // }
-                  fetch('http://localhost:3333/get_Card_actvity', {
+                  fetch('https://a7.cpe231.kmutt.in.th/api/get_Card_actvity', {
                   method: 'POST', // or 'PUT'
                   headers: {
                      'Content-Type': 'application/json',
@@ -156,12 +156,15 @@
                      
                      for (let i = 0; i < data.result_Card_activity.length; i++) {
                         var Check_in_user = new Date(data.result_Card_activity[i].check_in);
+                        // Check_in_user.setHours( Check_in_user.getHours() - 7 );
                         var Check_in_user_time = Check_in_user.toLocaleTimeString();
                         var Check_in_user_date = Check_in_user.toLocaleDateString();
 
                         var Check_out_user = new Date(data.result_Card_activity[i].check_out);
+                        // Check_out_user.setHours( Check_out_user.getHours() - 7 );
                         var Check_out_user_time = Check_out_user.toLocaleTimeString();
                         var Check_out_user_date = Check_out_user.toLocaleDateString();
+                        
 
                         var get_name_activity = data.result_Card_activity[i].activity_no
                         var name_activity_split = get_name_activity.split("0");
@@ -245,7 +248,7 @@
                      user_and_promotion: user_and_promotion
                   }
                    //https://a7.cpe231.kmutt.in.th/api/delete_booking
-                   fetch('http://localhost:3333/delete_activity', {
+                   fetch('https://a7.cpe231.kmutt.in.th/api/delete_activity', {
                   method: 'POST', // or 'PUT'
                   headers: {
                     'Content-Type': 'application/json',

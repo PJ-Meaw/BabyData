@@ -236,7 +236,7 @@
           }
 
           const for_query_change={firstname:fn,lastname:ln,email:ea,phone:pc,sex:sc,dateofbirth:formatDate(d),username:un,password:pw}
-          fetch('http://localhost:3333/check_register', {
+          fetch('https://a7.cpe231.kmutt.in.th/api/check_register', {
             method: 'POST', // or 'PUT'
             headers: {
               'Content-Type': 'application/json',
@@ -247,7 +247,7 @@
           .then(data => {
             if(String(data.num[0])==="0"){
               console.log(for_query_change)
-              fetch('http://localhost:3333/register', {
+              fetch('https://a7.cpe231.kmutt.in.th/api/register', {
                 method: 'POST', // or 'PUT'
                 headers: {
                   'Content-Type': 'application/json',
