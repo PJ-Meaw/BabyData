@@ -256,11 +256,15 @@
               })
               .then(response => response.json())
               .then(data => {
-                console.log(data.status)
+                
+                if(String(data.status[0])==="ok"){
+                  console.log(data.status)
                 alert("success")
                 window.location = 'https\:/\/a7.cpe231.kmutt.in.th/Login.html';
-
+                }else
                 
+
+                window.location = 'https://a7.cpe231.kmutt.in.th/Register.html';
            
               })
               .catch((err) => {
