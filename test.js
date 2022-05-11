@@ -93,6 +93,18 @@ for(let i = 0 ; i < 13-numgen2.toString().length ; i++){
     Gendateroom_id += "0"
 }
 var date_and_room = Gendateroom_id + numgen2.toString()
-console.log(date_and_room)
+// console.log(date_and_room)
 
 
+var now = new Date();
+now.setHours( now.getHours() + 7 );
+console.log(now.toISOString().slice(0,19).replace('T',' '))
+var check_out = new Date(
+    11,
+    1,
+    11,
+    14+7, // hours
+    0,  // miniutes
+    0,  // seconds
+    0); // milliseconds
+console.log(check_out)

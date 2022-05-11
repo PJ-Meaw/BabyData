@@ -812,7 +812,7 @@ app.post('/insert_book', jasonParser, (req, res) => {
                             var date_and_room = Gendateroom_id + numgen2.toString()
                             if(req.body.user_and_promotion != null) { // if user use promotion
                                 db.execute('INSERT INTO booking VALUES (?, ?, ?, ?, ?, ?, ?)',
-                                [Booking_id, req.body.username, req.body.booking_time, req.body.total, req.body.total_discount, req.body.user_and_promotion, req.body.participant],
+                                [Booking_id, req.body.username, req.body.booking_time,req.body.total, req.body.total_discount, req.body.user_and_promotion, req.body.participant],
                                 function(err , results, fields){
                                     if(err){
                                         res.json({status: 'error', message: err});
@@ -864,7 +864,8 @@ app.post('/insert_book', jasonParser, (req, res) => {
                                         function(err , results, fields){
                                             if(err){
                                                 res.json({status: 'error', message: err});
-                                                return
+                                                console.log(err)
+                                                
                                             }
                                             else{
                                                 res.json({status: 'ok', message: err});
@@ -1278,11 +1279,11 @@ app.get('/home', jasonParser, (req, res) => {
 })
 
 
-app.listen(8090, function() {
-    console.log('Server is Running on port 8090...')
-})
-
-
-// app.listen(3333, function() {
-//     console.log('Server is Running on port 3333...')
+// app.listen(8090, function() {
+//     console.log('Server is Running on port 8090...')
 // })
+
+
+app.listen(3333, function() {
+    console.log('Server is Running on port 3333...')
+})

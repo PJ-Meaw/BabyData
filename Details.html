@@ -439,7 +439,10 @@
                 }
                 var now = new Date();
                 now.setHours( now.getHours() + 7 );
-                document.write(now);
+                now = now.toISOString().slice(0,19).replace('T',' ')
+                check_in = check_in.toISOString().slice(0,19).replace('T',' ')
+                check_out = check_out.toISOString().slice(0,19).replace('T',' ')
+
                 var numparticipant = Number(participant)
                 var insert_data = {
                   username: logindata.username,
