@@ -109,7 +109,7 @@
          // {username: value , password: value}
          console.log(data)
          //https://a7.cpe231.kmutt.in.th/api/login
-         fetch('https://a7.cpe231.kmutt.in.th/api/login', {
+         fetch('https://a7.cpe231.kmutt.in.th:8090/login', {
             method: 'POST', // or 'PUT'
             headers: {
                'Content-Type': 'application/json',
@@ -135,7 +135,7 @@
                const callback = JSON.stringify(data);
                localStorage.setItem('username', callback)
                //window.location = 'https://a7.cpe231.kmutt.in.th/Owner.html'
-               window.location = 'https://a7.cpe231.kmutt.in.th/Owner.html'
+               window.location = 'http://127.0.0.1:5500/babydata/Owner.html'
             }
             else {
               alert('Login Failed!!.')

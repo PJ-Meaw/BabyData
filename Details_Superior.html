@@ -336,6 +336,25 @@
       .catch((err) => {
         console.log(err);
       });
+
+      // for check date in that month
+      var CheckdateInMonth = function(month, year){
+          switch(month){
+              case 1 :
+                  return (year%4 == 0 && year % 100) || year % 400 == 0 ? 29 : 28;
+              case 8 : case 3 : case 5 : case 10 :
+                  return 30;
+              default:
+                  return 31;   
+          }
+      };
+
+      var CheckDate = function(day, month, year){
+          month = parseInt(month, 10)-1;
+          return month >= 0 && month < 12 && day>0 && day<= CheckdateInMonth(month,year)
+
+      }
+
       //When submit the form we will get branch -> room_id
       let submit = document.querySelector('#data');
       submit.addEventListener('submit', (event) =>{
@@ -393,11 +412,17 @@
         console.log(check_out)
         console.log(Number(monthin.value))
         var now2 = new Date();
+        // change min
+        if(min == 12) min = 1;
+        else min += 1;
         
         // check user select all ?
         if(promotion_id == "select"||din=="select"||min=="select"||yin=="select"||dout=="select"||mout=="select"||yout=="select"||participant=="select")
         {
             alert("plese select all of the box")
+        }
+        else if(CheckDate( Number(yin), min, Number(din) ) == false || CheckDate( Number(yout), mout, Number(dout) ) == false){
+            alert("Day does not exist.!!")
         }
         else if(check_out < check_in) {
           // check out > check in
@@ -442,10 +467,7 @@
                 }
                 var now = new Date();
                 now.setHours( now.getHours() + 7 );
-                now = now.toISOString().slice(0,19).replace('T',' ')
-                check_in = check_in.toISOString().slice(0,19).replace('T',' ')
-                check_out = check_out.toISOString().slice(0,19).replace('T',' ')
-                
+                document.write(now);
                 var numparticipant = Number(participant)
                 var insert_data = {
                   username: logindata.username,

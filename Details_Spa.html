@@ -119,7 +119,7 @@
                   <h3 id="totalresult">Total</h3>
                 </div>
                 <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                  <button onclick="window.location = 'http\:/\/127.0.0.1:5500/babydata/Activity.html';" type="button" class="inline-flex justify-center py-2 px-7 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-400 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  <button onclick="window.location = 'https\:/\/a7.cpe231.kmutt.in.th/Activity.html';" type="button" class="inline-flex justify-center py-2 px-7 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-400 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     <a>Cancel</a></button>
 
                   <button type="submit" id="No_activity" value ="Spa" class="inline-flex justify-center py-2 px-10 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -144,6 +144,7 @@
             promotion_id : [],
             discount : []
          }
+         var hours
 
          function Newdisplay(){
             var Act = parseInt(500)
@@ -153,18 +154,17 @@
             var stop = document.getElementById('CheckOut').value
             var temp1 = start.split(":")
             var temp2 = stop.split(":")
-            console.log(hours)
             console.log(start + stop)
-            
-            var select_discount
+      
+           
             if(temp2[0] == 0){
               temp2[0] = 24
             }
-            var hours = temp2[0] - temp1[0]
+            hours = temp2[0] - temp1[0]
+            console.log(hours)
             
-
+            var select_discount
             //console.log(Array_Promotion_discount.discount[0])
-            console.log(temp)
             if(temp == "null"){
                document.getElementById("totalresult").innerHTML ="Total : "+ num*Act*hours
             }else{
@@ -183,7 +183,7 @@
          //{username: value , password: value}
          
 
-         fetch('http://localhost:3333/get_actvity', {
+         fetch('https://a7.cpe231.kmutt.in.th/api/get_actvity', {
             method: 'POST', // or 'PUT'
             headers: {
                'Content-Type': 'application/json',
@@ -235,7 +235,6 @@
             event.preventDefault(); // protect refresh / reload 
             // const data = {}
             // new FormData(login).forEach((value, key) => data[key] = value)
-            
             var data_participant = document.getElementById("Participant").value
             var data_total = parseInt(500) * data_participant * hours
             var data_user_and_promotion = document.getElementById("Promotion").value
@@ -261,7 +260,7 @@
                name_activity : data_name_activity
             }
 
-            fetch('http://localhost:3333/book_activity', {
+            fetch('https://a7.cpe231.kmutt.in.th/api/book_activity', {
             method: 'POST', // or 'PUT'
             headers: {
                'Content-Type': 'application/json',
