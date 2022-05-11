@@ -67,50 +67,27 @@ app.get('/analyzeactivity', jasonParser, (req,res) => {
 
 
 app.get('/analyzebooking', jasonParser, (req,res) => {
-    db.query('SELECT EXTRACT(MONTH FROM check_in)AS MONTH,EXTRACT(YEAR FROM check_in)AS YEAR,BRANCH ,SUM(k.total) AS TOTAL,SUM(k.total_discount) AS TOTALDISCOUNT,COUNT(k.booking_id) AS NUM FROM (SELECT r.room_id AS ROOM,c.branch_name AS BRANCH FROM room r, branch c WHERE r.branch_no=c.branch_no) AS BROOM , date_room d,booking k WHERE d.room_id=ROOM AND k.booking_id=d.booking_id GROUP BY YEAR,MONTH,BRANCH;',
+    db.query('SELECT EXTRACT(MONTH FROM check_in)AS MONTH,EXTRACT(YEAR FROM check_in)AS YEAR,BRANCH ,SUM(k.total) AS TOTAL,SUM(k.total_discount) AS TOTALDISCOUNT,COUNT(k.booking_id) AS NUM FROM (SELECT r.room_id AS ROOM,c.branch_name AS BRANCH FROM room r, branch c WHERE r.branch_no=c.branch_no) AS BROOM , date_room d,booking k WHERE d.room_id=ROOM AND k.booking_id=d.booking_id GROUP BY YEAR,MONTH,BRANCH ORDER BY YEAR,MONTH,BRANCH;',
     function(err, results, fields) {
         if(err){
             console.log(err);
         }
         else{
-            var j,tt,ttdc,cnum
             var branch = [] 
             var month = [] 
             var year = [] 
             var total = [] 
             var totaldiscount = [] 
             var num = [] 
-            var b1total = [] 
-            var b2total = [] 
-            var b1td = [] 
-            var b2td = [] 
-            var b1num = [] 
-            var b2num = [] 
-            for(let i =0; i< results.length; i+=2){
-                tt=0;
-                ttdc=0;
-                cnum=0;
+            for(let i =0; i< results.length; i++){
                 branch.push(results[i].BRANCH);
                 month.push(results[i].MONTH);
                 year.push(results[i].YEAR);
-                b1total.push(results[i].TOTAL);
-                tt=tt+Number(results[i].TOTAL);
-                b1td.push(results[i].TOTALDISCOUNT);
-                ttdc=ttdc+Number(results[i].TOTALDISCOUNT);
-                b1num.push(results[i].NUM);
-                cnum=cnum+Number(results[i].NUM);
-                j=i+1;
-                b2total.push(results[j].TOTAL);
-                tt=tt+Number(results[j].TOTAL);
-                b2td.push(results[j].TOTALDISCOUNT);
-                ttdc=ttdc+Number(results[j].TOTALDISCOUNT);
-                b2num.push(results[j].NUM);
-                cnum=cnum+Number(results[j].NUM);
-                total.push(Number(tt));
-                totaldiscount.push(Number(ttdc));
-                num.push(Number(cnum));
+                total.push(results[i].TOTAL);
+                totaldiscount.push(results[i].TOTALDISCOUNT);
+                num.push(results[i].NUM);
             }
-            res.json({year,month,num,b1num,b2num,total,b1total,b2total,totaldiscount,b1td,b2td})
+            res.json({year,month,num,branch,total,totaldiscount})
 
         }
     });
@@ -812,7 +789,7 @@ app.post('/insert_book', jasonParser, (req, res) => {
                             var date_and_room = Gendateroom_id + numgen2.toString()
                             if(req.body.user_and_promotion != null) { // if user use promotion
                                 db.execute('INSERT INTO booking VALUES (?, ?, ?, ?, ?, ?, ?)',
-                                [Booking_id, req.body.username, req.body.booking_time, req.body.total, req.body.total_discount, req.body.user_and_promotion, req.body.participant],
+                                [Booking_id, req.body.username, req.body.booking_time,req.body.total, req.body.total_discount, req.body.user_and_promotion, req.body.participant],
                                 function(err , results, fields){
                                     if(err){
                                         res.json({status: 'error', message: err});
@@ -864,7 +841,8 @@ app.post('/insert_book', jasonParser, (req, res) => {
                                         function(err , results, fields){
                                             if(err){
                                                 res.json({status: 'error', message: err});
-                                                return
+                                                console.log(err)
+                                                
                                             }
                                             else{
                                                 res.json({status: 'ok', message: err});
@@ -1278,11 +1256,11 @@ app.get('/home', jasonParser, (req, res) => {
 })
 
 
-app.listen(8090, function() {
-    console.log('Server is Running on port 8090...')
-})
-
-
-// app.listen(3333, function() {
-//     console.log('Server is Running on port 3333...')
+// app.listen(8090, function() {
+//     console.log('Server is Running on port 8090...')
 // })
+
+
+app.listen(3333, function() {
+    console.log('Server is Running on port 3333...')
+})
