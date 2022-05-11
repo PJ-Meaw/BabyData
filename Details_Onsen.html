@@ -144,6 +144,7 @@
             promotion_id : [],
             discount : []
          }
+         var hours
 
          function Newdisplay(){
             var Act = parseInt(300)
@@ -154,14 +155,13 @@
             var stop = document.getElementById('CheckOut').value
             var temp1 = start.split(":")
             var temp2 = stop.split(":")
-            console.log(hours)
             console.log(start + stop)
             
             var select_discount
             if(temp2[0] == 0){
               temp2[0] = 24
             }
-            var hours = temp2[0] - temp1[0]
+            hours = temp2[0] - temp1[0]
 
             //console.log(Array_Promotion_discount.discount[0])
             console.log(temp)
@@ -183,7 +183,7 @@
          //{username: value , password: value}
          
 
-         fetch('http://localhost:3333/get_actvity', {
+         fetch('http://localhost:8090/get_actvity', {
             method: 'POST', // or 'PUT'
             headers: {
                'Content-Type': 'application/json',
@@ -261,7 +261,7 @@
                name_activity : data_name_activity
             }
 
-            fetch('http://localhost:3333/book_activity', {
+            fetch('http://localhost:8090/book_activity', {
             method: 'POST', // or 'PUT'
             headers: {
                'Content-Type': 'application/json',
