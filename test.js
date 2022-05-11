@@ -96,3 +96,37 @@ var date_and_room = Gendateroom_id + numgen2.toString()
 console.log(date_and_room)
 
 
+var now = new Date();
+now.setHours( now.getHours() + 7 );
+console.log(now.toISOString().slice(0,19).replace('T',' '))
+var check_out = new Date(
+    11,
+    1,
+    11,
+    14+7, // hours
+    0,  // miniutes
+    0,  // seconds
+    0); // milliseconds
+// console.log(check_out)
+// x = parseInt(2, 10)
+// console.log(x)
+
+var CheckdateInMonth = function(month, year){
+    switch(month){
+        case 1 :
+            return (year%4 == 0 && year % 100) || year % 400 == 0 ? 29 : 28;
+        case 8 : case 3 : case 5 : case 10 :
+            return 30;
+        default:
+            return 31;   
+    }
+};
+
+var CheckDate = function(day, month, year){
+    month = parseInt(month, 10)-1;
+    return month >= 0 && month < 12 && day>0 && day<= CheckdateInMonth(month,year)
+
+}
+if(CheckDate(28,2,2022) == true){
+    console.log("that's true");
+}
