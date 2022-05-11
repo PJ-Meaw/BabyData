@@ -107,4 +107,6 @@ var check_out = new Date(
     0,  // miniutes
     0,  // seconds
     0); // milliseconds
-console.log(check_out)
+// console.log(check_out)
+x = parseInt(2, 10)
+console.log(x)
