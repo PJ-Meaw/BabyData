@@ -141,7 +141,7 @@
                       <label for="country" class="block text-sm font-medium text-gray-700">Month</label>
                       <select id="monthin" name="monthin" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
                         <option>select</option>
-                        <option value="12">January</option>
+                        <option value="0">January</option>
                         <option value="1">February</option>
                         <option value="2">March</option>
                         <option value="3">April</option>
@@ -211,7 +211,7 @@
                       <label for="country" class="block text-sm font-medium text-gray-700">Month</label>
                       <select id="monthout" name="monthout" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
                         <option>select</option>
-                        <option value="12">January</option>
+                        <option value="0">January</option>
                         <option value="1">February</option>
                         <option value="2">March</option>
                         <option value="3">April</option>
@@ -410,16 +410,19 @@
         var now2 = new Date();
 
         // change min
-        if(min == 12) min = 1;
-        else min += 1;
+        if(Number(min) == 12) min = Number(1);
+        else min = Number(min)+1;
+        //change mout
+        if(Number(mout) == 12) mout = Number(1);
+        else mout = Number(mout)+1;
 
         // check user select all ?
         if(promotion_id == "select"||din=="select"||min=="select"||yin=="select"||dout=="select"||mout=="select"||yout=="select"||participant=="select")
         {
             alert("plese select all of the box")
         }
-        else if(CheckDate( Number(yin), min, Number(din) ) == false || CheckDate( Number(yout), mout, Number(dout) ) == false){
-          alert("Day does not exist.!!")
+        else if(CheckDate( Number(din),  min, Number(yin) ) == false || CheckDate( Number(dout), mout, Number(yout)) == false){
+            alert("Day does not exist.!!")
         }
         else if(check_out < check_in) {
           // check out > check in
@@ -463,7 +466,10 @@
                 }
                 var now = new Date();
                 now.setHours( now.getHours() + 7 );
-                document.write(now);
+                now = now.toISOString().slice(0,19).replace('T',' ')
+                check_in = check_in.toISOString().slice(0,19).replace('T',' ')
+                check_out = check_out.toISOString().slice(0,19).replace('T',' ')
+
                 var numparticipant = Number(participant)
                 var insert_data = {
                   username: logindata.username,

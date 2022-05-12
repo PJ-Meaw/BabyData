@@ -54,9 +54,8 @@
                           <option>M</option>
                         </select><br>
                       </div>
-      
                       <div class="col-span-6 sm:col-span-2">
-                        <a class="block text-sm font-medium text-gray-700">Day</a>
+                        <a class="block text-sm font-medium text-gray-700">Date of birth<br>Day</a>
                         <select id="day" name="yearin" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
                             <option>01</option>
                             <option>03</option>
@@ -92,7 +91,7 @@
                       </div>
       
                       <div class="col-span-6 sm:col-span-2">
-                        <a class="block text-sm font-medium text-gray-700">Month</a>
+                        <a class="block text-sm font-medium text-gray-700"><br>Month</a>
                         <select id="month" name="yearin" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
                           <option value="12">January</option>
                           <option value="1">February</option>
@@ -110,7 +109,7 @@
                       </div>
       
                       <div class="col-span-6 sm:col-span-2">
-                        <a class="block text-sm font-medium text-gray-700">Year</a>
+                        <a class="block text-sm font-medium text-gray-700"><br>Year</a>
                         <select id="year" name="yearin" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
                           <option>2022</option>
                           <option>2021</option>
@@ -257,15 +256,13 @@
               .then(response => response.json())
               .then(data => {
                 
-                if(String(data.status[0])==="ok"){
-                  console.log(data.status)
+                if(String(data.status) === "ok"){
+                console.log(data.status)
                 alert("success")
-                window.location = 'https\:/\/a7.cpe231.kmutt.in.th/Login.html';
-                }else
-                
-
+                window.location = 'https://a7.cpe231.kmutt.in.th/Login.html';
+                }else{
                 window.location = 'https://a7.cpe231.kmutt.in.th/Register.html';
-           
+                }
               })
               .catch((err) => {
                 console.log(err);
@@ -273,6 +270,7 @@
 
             }else{
               alert("This username is already used")
+              window.location = 'https://a7.cpe231.kmutt.in.th/Register.html';
             }
        
           })

@@ -181,7 +181,7 @@
                       <div class="sm:px-10 col-span-6 sm:col-span-2">
                         <a class="block text-sm font-medium text-gray-700">Month</a>
                         <select id="monthchange" name="yearin" autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-cyan-600 focus:border-cyan-600 sm:text-sm">
-                          <option value="12">January</option>
+                          <option value="0">January</option>
                           <option value="1">February</option>
                           <option value="2">March</option>
                           <option value="3">April</option>
@@ -334,7 +334,7 @@
         var dc=document.getElementById("daychange").value
         var mc=document.getElementById("monthchange").value
         var yc=document.getElementById("yearchange").value
-        const d = new Date(yc-1, mc ,dc);
+        const d = new Date(yc, mc ,dc);
         const visitDate = new Date (d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
 
         d.setHours(0, 0, 0, 0);

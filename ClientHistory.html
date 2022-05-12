@@ -90,7 +90,7 @@
           console.log(data)
           var table = document.getElementById('myTable')
           console.log(data.result5.length)
-            for (var i = 0; data.result5.length; i++){
+            for (var i = 0; i < data.result5.length; i++){
                 var row = "<tr> <td>"+data.result5[i].username+"</td> <td>"+data.result5[i].first_name+"</td> <td>"+data.result5[i].last_name+"</td> <td>"+data.result5[i].sex+"</td> <td>"+data.result5[i].phone+"</td> <td>"+data.result5[i].Age+"</td>  <td>"+data.result5[i].email+"</td> <td>"+data.result5[i].BookCount+"</td> <td>"+data.result5[i].ActivityCount+"</td> <td>"+data.result5[i].FoodReserveCount+"</td> <td>"+data.result5[i].RoomType+"</td> <td>"+data.result5[i].CountType+"</td></tr>" ;
                 table.innerHTML += row
 

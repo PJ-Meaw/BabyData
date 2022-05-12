@@ -130,3 +130,12 @@ var CheckDate = function(day, month, year){
 if(CheckDate(28,2,2022) == true){
     console.log("that's true");
 }
+var check_out = new Date(
+    Number("2022"),
+    0,
+    Number("20"),
+    14, // hours
+    0,  // miniutes
+    0,  // seconds
+    0); // milliseconds
+console.log(check_out)

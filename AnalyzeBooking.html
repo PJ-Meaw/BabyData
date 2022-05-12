@@ -58,15 +58,10 @@
             
             <th scope="col">Year</th>
             <th scope="col">Month</th>
+            <th scope="col">Branch</th>
             <th scope="col">Total_Booking</th>
-            <th scope="col">Bangkok</th>
-            <th scope="col">Phuket</th>
             <th scope="col">Total_Income</th>
-            <th scope="col">Bangkok_Income</th>
-            <th scope="col">Phuket_Income</th>
             <th scope="col">Total_Discount</th>
-            <th scope="col">Bangkok_Discount</th>
-            <th scope="col">Phuket_Discount</th>
             
           </tr>
         </thead>
@@ -90,7 +85,8 @@
         console.log(data)
         var table = document.getElementById('myTable')
           for (var i = 0; i < data.total.length; i++){
-              var row = "<tr> <td>"+data.year[i]+"</td> <td>"+data.month[i]+"</td> <td>"+data.num[i]+"</td> <td>"+data.b1num[i]+"</td> <td>"+data.b2num[i]+"</td> <td>"+data.total[i]+"</td>  <td>"+data.b1total[i]+"</td> <td>"+data.b2total[i]+"</td> <td>"+data.totaldiscount[i]+"</td> <td>"+data.b1td[i]+"</td><td>"+data.b2td[i]+"</td></tr>" ;
+            var diff = data.total[i]-data.totaldiscount[i]
+            var row = "<tr> <td>"+data.year[i]+"</td> <td>"+data.month[i]+"</td> <td>"+data.branch[i]+"</td> <td>"+data.num[i]+"</td> <td>"+diff+"</td> <td>"+data.totaldiscount[i]+"</td> </tr>" ;
               table.innerHTML += row
 
           }
