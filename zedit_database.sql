@@ -170,3 +170,40 @@ INSERT INTO `date_room` (`date_and_room`, `check_in`, `check_out`, `room_id`, `b
 INSERT INTO `booking` (`booking_id`, `username`, `booking_time`, `total`, `total_discount`, `user_and_promotion`, `participant`) VALUES ('BR-0000018', 'Mia_barbara', '2022-05-08 05:07:49', '3150', '1050', 'UAP0000000000266', '1');
 UPDATE `view_user_promotion` SET `status` = '0' WHERE `view_user_promotion`.`user_and_promotion` = 'UAP0000000000266';
 INSERT INTO `date_room` (`date_and_room`, `check_in`, `check_out`, `room_id`, `booking_id`, `add_bed`) VALUES ('DAR0000000000018', '2022-05-09 14:47:42', '2022-05-12 10:53:35', 'BB150', 'BR-0000018', '0');
+
+/* We are the Owner */
+INSERT INTO `user` (`username`, `password`, `first_name`, `last_name`, `date_of_birth`, `sex`, `email`, `phone`, `role`) VALUES ('63070501004', '123CPE341004', 'Kanthila', 'Khiaokhoen', '2002-01-23', 'F', 'CPE341004@bbdt.com', '063-705-1004', 'Owner'), ('63070501009', '123CPE341009', 'Kudsum', 'Khamjamnun', '2001-07-19', 'M', 'CPE341009@bbdt.com', '063-705-1009', 'Owner'), ('63070501043', '123CPE341043', 'Pathinya', 'Jongsupangpan', '2001-09-25', 'M', 'CPE341043@bbdt.com', '063-705-1043', 'Owner'), ('63070501067', '123CPE341067', 'Sorathron', 'Kaewchotchuangkul', '2002-01-01', 'M', 'CPE341067@bbdt.com', '063-705-1067', 'Owner'), ('63070501088', '123CPE341088', 'Thanpisit', 'Pisitpon', '2002-02-12', 'M', 'CPE341088@bbdt.com', '063-705-1088', 'Owner');
+
+UPDATE `view_user_promotion` SET `status` = '0' WHERE `view_user_promotion`.`user_and_promotion` = 'UAP0000000000241';
+UPDATE `view_user_promotion` SET `status` = '0' WHERE `view_user_promotion`.`user_and_promotion` = 'UAP0000000000252';
+UPDATE `view_user_promotion` SET `status` = '0' WHERE `view_user_promotion`.`user_and_promotion` = 'UAP0000000000382';
+
+UPDATE `view_date_activity` SET `no_date_activity` = 'VDA-000000000011' WHERE `view_date_activity`.`no_date_activity` = 'VDR-000000000011';
+UPDATE `view_date_activity` SET `no_date_activity` = 'VDA-000000000012' WHERE `view_date_activity`.`no_date_activity` = 'VDR-000000000012';
+UPDATE `view_date_activity` SET `no_date_activity` = 'VDA-000000000013' WHERE `view_date_activity`.`no_date_activity` = 'VDR-000000000013';
+UPDATE `view_date_activity` SET `no_date_activity` = 'VDA-000000000014' WHERE `view_date_activity`.`no_date_activity` = 'VDR-000000000014';
+
+UPDATE `promotion` SET `out_of_date` = '2022-05-31 17:26:50' WHERE `promotion`.`promotion_id` = 'B123';
+UPDATE `promotion` SET `out_of_date` = '2023-12-31 17:26:50' WHERE `promotion`.`promotion_id` = 'B123';
+UPDATE `promotion` SET `out_of_date` = '2023-01-01 17:18:20' WHERE `promotion`.`promotion_id` = 'A900';
+UPDATE `promotion` SET `out_of_date` = '2023-01-01 17:18:20' WHERE `promotion`.`promotion_id` = 'D123';
+UPDATE `promotion` SET `out_of_date` = '2023-01-01 17:18:20' WHERE `promotion`.`promotion_id` = 'D333';
+
+
+INSERT INTO `booking` (`booking_id`, `username`, `booking_time`, `total`, `total_discount`, `user_and_promotion`, `participant`) VALUES ('BR-0000019', 'Sophia_jenni', '2022-05-11 21:54:10', '3675', '1225', 'UAP0000000000382', '2'), ('BR-0000020', 'Madison_JS', '2022-05-11 22:05:11', '1050', '350', 'UAP0000000000252', '1'), ('BR-0000021', 'Lily_michelle', '2022-05-11 22:12:55', '720', '180', 'UAP0000000000241', '1'), ('BR-0000022', 'Amelia_LOL', '2022-05-11 22:13:55', '4900', '0', NULL, '2'), ('BR-0000023', 'Ava_londa', '2022-05-11 22:14:55', '2400', '0', NULL, '1');
+
+INSERT INTO `date_room` (`date_and_room`, `check_in`, `check_out`, `room_id`, `booking_id`, `add_bed`) VALUES ('DAR0000000000019', '2022-05-15 14:00:00', '2022-05-16 12:00:00', 'BB299', 'BR-0000019', '0'), ('DAR0000000000020', '2022-05-15 14:00:00', '2022-05-16 12:00:00', 'BB226', 'BR-0000020', '0'), ('DAR0000000000021', '2022-05-15 14:00:00', '2022-05-16 12:00:00', 'BB201', 'BR-0000021', '0'), ('DAR0000000000022', '2022-05-15 14:00:00', '2022-05-16 12:00:00', 'BB199', 'BR-0000022', '0'), ('DAR0000000000023', '2022-05-15 14:00:00', '2022-05-16 12:00:00', 'BB160', 'BR-0000023', '0');
+
+INSERT INTO `booking_activity` (`booking_activity_id`, `date_and_room`, `participant`, `booked_at`, `user_and_promotion`, `total`, `total_discount`) VALUES ('BA0015', 'DAR0000000000019', '1', '2022-05-15 16:01:47', NULL, '500', '0'), ('BA0016', 'DAR0000000000019', '1', '2022-05-15 18:01:47', NULL, '300', '0'), ('BA0017', 'DAR0000000000019', '1', '2022-05-15 21:01:47', NULL, '1500', '0');
+
+INSERT INTO `booking_activity` (`booking_activity_id`, `date_and_room`, `participant`, `booked_at`, `user_and_promotion`, `total`, `total_discount`) VALUES ('BA0018', 'DAR0000000000020', '1', '2022-05-15 16:01:47', NULL, '500', '0'), ('BA0019', 'DAR0000000000020', '1', '2022-05-15 18:01:47', NULL, '300', '0'), ('BA0020', 'DAR0000000000020', '1', '2022-05-15 21:01:47', NULL, '1500', '0');
+INSERT INTO `booking_activity` (`booking_activity_id`, `date_and_room`, `participant`, `booked_at`, `user_and_promotion`, `total`, `total_discount`) VALUES ('BA0021', 'DAR0000000000021', '1', '2022-05-15 16:01:47', NULL, '500', '0'), ('BA0022', 'DAR0000000000021', '1', '2022-05-15 18:01:47', NULL, '300', '0'), ('BA0023', 'DAR0000000000021', '1', '2022-05-15 21:01:47', NULL, '1500', '0');
+INSERT INTO `booking_activity` (`booking_activity_id`, `date_and_room`, `participant`, `booked_at`, `user_and_promotion`, `total`, `total_discount`) VALUES ('BA0024', 'DAR0000000000022', '1', '2022-05-15 16:01:47', NULL, '500', '0'), ('BA0025', 'DAR0000000000022', '1', '2022-05-15 18:01:47', NULL, '300', '0'), ('BA0026', 'DAR0000000000022', '1', '2022-05-15 21:01:47', NULL, '1500', '0');
+INSERT INTO `booking_activity` (`booking_activity_id`, `date_and_room`, `participant`, `booked_at`, `user_and_promotion`, `total`, `total_discount`) VALUES ('BA0027', 'DAR0000000000023', '1', '2022-05-15 16:01:47', NULL, '500', '0'), ('BA0028', 'DAR0000000000023', '1', '2022-05-15 18:01:47', NULL, '300', '0'), ('BA0029', 'DAR0000000000023', '1', '2022-05-15 21:01:47', NULL, '1500', '0');
+
+
+INSERT INTO `view_date_activity` (`no_date_activity`, `check_in`, `check_out`, `activity_no`, `booking_activity_id`) VALUES ('VDA-000000000015','2022-05-15 17:00:00', '2022-05-15 18:00:00', 'Spa02', 'BA0015'),('VDA-000000000016','2022-05-15 20:00:00', '2022-05-15 21:00:00', 'Onsen02', 'BA0016'),('VDA-000000000017','2022-05-15 22:00:00', '2022-05-15 23:00:00', 'Jetski02', 'BA0017');
+INSERT INTO `view_date_activity` (`no_date_activity`, `check_in`, `check_out`, `activity_no`, `booking_activity_id`) VALUES ('VDA-000000000018','2022-05-15 17:00:00', '2022-05-15 18:00:00', 'Spa02', 'BA0018'),('VDA-000000000019','2022-05-15 20:00:00', '2022-05-15 21:00:00', 'Onsen02', 'BA0019'),('VDA-000000000020','2022-05-15 22:00:00', '2022-05-15 23:00:00', 'Jetski02', 'BA0020');
+INSERT INTO `view_date_activity` (`no_date_activity`, `check_in`, `check_out`, `activity_no`, `booking_activity_id`) VALUES ('VDA-000000000021','2022-05-15 17:00:00', '2022-05-15 18:00:00', 'Spa02', 'BA0021'),('VDA-000000000022','2022-05-15 20:00:00', '2022-05-15 21:00:00', 'Onsen02', 'BA0022'),('VDA-000000000023','2022-05-15 22:00:00', '2022-05-15 23:00:00', 'Jetski02', 'BA0023');
+INSERT INTO `view_date_activity` (`no_date_activity`, `check_in`, `check_out`, `activity_no`, `booking_activity_id`) VALUES ('VDA-000000000024','2022-05-15 17:00:00', '2022-05-15 18:00:00', 'Spa01', 'BA0024'),('VDA-000000000025','2022-05-15 20:00:00', '2022-05-15 21:00:00', 'Onsen01', 'BA0025'),('VDA-000000000026','2022-05-15 22:00:00', '2022-05-15 23:00:00', 'Jetski01', 'BA0020');
+INSERT INTO `view_date_activity` (`no_date_activity`, `check_in`, `check_out`, `activity_no`, `booking_activity_id`) VALUES ('VDA-000000000027','2022-05-15 17:00:00', '2022-05-15 18:00:00', 'Spa01', 'BA0027'),('VDA-000000000028','2022-05-15 20:00:00', '2022-05-15 21:00:00', 'Onsen01', 'BA0028'),('VDA-000000000029','2022-05-15 22:00:00', '2022-05-15 23:00:00', 'Jetski01', 'BA0029');
