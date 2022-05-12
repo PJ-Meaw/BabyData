@@ -1032,7 +1032,7 @@ app.post('/store_promotion', jasonParser, function (req, res, next) {
                                  //timecompare.setHours( timecompare.getHours() + 7 );
                                  /* Part User */
                                  var Edit_check_in = NowDate + " " + req.body.check_in
-
+                                 
                                  if(req.body.check_out == "00:00"){
                                     var Edit_check_out = today.getFullYear() +'-'+(today.getMonth()+1)+'-'+ (today.getDate()+1) + " 00:00"
                                  }else{
@@ -1270,7 +1270,7 @@ app.post('/get_actvity', jasonParser, (req, res) => {
                 return
           }
           db.execute(
-             'SELECT promotion_id, discount FROM promotion WHERE promotion_id IN (SELECT promotion_id FROM view_user_promotion WHERE username = ?) AND out_of_date > ? AND category = "activity" ',
+             'SELECT promotion_id, discount FROM promotion WHERE promotion_id IN (SELECT promotion_id FROM view_user_promotion WHERE username = ? AND status = 1) AND out_of_date > ? AND category = "activity" ',
              [req.body.username, TimeNow],
              function (err, result_promotionId_discount, fields) {
                 if (err) {
