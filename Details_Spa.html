@@ -193,7 +193,10 @@
             .then(response => response.json())
             .then(data => {
                if (data.status === 'success') {
-                  
+                  if(data.showWindow == 1){
+                     window.location = 'https://a7.cpe231.kmutt.in.th/Activity.html';
+                     alert('there is no room in range stay hotel')
+                  }
                   var options_room = ''
                   options_room = '<option value='+null+'>Not Select Room</option>';
                   for (let i = 0; i < data.result_room_id.length; i++) {
