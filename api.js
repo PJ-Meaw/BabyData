@@ -1227,6 +1227,8 @@ app.post('/store_promotion', jasonParser, function (req, res, next) {
                                                             [Gen_no_date_activity, Edit_check_in, Edit_check_out,actua_name_activity ,result_booking_activity_id_recent[0].booking_activity_id],
                                                             function (err, result, fields) {
                                                                if (err) {
+                                                                   console.log(Edit_check_in)
+                                                                   console.log(Edit_check_out)
                                                                   res.json({ status: 'error', messsage: err })
                                                                      return
                                                                }
