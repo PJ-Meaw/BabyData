@@ -10,8 +10,11 @@
 // GenPromotion += NumPromotion;
 
 // console.log(GenPromotion + "");
+var now = new Date();
+now.setHours( now.getHours() + 7 );
+year = now.getFullYear();
+month = now.getMonth();
+dt = now.getDate();
+Full_YMD = now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate();
 
-text1 = "2/5/2565"
-text2 = "2/8/2565"
-
-console.log(text1 == text2)
+console.log(now.toLocaleDateString())

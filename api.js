@@ -874,8 +874,9 @@ app.post('/store_promotion', jasonParser, function (req, res, next) {
           }
          var today = new Date();
          var TimeNow = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + " " 
-            + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            + (today.getHours()+7) + ":" + today.getMinutes() + ":" + today.getSeconds();
          var TypeDateTimeNow = new Date(TimeNow);
+         TypeDateTimeNow.setHours(TypeDateTimeNow.getHours()+7);
 
           if (promotion_tbPromotion.length > 0 && promotion_tbPromotion[0].out_of_date > TypeDateTimeNow) { // if there is promotion_id 
              //res.json({status: 'ok'}) //testing and then passing!!
@@ -978,8 +979,8 @@ app.post('/store_promotion', jasonParser, function (req, res, next) {
 
          db.execute(
             // "get booking_id" and "date_and_room" and "room_id" period booking Which booking_id don't repeat 
-            'SELECT date_and_room, booking_id, room_id FROM date_room d WHERE d.booking_id IN(SELECT booking_id FROM booking b WHERE username = ?) AND check_in < ? AND check_out > ? ORDER BY date_and_room DESC', // calling date_and_room for insert to booking activity
-            [req.body.username,TimeNow,TimeNow],
+            'SELECT date_and_room, booking_id, room_id FROM date_room d WHERE d.booking_id IN(SELECT booking_id FROM booking b WHERE username = ?) AND check_in < (NOW() + INTERVAL 7 HOUR) AND check_out > (NOW() + INTERVAL 7 HOUR) ORDER BY date_and_room DESC', // calling date_and_room for insert to booking activity
+            [req.body.username],
             function (err, result_date_and_room, fields) {
                if (err) {
                   res.json({ status: 'error', messsage: err })
@@ -1027,16 +1028,23 @@ app.post('/store_promotion', jasonParser, function (req, res, next) {
                                     res.json({status: 'error', message: 'over participant'})
                                     return
                                  }
+
                                  var TextDate = new Date(TimeNow); //Type date of Timestamp
+                                 var now = new Date();
+                                 now.setHours( now.getHours() + 7 );
+                                 year = now.getFullYear();
+                                 month = now.getMonth();
+                                 dt = now.getDate();
+                                 Full_YMD = now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate();
 
                                  //timecompare.setHours( timecompare.getHours() + 7 );
                                  /* Part User */
-                                 var Edit_check_in = NowDate + " " + req.body.check_in
+                                 var Edit_check_in = Full_YMD + " " + req.body.check_in
                                  
                                  if(req.body.check_out == "00:00"){
-                                    var Edit_check_out = today.getFullYear() +'-'+(today.getMonth()+1)+'-'+ (today.getDate()+1) + " 00:00"
+                                    var Edit_check_out = Full_YMD + " " + "00:00"
                                  }else{
-                                    var Edit_check_out = NowDate + " " + req.body.check_out
+                                    var Edit_check_out = Full_YMD + " " + req.body.check_out
                                  }
 
                                  var Check_in_user = new Date(Edit_check_in);
@@ -1052,10 +1060,6 @@ app.post('/store_promotion', jasonParser, function (req, res, next) {
                                  // if(Check_in_user.getTime() < TextDate.getTime()) // condition 2 
                                  //    return res.json({status: 'error', message: 'booking late'})
                                  if(results_view_date_acticity.length != 0){
-                                       console.log(actua_name_activity)
-                                       console.log(results_view_date_acticity[0].activity_no)
-                                       console.log("test" + actua_name_activity == results_view_date_acticity[0].activity_no)
-                                       console.log(TextDate.toLocaleDateString() == Check_in_database_date && actua_name_activity == results_view_date_acticity[i].activity_no)
                                     
                                        var x = 0; // x checking period time booking overlap
                                        for(let i=0 ;i< results_view_date_acticity.length;i++){
@@ -1073,7 +1077,7 @@ app.post('/store_promotion', jasonParser, function (req, res, next) {
                                           
                                           /* --------------------------   */
 
-                                          if(TextDate.toLocaleDateString() == Check_in_database_date && actua_name_activity == results_view_date_acticity[i].activity_no){ // condition since each value is hour So date must be equal date
+                                          if(now.toLocaleDateString() == Check_in_database_date && actua_name_activity == results_view_date_acticity[i].activity_no){ // condition since each value is hour So date must be equal date
                                              /* Part database several row*/
 
                                              if((Check_in_user_time >= Check_in_database_time) && ( Check_out_user_time <= Check_out_database_time)){
@@ -1189,8 +1193,8 @@ app.post('/store_promotion', jasonParser, function (req, res, next) {
                                           var total_minus_discount = req.body.total - total_discount
 
                                           db.execute(
-                                             'INSERT INTO booking_activity (booking_activity_id, date_and_room, participant, booked_at, user_and_promotion, total, total_discount) VALUES (?,?,?,?,?,?,?)',
-                                             [Gen_ID_Book_activity ,ValueOfDate_and_Room, req.body.participant, TimeNow, null, total_minus_discount, total_discount],
+                                             'INSERT INTO booking_activity (booking_activity_id, date_and_room, participant, booked_at, user_and_promotion, total, total_discount) VALUES (?,?,?,(NOW() + INTERVAL 7 HOUR),?,?,?)',
+                                             [Gen_ID_Book_activity ,ValueOfDate_and_Room, req.body.participant, null, total_minus_discount, total_discount],
                                              function (err, result, fields) { //
                                                 if (err) {
                                                    res.json({ status: 'error', messsage: err })
@@ -1260,20 +1264,20 @@ app.post('/store_promotion', jasonParser, function (req, res, next) {
 
 app.post('/get_actvity', jasonParser, (req, res) => {
     var today = new Date();
-          var TimeNow = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + " " 
-          + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+   var TimeNow = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + " " 
+      + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
  
     db.execute(
-       'SELECT room_id FROM date_room d WHERE d.booking_id IN (SELECT booking_id FROM booking WHERE username = ?) AND check_in < ? AND check_out > ? ',
-       [req.body.username, TimeNow, TimeNow],
+       'SELECT room_id FROM date_room d WHERE d.booking_id IN (SELECT booking_id FROM booking WHERE username = ?) AND check_in < (NOW() + INTERVAL 7 HOUR) AND check_out > (NOW() + INTERVAL 7 HOUR) ',
+       [req.body.username],
        function (err, result_room_id, fields) {
           if (err) {
              res.json({ status: 'error', messsage: err })
                 return
           }
           db.execute(
-             'SELECT promotion_id, discount FROM promotion WHERE promotion_id IN (SELECT promotion_id FROM view_user_promotion WHERE username = ? AND status = 1) AND out_of_date > ? AND category = "activity" ',
-             [req.body.username, TimeNow],
+             'SELECT promotion_id, discount FROM promotion WHERE promotion_id IN (SELECT promotion_id FROM view_user_promotion WHERE username = ? AND status = 1) AND out_of_date > (NOW() + INTERVAL 7 HOUR) AND category = "activity" ',
+             [req.body.username],
              function (err, result_promotionId_discount, fields) {
                 if (err) {
                    res.json({ status: 'error', messsage: err })
