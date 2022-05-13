@@ -1032,53 +1032,60 @@ app.post('/store_promotion', jasonParser, function (req, res, next) {
                                  var TextDate = new Date(TimeNow); //Type date of Timestamp
                                  var now = new Date();
                                  now.setHours( now.getHours() + 7 );
-                                 year = now.getFullYear();
-                                 month = now.getMonth();
-                                 dt = now.getDate();
                                  Full_YMD = now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate();
-
+                                 var nowPlusone = new Date()
+                                 nowPlusone.setHours( nowPlusone.getHours() + 7 );
+                                 nowPlusone.setDate( nowPlusone.getDate() + 1);
+                                 Full_YMD_plus1day = nowPlusone.getFullYear() + "-" + (nowPlusone.getMonth()+1) + "-" + (nowPlusone.getDate());
                                  //timecompare.setHours( timecompare.getHours() + 7 );
                                  /* Part User */
                                  var Edit_check_in = Full_YMD + " " + req.body.check_in
                                  
                                  if(req.body.check_out == "00:00"){
-                                    var Edit_check_out = Full_YMD + " " + "00:00"
+                                    var Edit_check_out = Full_YMD_plus1day + " " + "00:00"
                                  }else{
                                     var Edit_check_out = Full_YMD + " " + req.body.check_out
                                  }
 
                                  var Check_in_user = new Date(Edit_check_in);
-                                 var Check_in_user_time_demo = Check_in_user.toLocaleTimeString(); // 21:00:00
+                                 var Check_in_user_time_demo = Check_in_user.toISOString().slice(11,19); // 21:00:00
                                  var Check_in_user_time_split = Check_in_user_time_demo.split(":"); 
                                  var Check_in_user_time = Check_in_user_time_split[0]; // Number value Ex. 20 21
 
                                  var Check_out_user = new Date(Edit_check_out); 
-                                 var Check_out_user_time_demo = Check_out_user.toLocaleTimeString(); // 21:00:00
+                                 var Check_out_user_time_demo = Check_out_user.toISOString().slice(11,19); // 21:00:00
                                  var Check_out_user_time_split = Check_out_user_time_demo.split(":"); 
                                  var Check_out_user_time = Check_out_user_time_split[0]; // Number value Ex. 20 21
+                                 
+                                 if(Check_out_user_time = "0"){
+                                    Check_out_user_time = 24
+                                 }
+                                 console.log(Check_in_user_time)
+                                 console.log(Check_out_user_time)
 
-                                 // if(Check_in_user.getTime() < TextDate.getTime()) // condition 2 
-                                 //    return res.json({status: 'error', message: 'booking late'})
+                                 if(Check_in_user.getTime() < now.getTime()) // condition 2 
+                                    return res.json({status: 'error', message: 'booking late'})
                                  if(results_view_date_acticity.length != 0){
                                     
                                        var x = 0; // x checking period time booking overlap
                                        for(let i=0 ;i< results_view_date_acticity.length;i++){
                                           var Check_in_database = results_view_date_acticity[i].check_in
                                           var Check_in_database_date = Check_in_database.toLocaleDateString(); // 29/4/2565
-                                          var Check_in_database_time_demo = Check_in_database.toLocaleTimeString(); // 21:00:00
+                                          var Check_in_database_time_demo = Check_in_database.toISOString().slice(11,19); // 21:00:00
                                           var Check_in_database_time_split = Check_in_database_time_demo.split(":"); 
                                           var Check_in_database_time = Check_in_database_time_split[0]; // Number value Ex. 20 21
 
                                           var Check_out_database = results_view_date_acticity[i].check_out
                                           //var Check_out_database_date = Check_out_database.toLocaleDateString();
-                                          var Check_out_database_time_demo = Check_out_database.toLocaleTimeString();
+                                          var Check_out_database_time_demo = Check_out_database.toISOString().slice(11,19);
                                           var Check_out_database_time_split = Check_out_database_time_demo.split(":"); 
                                           var Check_out_database_time = Check_out_database_time_split[0]; // Number value Ex. 20 21
                                           
                                           /* --------------------------   */
-
+                                        
                                           if(now.toLocaleDateString() == Check_in_database_date && actua_name_activity == results_view_date_acticity[i].activity_no){ // condition since each value is hour So date must be equal date
                                              /* Part database several row*/
+
 
                                              if((Check_in_user_time >= Check_in_database_time) && ( Check_out_user_time <= Check_out_database_time)){
                                                 x = 1; // Ex. 7-10 ->  7-10 : True
