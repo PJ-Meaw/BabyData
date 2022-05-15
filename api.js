@@ -725,16 +725,23 @@ app.get('/get_client_history',jasonParser, (req,res) => {
                             function(err, result4,fields){
                                 if(err) console.log(err)
                                 else{
-                                    db.query('SELECT b.*, a.ActivityCount, f.FoodReserveCount, RoomType,  CountType FROM booking_count b  LEFT JOIN activity_count a ON b.username = a.username LEFT JOIN food_count f ON b.username = f.username LEFT JOIN (SELECT username, COUNT(RoomType) CountType,RoomType FROM room_type_count GROUP BY username,RoomType) rtc ON b.username = rtc.username;',
-                                    function(err, result5, fields){
-                                        if(err) console.log(err)
+                                    db.query('SELECT COUNT(CountType) FROM (SELECT* FROM(SELECT b.*, a.ActivityCount, f.FoodReserveCount, RoomType, CountType FROM booking_count b LEFT JOIN activity_count a ON b.username = a.username LEFT JOIN food_count f ON b.username = f.username LEFT JOIN (SELECT username, COUNT(RoomType) CountType,RoomType FROM room_type_count GROUP BY username,RoomType) rtc ON b.username = rtc.username ORDER BY b.username ASC,CountType DESC)AS mama)AS asdf GROUP BY username;',
+                                    function(err, result5){
+                                        if(err) console.log(err);
                                         else {
-                                            res.json({result5})
-                                            db.query('DROP VIEW IF EXISTS activity_count,booking_count,food_count,room_type_count;',
-                                            function(err,result6, fields){
+                                            var CountType = result5
+                                            db.query('SELECT b.*, a.ActivityCount, f.FoodReserveCount, RoomType,  CountType FROM booking_count b  LEFT JOIN activity_count a ON b.username = a.username LEFT JOIN food_count f ON b.username = f.username LEFT JOIN (SELECT username, COUNT(RoomType) CountType,RoomType FROM room_type_count GROUP BY username,RoomType) rtc ON b.username = rtc.username;',
+                                            function(err, result6, fields){
                                                 if(err) console.log(err)
                                                 else {
-                                                    console.log("Successful Drop View Table!!.")
+                                                    res.json({result6,CountType})
+                                                    db.query('DROP VIEW IF EXISTS activity_count,booking_count,food_count,room_type_count;',
+                                                    function(err,result6, fields){
+                                                        if(err) console.log(err)
+                                                        else {
+                                                            console.log("Successful Drop View Table!!.")
+                                                        }
+                                                    });
                                                 }
                                             });
                                         }
