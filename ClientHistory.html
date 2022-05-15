@@ -66,7 +66,7 @@
             <th scope="col">Booked Room Count</th>
             <th scope="col">Booked Activity Count</th>
             <th scope="col">Reserve Food Count</th>
-            <th scope="col">Room Type</th>
+            <th scope="col">Max Room Type</th>
             <th scope="col">Count pers RoomType</th>
           </tr>
         </thead>
@@ -89,10 +89,13 @@
         .then(data => {
           console.log(data)
           var table = document.getElementById('myTable')
-          console.log(data.result5.length)
-            for (var i = 0; i < data.result5.length; i++){
-                var row = "<tr> <td>"+data.result5[i].username+"</td> <td>"+data.result5[i].first_name+"</td> <td>"+data.result5[i].last_name+"</td> <td>"+data.result5[i].sex+"</td> <td>"+data.result5[i].phone+"</td> <td>"+data.result5[i].Age+"</td>  <td>"+data.result5[i].email+"</td> <td>"+data.result5[i].BookCount+"</td> <td>"+data.result5[i].ActivityCount+"</td> <td>"+data.result5[i].FoodReserveCount+"</td> <td>"+data.result5[i].RoomType+"</td> <td>"+data.result5[i].CountType+"</td></tr>" ;
+          console.log(data.result6.length)
+          let j = 0
+          for (var i = 0; i < data.result6.length; i++){
+                var row = "<tr> <td>"+data.result6[i].username+"</td> <td>"+data.result6[i].first_name+"</td> <td>"+data.result6[i].last_name+"</td> <td>"+data.result6[i].sex+"</td> <td>"+data.result6[i].phone+"</td> <td>"+data.result6[i].Age+"</td>  <td>"+data.result6[i].email+"</td> <td>"+data.result6[i].BookCount+"</td> <td>"+data.result6[i].ActivityCount+"</td> <td>"+data.result6[i].FoodReserveCount+"</td> <td>"+data.result6[i].RoomType+"</td> <td>"+data.result6[i].CountType+"</td></tr>" ;
                 table.innerHTML += row
+                i=i+data.CountType[j].CountMax-1;
+                j++;
 
             }
             

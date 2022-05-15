@@ -95,7 +95,7 @@ app.get('/analyzebooking', jasonParser, (req,res) => {
 
 
 app.get('/analyzepromotion', jasonParser, (req,res) => {
-    db.query('SELECT count(ID) AS NUM FROM (SELECT v.user_and_promotion ,v.promotion_id AS ID FROM booking b , view_user_promotion v WHERE b.user_and_promotion!="NULL" AND b.user_and_promotion=v.user_and_promotion ORDER BY v.promotion_id)AS PROMO GROUP BY ID;',
+    db.query('SELECT count(ID) AS NUM FROM (SELECT v.user_and_promotion ,v.promotion_id AS ID FROM booking b , view_user_promotion v WHERE b.user_and_promotion!="NULL" AND b.user_and_promotion=v.user_and_promotion ORDER BY v.promotion_id)AS PROMO GROUP BY ID ORDER BY ID;',
     function(err, results, fields) {
         if(err){
             console.log(err);
@@ -106,7 +106,7 @@ app.get('/analyzepromotion', jasonParser, (req,res) => {
                     numbook.push(results[i].NUM);                 
                 }
 
-                db.query('SELECT count(ID) AS NUM FROM (SELECT v.user_and_promotion ,v.promotion_id AS ID FROM booking_activity b , view_user_promotion v WHERE b.user_and_promotion!="NULL" AND b.user_and_promotion=v.user_and_promotion ORDER BY v.promotion_id)AS PROMO GROUP BY ID;',
+                db.query('SELECT count(ID) AS NUM FROM (SELECT v.user_and_promotion ,v.promotion_id AS ID FROM booking_activity b , view_user_promotion v WHERE b.user_and_promotion!="NULL" AND b.user_and_promotion=v.user_and_promotion ORDER BY v.promotion_id)AS PROMO GROUP BY ID ORDER BY ID;',
                 function(err, results, fields) {
                     if(err){
                         console.log(err);
@@ -117,7 +117,7 @@ app.get('/analyzepromotion', jasonParser, (req,res) => {
                                 numact.push(results[i].NUM);                 
                             }
             
-                            db.query('SELECT count(ID) AS NUM FROM (SELECT v.user_and_promotion ,v.promotion_id AS ID FROM food_reserving b , view_user_promotion v WHERE b.user_and_promotion!="NULL" AND b.user_and_promotion=v.user_and_promotion ORDER BY v.promotion_id)AS PROMO GROUP BY ID;',
+                            db.query('SELECT count(ID) AS NUM FROM (SELECT v.user_and_promotion ,v.promotion_id AS ID FROM food_reserving b , view_user_promotion v WHERE b.user_and_promotion!="NULL" AND b.user_and_promotion=v.user_and_promotion ORDER BY v.promotion_id)AS PROMO GROUP BY ID ORDER BY ID;',
                             function(err, results, fields) {
                                 if(err){
                                     console.log(err);
@@ -725,12 +725,12 @@ app.get('/get_client_history',jasonParser, (req,res) => {
                             function(err, result4,fields){
                                 if(err) console.log(err)
                                 else{
-                                    db.query('SELECT COUNT(CountType) FROM (SELECT* FROM(SELECT b.*, a.ActivityCount, f.FoodReserveCount, RoomType, CountType FROM booking_count b LEFT JOIN activity_count a ON b.username = a.username LEFT JOIN food_count f ON b.username = f.username LEFT JOIN (SELECT username, COUNT(RoomType) CountType,RoomType FROM room_type_count GROUP BY username,RoomType) rtc ON b.username = rtc.username ORDER BY b.username ASC,CountType DESC)AS mama)AS asdf GROUP BY username;',
+                                    db.query('SELECT COUNT(CountType)As CountMax FROM (SELECT* FROM(SELECT b.*, a.ActivityCount, f.FoodReserveCount, RoomType, CountType FROM booking_count b LEFT JOIN activity_count a ON b.username = a.username LEFT JOIN food_count f ON b.username = f.username LEFT JOIN (SELECT username, COUNT(RoomType) CountType,RoomType FROM room_type_count GROUP BY username,RoomType) rtc ON b.username = rtc.username ORDER BY b.username ASC,CountType DESC)AS mama)AS asdf GROUP BY username;',
                                     function(err, result5){
                                         if(err) console.log(err);
                                         else {
                                             var CountType = result5
-                                            db.query('SELECT b.*, a.ActivityCount, f.FoodReserveCount, RoomType,  CountType FROM booking_count b  LEFT JOIN activity_count a ON b.username = a.username LEFT JOIN food_count f ON b.username = f.username LEFT JOIN (SELECT username, COUNT(RoomType) CountType,RoomType FROM room_type_count GROUP BY username,RoomType) rtc ON b.username = rtc.username;',
+                                            db.query('SELECT* FROM(SELECT b.*, a.ActivityCount, f.FoodReserveCount, RoomType, CountType FROM booking_count b LEFT JOIN activity_count a ON b.username = a.username LEFT JOIN food_count f ON b.username = f.username LEFT JOIN (SELECT username, COUNT(RoomType) CountType,RoomType FROM room_type_count GROUP BY username,RoomType) rtc ON b.username = rtc.username ORDER BY b.username ASC,CountType DESC)AS mama;',
                                             function(err, result6, fields){
                                                 if(err) console.log(err)
                                                 else {
